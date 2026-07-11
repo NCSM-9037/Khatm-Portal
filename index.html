@@ -677,7 +677,8 @@ function renderKhatmTab(f,body,isAdmin){
   if(!k){body.innerHTML=`<div class="panel empty"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg><h4>No active khatm right now</h4><p>${isAdmin?"Start a new khatm to open all 30 juz for the family.":"Waiting for an admin to start the next khatm, InshaAllah."}</p>${isAdmin?`<div style="margin-top:16px"><button class="btn btn-primary btn-sm" onclick="openNewKhatm()">Start new khatm</button></div>`:""}</div>`;return;}
   const s=khatmStats(k);const R=52,C=2*Math.PI*R,off=C*(1-s.pct/100);
   const perMember={};f.members.forEach(m=>perMember[m.id]=0);k.juz.forEach(j=>{if(j.status==="completed"&&j.member_id)perMember[j.member_id]=(perMember[j.member_id]||0)+1;});
-  const adminBar=isAdmin?`<div class="admin-bar"><button class="btn btn-ghost btn-sm" onclick="openNewKhatm()">＋ New khatm</button><button class="btn btn-danger btn-sm" onclick="confirmClose('${f.id}','${k.id}')">Close & archive</button></div>`:"";
+  const waBtn=`<button class="btn btn-ghost btn-sm" onclick="shareWhatsApp('${f.id}','${k.id}')" style="color:#25D366;border-color:rgba(37,211,102,0.4)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width:16px;height:16px;margin-right:4px"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg>Share</button>`;
+  const adminBar=`<div class="admin-bar">${isAdmin?`<button class="btn btn-ghost btn-sm" onclick="openNewKhatm()">＋ New khatm</button><button class="btn btn-danger btn-sm" onclick="confirmClose('${f.id}','${k.id}')">Close & archive</button>`:""}${waBtn}</div>`;
   body.innerHTML=`<div class="niyyah"><div class="n-ar">وَأَنْ لَيْسَ لِلْإِنْسَانِ إِلَّا مَا سَعَىٰ</div><div class="n-label">Niyyah · Intention</div><div class="n-text">${esc(k.niyyah||"For the good of everyone in this family.")}</div><div class="n-meta"><span>📖 ${esc(k.name)}</span><span>Started ${fmtDate(k.started_at)}</span></div></div>
     ${adminBar}
     <div class="dash-top">
@@ -784,11 +785,73 @@ async function closeKhatm(fid,kid){
   if(error){toast(error.message,true);return;}
   toast("Khatm archived");state.familyTab="history";await refresh();
 }
+function shareWhatsApp(fid, kid) {
+  const f = famById(fid);
+  const k = f.khatms.find(x => x.id === kid);
+  const s = khatmStats(k);
+  const text = `📖 *${f.name}* - Khatm Progress\n*${k.name}*\n\nProgress: ${s.pct}% (${s.completed}/30 Juz completed)\n\nJoin us and recite together!`;
+  const url = `https://api.whatsapp.com/send?text=${encodeURIComponent(text)}`;
+  window.open(url, '_blank');
+}
 function renderMembersTab(f,body,isAdmin){
   const cards=f.members.map(u=>{let completed=0,reserved=0;f.khatms.forEach(k=>k.juz.forEach(j=>{if(j.member_id===u.id){if(j.status==="completed")completed++;if(j.status==="reserved")reserved++;}}));
     return `<div class="member-card"><div class="mc-head">${avatar(u)}<div><div class="mc-name">${esc(u.name)}${u.id===me.id?" (you)":""}</div><span class="mc-role ${u.role==="admin"?"role-admin":"role-member"}">${u.role}</span></div></div><div class="mc-stats"><div><b>${completed}</b><span>Completed</span></div><div><b>${reserved}</b><span>Reserved</span></div></div></div>`;}).join("");
-  body.innerHTML=`<div class="admin-bar"><button class="btn btn-gold btn-sm" onclick="copyLink('${f.id}')">Copy invite link</button></div><div class="member-grid">${cards}</div>`;
+  body.innerHTML=`<div class="admin-bar"><button class="btn btn-gold btn-sm" onclick="copyLink('${f.id}')">Copy invite link</button>${isAdmin?`<button class="btn btn-primary btn-sm" onclick="openAddMemberModal('${f.id}')">＋ Add Member</button>`:""}</div><div class="member-grid">${cards}</div>`;
 }
+function openAddMemberModal(fid) {
+  openModal(`${closeX()}<div class="modal-in"><h3>Add Member manually</h3><p class="m-sub">Create an account for them if they don't have one, and add them instantly.</p>
+    <div class="field"><label>Name</label><input type="text" id="am-name" placeholder="Member's full name"></div>
+    <div class="field"><label>Email</label><input type="email" id="am-email" placeholder="member@example.com"></div>
+    <div class="field"><label>Password (for new account)</label><input type="password" id="am-pass" placeholder="At least 6 chars"></div>
+    <div class="modal-err" id="am-err"></div>
+    <div class="modal-actions"><button class="btn btn-ghost" onclick="closeModal()">Cancel</button><button class="btn btn-primary" id="am-save" onclick="adminAddMember('${fid}')">Add Member</button></div></div>`);
+}
+async function adminAddMember(fid) {
+  const name = $("am-name").value.trim(), email = $("am-email").value.trim().toLowerCase(), password = $("am-pass").value;
+  const err = $("am-err"), btn = $("am-save");
+  if (!name || !email || !password) { err.textContent = "Please fill in all fields."; return; }
+  if (password.length < 6) { err.textContent = "Password must be at least 6 characters."; return; }
+  
+  btn.disabled = true; btn.textContent = "Adding...";
+  let userId = null;
+  
+  const { data: existingProfile } = await sb.from("profiles").select("id").eq("email", email).maybeSingle();
+  if (existingProfile) {
+    userId = existingProfile.id;
+  } else {
+    const tempSb = window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY, { auth: { persistSession: false } });
+    const { data: signUpData, error: signUpErr } = await tempSb.auth.signUp({ email, password, options: { data: { name } } });
+    if (signUpErr) { 
+      if (signUpErr.message.includes("already registered")) {
+        err.textContent = "This email is already registered, but not visible. They must join via the invite link.";
+      } else {
+        err.textContent = signUpErr.message; 
+      }
+      btn.disabled = false; btn.textContent = "Add Member"; return; 
+    }
+    if (signUpData.user) {
+      userId = signUpData.user.id;
+      await new Promise(r => setTimeout(r, 800)); // wait for profile trigger
+    }
+  }
+  
+  if (userId) {
+    const { error: joinErr } = await sb.from("family_members").insert({ family_id: fid, user_id: userId, role: "member" });
+    if (joinErr && joinErr.code === "23505") {
+      err.textContent = "This member is already in the family."; btn.disabled = false; btn.textContent = "Add Member"; return;
+    }
+    if (joinErr) {
+      err.textContent = joinErr.message; btn.disabled = false; btn.textContent = "Add Member"; return;
+    }
+    closeModal();
+    toast(`Added ${name} to the family!`);
+    await refresh();
+  } else {
+    err.textContent = "Failed to obtain user ID.";
+    btn.disabled = false; btn.textContent = "Add Member";
+  }
+}
+
 function renderHistoryTab(f,body){
   const rows=f.khatms.map(k=>{const s=khatmStats(k);const badge=k.status==="active"?`<span class="kr-badge badge-active">Active</span>`:`<span class="kr-badge badge-archived">Archived</span>`;
     return `<div class="khatm-row"><div><div class="kr-title">${esc(k.name)} ${badge}</div>${k.niyyah?`<div class="kr-niyyah">${esc(k.niyyah)}</div>`:""}<div class="kr-meta"><span>Started <b>${fmtDate(k.started_at)}</b></span>${k.closed_at?`<span>Closed <b>${fmtDate(k.closed_at)}</b></span>`:""}<span><b>${s.completed}</b>/30 juz</span></div></div><div class="kr-right"><div class="kr-pct">${s.pct}%</div><div class="kr-pct-lbl">Complete</div></div></div>`;}).join("");
