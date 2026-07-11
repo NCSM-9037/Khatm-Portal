@@ -638,6 +638,10 @@ function emptyFamilies(){return `<div class="panel empty"><svg viewBox="0 0 24 2
 
 /* ================= SEARCH ================= */
 function renderSearch(){
+  const oldSi=$("search-input");
+  let selStart=-1;
+  if(oldSi&&document.activeElement===oldSi)selStart=oldSi.selectionStart;
+  
   const el=$("view-search");const q=(state.query||"").trim().toLowerCase();
   const searchBox=`<div class="search-box"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg><input type="text" id="search-input" dir="ltr" placeholder="Search families and khatms…" value="${esc(state.query||"")}"></div>`;
   const famMatches=families.filter(f=>!q||f.name.toLowerCase().includes(q));
@@ -650,7 +654,9 @@ function renderSearch(){
     body=(fg+kg)||`<div class="empty"><h4>Nothing matches “${esc(state.query)}”</h4><p>Try another family or khatm name.</p></div>`;
   }
   el.innerHTML=`${topbar("Search",q?`Results for “${esc(state.query)}”`:"Find a family or a khatm",searchBox)}${body}`;
-  const si=$("search-input");si.focus();
+  const si=$("search-input");
+  if(selStart!==-1){si.focus();si.setSelectionRange(selStart,selStart);}
+  else{si.focus();const len=si.value.length;si.setSelectionRange(len,len);}
   si.addEventListener("input",e=>{state.query=e.target.value;renderSearch();});
 }
 
