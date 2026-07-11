@@ -104,24 +104,16 @@
   --gold: oklch(72% 0.10 82);
   --gold-soft: oklch(93% 0.05 85);
   --gold-deep: oklch(58% 0.09 78);
-  --whatsapp: oklch(60% 0.14 150);
-  --whatsapp-deep: oklch(52% 0.15 150);
-  --whatsapp-soft: oklch(94% 0.05 150);
   --border: oklch(88% 0.014 80);
   --border-strong: oklch(82% 0.018 78);
   --success: oklch(52% 0.10 160);
-
   --space-xs:4px; --space-sm:8px; --space-md:12px; --space-lg:16px;
   --space-xl:24px; --space-2xl:32px; --space-3xl:48px; --space-4xl:64px;
-
   --ease-out-quint: cubic-bezier(0.22,1,0.36,1);
   --ease-out-expo: cubic-bezier(0.16,1,0.3,1);
-
   --shadow-sm: 0 1px 2px oklch(40% 0.03 70 / 0.06), 0 1px 3px oklch(40% 0.03 70 / 0.04);
   --shadow-md: 0 4px 12px oklch(38% 0.04 70 / 0.08), 0 2px 4px oklch(38% 0.04 70 / 0.05);
   --shadow-lg: 0 18px 45px oklch(35% 0.05 260 / 0.14);
-
-  --font-ui: "Fraunces", Georgia, serif;
   --font-body: system-ui, -apple-system, "Segoe UI", sans-serif;
   --font-display: "Fraunces", Georgia, serif;
   --font-ar: "Amiri", serif;
@@ -131,26 +123,25 @@ html{-webkit-text-size-adjust:100%}
 body{font-family:var(--font-body);background:var(--parchment);color:var(--ink);line-height:1.5;font-optical-sizing:auto;-webkit-font-smoothing:antialiased;min-height:100vh}
 h1,h2,h3,h4{text-wrap:balance;line-height:1.15;font-weight:600}
 button{font-family:inherit;cursor:pointer;border:none;background:none;color:inherit}
-input,select{font-family:inherit;font-size:1rem}
+input,select,textarea{font-family:inherit;font-size:1rem}
 ::selection{background:var(--lapis-soft)}
 :focus-visible{outline:2.5px solid var(--lapis);outline-offset:2px;border-radius:3px}
-.bismillah{font-family:var(--font-ar);direction:rtl;color:var(--gold-deep)}
 .greet-ar{font-family:var(--font-ar);direction:rtl;unicode-bidi:isolate}
-
-/* LOGIN */
-#login-view{min-height:100vh;display:grid;place-items:center;padding:var(--space-xl);
-  background:radial-gradient(circle at 15% 18%, oklch(94% 0.035 256 / 0.7), transparent 42%),radial-gradient(circle at 85% 82%, oklch(94% 0.045 45 / 0.55), transparent 45%),var(--parchment)}
-.login-card{width:100%;max-width:430px;background:var(--surface);border:1px solid var(--border);border-radius:22px;box-shadow:var(--shadow-lg);padding:var(--space-3xl) var(--space-2xl);position:relative;overflow:hidden}
-.login-card::before{content:"";position:absolute;inset:6px;border:1px solid var(--gold-soft);border-radius:16px;pointer-events:none}
-.login-crest{width:60px;height:60px;margin:0 auto var(--space-lg);border-radius:50%;background:var(--lapis);display:grid;place-items:center;box-shadow:0 0 0 5px var(--lapis-soft),0 0 0 6px var(--gold-soft)}
-.login-crest svg{width:30px;height:30px;color:var(--gold)}
-.login-card h1{font-family:var(--font-display);font-size:1.85rem;text-align:center;color:var(--lapis-deep);font-weight:600;line-height:1.1;letter-spacing:-0.01em}
-.login-card .sub{text-align:center;color:var(--ink-soft);font-size:0.9rem;margin-top:var(--space-xs)}
-.login-bismillah{text-align:center;font-family:var(--font-ar);font-size:1.5rem;color:var(--gold-deep);margin:var(--space-lg) 0 var(--space-xl);direction:rtl}
+#auth-view{min-height:100vh;display:grid;place-items:center;padding:var(--space-xl);background:radial-gradient(circle at 15% 18%, oklch(94% 0.035 256 / 0.7), transparent 42%),radial-gradient(circle at 85% 82%, oklch(94% 0.045 45 / 0.55), transparent 45%),var(--parchment)}
+.auth-card{width:100%;max-width:430px;background:var(--surface);border:1px solid var(--border);border-radius:22px;box-shadow:var(--shadow-lg);padding:var(--space-3xl) var(--space-2xl);position:relative;overflow:hidden}
+.auth-card::before{content:"";position:absolute;inset:6px;border:1px solid var(--gold-soft);border-radius:16px;pointer-events:none}
+.auth-crest{width:60px;height:60px;margin:0 auto var(--space-lg);border-radius:50%;background:var(--lapis);display:grid;place-items:center;box-shadow:0 0 0 5px var(--lapis-soft),0 0 0 6px var(--gold-soft)}
+.auth-crest svg{width:30px;height:30px;color:var(--gold)}
+.auth-card h1{font-family:var(--font-display);font-size:1.85rem;text-align:center;color:var(--lapis-deep);font-weight:600;line-height:1.1;letter-spacing:-0.01em}
+.auth-card .sub{text-align:center;color:var(--ink-soft);font-size:0.9rem;margin-top:var(--space-xs)}
+.auth-bismillah{text-align:center;font-family:var(--font-ar);font-size:1.5rem;color:var(--gold-deep);margin:var(--space-lg) 0 var(--space-xl);direction:rtl}
+.join-banner{background:var(--gold-soft);border:1px solid oklch(84% 0.06 85);border-radius:12px;padding:var(--space-md) var(--space-lg);font-size:0.86rem;color:oklch(38% 0.05 75);margin-bottom:var(--space-lg);text-align:center}
+.join-banner b{color:oklch(30% 0.06 60)}
 .field{margin-bottom:var(--space-lg)}
 .field label{display:block;font-size:0.78rem;font-weight:600;color:var(--ink-soft);margin-bottom:6px;letter-spacing:0.04em;text-transform:uppercase}
-.field input,.field select{width:100%;padding:12px 14px;border:1.5px solid var(--border-strong);border-radius:11px;background:var(--parchment);color:var(--ink);transition:border-color .18s,box-shadow .18s,background .18s}
-.field input:focus,.field select:focus{outline:none;border-color:var(--lapis);background:var(--surface);box-shadow:0 0 0 3.5px var(--lapis-soft)}
+.field input,.field select,.field textarea{width:100%;padding:12px 14px;border:1.5px solid var(--border-strong);border-radius:11px;background:var(--parchment);color:var(--ink);transition:border-color .18s,box-shadow .18s,background .18s}
+.field input:focus,.field select:focus,.field textarea:focus{outline:none;border-color:var(--lapis);background:var(--surface);box-shadow:0 0 0 3.5px var(--lapis-soft)}
+.field textarea{resize:vertical;min-height:74px}
 .btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;padding:12px 20px;border-radius:11px;font-weight:600;font-size:0.95rem;transition:transform .12s var(--ease-out-quint),background .18s,box-shadow .18s,opacity .18s;white-space:nowrap}
 .btn:active{transform:translateY(1px)}
 .btn:disabled{opacity:.55;cursor:not-allowed}
@@ -159,24 +150,20 @@ input,select{font-family:inherit;font-size:1rem}
 .btn-block{width:100%}
 .btn-ghost{background:transparent;color:var(--lapis);border:1.5px solid var(--border-strong)}
 .btn-ghost:hover{background:var(--lapis-soft);border-color:var(--lapis-line)}
+.btn-gold{background:var(--gold);color:oklch(30% 0.05 70)}
+.btn-gold:hover{background:var(--gold-deep);color:oklch(98% 0.02 85);box-shadow:var(--shadow-md)}
 .btn-danger{background:transparent;color:var(--terracotta);border:1.5px solid var(--terracotta-soft)}
 .btn-danger:hover{background:var(--terracotta-soft)}
-.btn-wa{background:var(--whatsapp);color:oklch(99% 0.01 150)}
-.btn-wa:hover{background:var(--whatsapp-deep);box-shadow:var(--shadow-md)}
-.btn-wa svg{width:17px;height:17px}
-.btn-sm{padding:7px 13px;font-size:0.82rem;border-radius:9px}
-.login-err{color:var(--terracotta);font-size:0.85rem;text-align:center;min-height:1.2em;margin-bottom:var(--space-sm)}
-.login-note{color:var(--success);font-size:0.85rem;text-align:center;min-height:1.2em;margin-bottom:var(--space-sm)}
+.btn-sm{padding:8px 14px;font-size:0.83rem;border-radius:9px}
+.auth-err{color:var(--terracotta);font-size:0.85rem;text-align:center;min-height:1.2em;margin-bottom:var(--space-sm)}
+.auth-note{color:var(--success);font-size:0.85rem;text-align:center;min-height:1.2em;margin-bottom:var(--space-sm)}
 .auth-toggle{display:flex;gap:4px;background:var(--parchment-2);padding:4px;border-radius:12px;margin-bottom:var(--space-xl);border:1px solid var(--border)}
-.auth-toggle button{flex:1;padding:8px;border-radius:9px;font-size:0.85rem;font-weight:600;color:var(--ink-soft);transition:.15s}
+.auth-toggle button{flex:1;padding:9px;border-radius:9px;font-size:0.88rem;font-weight:600;color:var(--ink-soft);transition:.15s}
 .auth-toggle button.active{background:var(--surface);color:var(--lapis-deep);box-shadow:var(--shadow-sm)}
-.mode-hint{font-size:0.8rem;color:var(--ink-faint);text-align:center;margin-top:var(--space-md);line-height:1.5}
-.mode-hint code{background:var(--parchment-2);padding:2px 6px;border-radius:5px;font-size:0.85em}
-
-/* APP SHELL */
+.auth-foot{font-size:0.8rem;color:var(--ink-faint);text-align:center;margin-top:var(--space-md);line-height:1.5}
 #app{display:none;min-height:100vh}
-.app-grid{display:grid;grid-template-columns:246px 1fr;min-height:100vh}
-.sidebar{background:var(--lapis-deep);color:oklch(92% 0.02 256);padding:var(--space-xl) var(--space-lg);display:flex;flex-direction:column;gap:var(--space-lg);position:sticky;top:0;height:100vh}
+.app-grid{display:grid;grid-template-columns:264px 1fr;min-height:100vh}
+.sidebar{background:var(--lapis-deep);color:oklch(92% 0.02 256);padding:var(--space-xl) var(--space-lg);display:flex;flex-direction:column;gap:var(--space-sm);position:sticky;top:0;height:100vh;overflow-y:auto}
 .brand{display:flex;align-items:center;gap:10px;padding:0 4px var(--space-md)}
 .brand-mark{width:38px;height:38px;border-radius:10px;background:var(--gold);display:grid;place-items:center;flex-shrink:0}
 .brand-mark svg{width:20px;height:20px;color:var(--lapis-deep)}
@@ -184,38 +171,102 @@ input,select{font-family:inherit;font-size:1rem}
 .brand-name span{display:block;font-family:var(--font-body);font-size:0.68rem;font-weight:400;color:oklch(80% 0.03 256);letter-spacing:0.04em;margin-top:2px}
 .nav{display:flex;flex-direction:column;gap:2px;margin-top:var(--space-sm)}
 .nav-item{display:flex;align-items:center;gap:12px;padding:10px 12px;border-radius:10px;color:oklch(85% 0.025 256);font-size:0.92rem;font-weight:500;transition:background .15s,color .15s;text-align:left;width:100%}
-.nav-item svg{width:18px;height:18px;opacity:.85}
+.nav-item svg{width:18px;height:18px;opacity:.85;flex-shrink:0}
 .nav-item:hover{background:oklch(38% 0.08 260);color:oklch(97% 0.02 85)}
 .nav-item.active{background:oklch(44% 0.09 258);color:oklch(98% 0.02 85)}
 .nav-item.active svg{color:var(--gold);opacity:1}
 .nav-sep{font-size:0.68rem;text-transform:uppercase;letter-spacing:0.1em;color:oklch(70% 0.04 256);padding:var(--space-md) 12px 4px;font-weight:600}
+.fam-nav{display:flex;flex-direction:column;gap:2px}
+.fam-link{display:flex;align-items:center;gap:10px;padding:9px 12px;border-radius:10px;color:oklch(85% 0.025 256);font-size:0.9rem;font-weight:500;transition:.15s;text-align:left;width:100%}
+.fam-link:hover{background:oklch(38% 0.08 260);color:oklch(97% 0.02 85)}
+.fam-link.active{background:oklch(44% 0.09 258);color:oklch(98% 0.02 85)}
+.fam-dot{width:26px;height:26px;border-radius:8px;display:grid;place-items:center;font-size:0.72rem;font-weight:700;color:oklch(99% 0.01 85);flex-shrink:0}
+.fam-link .fam-role{margin-left:auto;font-size:0.6rem;font-weight:700;text-transform:uppercase;letter-spacing:0.05em;color:oklch(78% 0.05 82)}
+.side-actions{display:flex;flex-direction:column;gap:6px;margin-top:var(--space-sm)}
+.side-btn{display:flex;align-items:center;gap:9px;padding:9px 12px;border-radius:10px;font-size:0.85rem;font-weight:600;color:oklch(88% 0.04 82);border:1px dashed oklch(52% 0.06 260);transition:.15s;width:100%}
+.side-btn:hover{background:oklch(38% 0.08 260);border-color:oklch(62% 0.06 260)}
+.side-btn svg{width:16px;height:16px}
 .sidebar-foot{margin-top:auto;padding-top:var(--space-lg);border-top:1px solid oklch(45% 0.06 260)}
 .user-chip{display:flex;align-items:center;gap:10px;margin-bottom:var(--space-md)}
 .user-chip .u-name{font-size:0.88rem;font-weight:600;color:oklch(97% 0.02 85);line-height:1.2}
-.user-chip .u-role{font-size:0.72rem;color:oklch(78% 0.03 256)}
+.user-chip .u-mail{font-size:0.72rem;color:oklch(78% 0.03 256)}
 .logout-btn{display:flex;align-items:center;gap:8px;font-size:0.85rem;color:oklch(82% 0.04 40);font-weight:500;padding:6px 4px}
 .logout-btn:hover{color:oklch(90% 0.06 40)}
 .logout-btn svg{width:16px;height:16px}
 .avatar{width:34px;height:34px;border-radius:50%;display:grid;place-items:center;font-size:0.8rem;font-weight:700;color:oklch(99% 0.01 85);flex-shrink:0}
-
-/* MAIN */
 .main{padding:var(--space-2xl) var(--space-3xl);max-width:1180px}
 .topbar{display:flex;justify-content:space-between;align-items:flex-end;gap:var(--space-lg);margin-bottom:var(--space-xl);flex-wrap:wrap}
-.topbar .tb-actions{display:flex;gap:var(--space-sm);align-items:center}
+.topbar .tb-actions{display:flex;gap:var(--space-sm);align-items:center;flex-wrap:wrap}
 .page-title{font-family:var(--font-display);font-size:2rem;font-weight:600;color:var(--lapis-deep);letter-spacing:-0.015em;line-height:1.05}
-.page-sub{color:var(--ink-soft);font-size:0.92rem;margin-top:4px}
+.page-sub{color:var(--ink-soft);font-size:0.95rem;margin-top:4px}
+.back-link{display:inline-flex;align-items:center;gap:6px;font-size:0.85rem;font-weight:600;color:var(--lapis);margin-bottom:var(--space-md)}
+.back-link:hover{text-decoration:underline}
+.back-link svg{width:15px;height:15px}
 .mobile-head{display:none}
 .view{display:none;animation:fade .4s var(--ease-out-expo)}
 .view.active{display:block}
 @keyframes fade{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
-
 .niyyah{position:relative;background:var(--surface);border:1px solid var(--border);border-radius:16px;padding:var(--space-xl) var(--space-2xl);margin-bottom:var(--space-xl);overflow:hidden}
 .niyyah::after{content:"";position:absolute;inset:0;background:radial-gradient(circle at 100% 0%, oklch(93% 0.05 85 / 0.5), transparent 38%);pointer-events:none}
 .niyyah .n-ar{font-family:var(--font-ar);font-size:1.35rem;color:var(--gold-deep);direction:rtl;text-align:right;margin-bottom:6px}
 .niyyah .n-label{font-size:0.72rem;text-transform:uppercase;letter-spacing:0.1em;color:var(--terracotta);font-weight:700;margin-bottom:6px}
 .niyyah .n-text{font-family:var(--font-display);font-size:1.15rem;color:var(--ink);font-weight:500;line-height:1.4;max-width:60ch;font-style:italic}
 .niyyah .n-meta{margin-top:var(--space-md);font-size:0.82rem;color:var(--ink-faint);display:flex;gap:var(--space-lg);flex-wrap:wrap}
-
+.journey{background:var(--surface);border:1px solid var(--border);border-radius:18px;padding:var(--space-2xl);margin-bottom:var(--space-xl);box-shadow:var(--shadow-sm);position:relative;overflow:hidden}
+.journey::before{content:"";position:absolute;inset:0;background:radial-gradient(circle at 92% -10%, oklch(92% 0.06 85 / 0.55), transparent 46%);pointer-events:none}
+.journey-head{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:var(--space-xl);gap:var(--space-md);flex-wrap:wrap}
+.journey-head h3{font-family:var(--font-display);font-size:1.3rem;color:var(--lapis-deep);font-weight:600}
+.journey-head .jh-sub{font-size:0.85rem;color:var(--ink-soft)}
+.medallions{display:flex;align-items:center;gap:var(--space-lg);flex-wrap:wrap}
+.medallion{width:78px;height:78px;flex-shrink:0;position:relative;display:grid;place-items:center}
+.medallion svg{position:absolute;inset:0;transform:rotate(-90deg)}
+.med-done{border-radius:50%;background:radial-gradient(circle at 35% 30%, oklch(80% 0.11 85), var(--gold-deep));box-shadow:0 0 0 4px var(--gold-soft),inset 0 1px 3px oklch(98% 0.03 85 / 0.6);display:grid;place-items:center;width:64px;height:64px}
+.med-done svg{position:static;transform:none;width:26px;height:26px;color:oklch(30% 0.05 70)}
+.med-num{position:absolute;bottom:-4px;right:-2px;background:var(--lapis-deep);color:oklch(97% 0.02 85);font-size:0.66rem;font-weight:700;width:20px;height:20px;border-radius:50%;display:grid;place-items:center;border:2px solid var(--surface)}
+.med-prog-txt{position:absolute;inset:0;display:grid;place-items:center;text-align:center}
+.med-prog-txt b{font-family:var(--font-display);font-size:1.15rem;font-weight:600;color:var(--lapis-deep);line-height:1}
+.med-prog-txt span{font-size:0.6rem;color:var(--ink-faint);display:block}
+.journey-caption{margin-top:var(--space-xl);padding-top:var(--space-lg);border-top:1px solid var(--border);display:flex;gap:var(--space-2xl);flex-wrap:wrap}
+.jc-item{display:flex;flex-direction:column;gap:1px}
+.jc-item b{font-family:var(--font-display);font-size:1.5rem;font-weight:600;color:var(--ink);font-variant-numeric:tabular-nums;line-height:1}
+.jc-item span{font-size:0.8rem;color:var(--ink-soft)}
+.jc-item.accent b{color:var(--gold-deep)}
+.search-box{position:relative;width:100%;max-width:340px}
+.search-box svg{position:absolute;left:13px;top:50%;transform:translateY(-50%);width:16px;height:16px;color:var(--ink-faint)}
+.search-box input{width:100%;padding:10px 13px 10px 38px;border:1.5px solid var(--border-strong);border-radius:11px;background:var(--surface);color:var(--ink)}
+.search-box input:focus{outline:none;border-color:var(--lapis);box-shadow:0 0 0 3px var(--lapis-soft)}
+.sec-head{display:flex;align-items:center;justify-content:space-between;margin:var(--space-2xl) 0 var(--space-md);gap:var(--space-md)}
+.sec-head h3{font-family:var(--font-display);font-size:1.3rem;color:var(--ink);font-weight:600}
+.sec-head .sec-cnt{font-size:0.82rem;color:var(--ink-faint);font-weight:500}
+.fam-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(320px,1fr));gap:var(--space-lg)}
+.fam-card{background:var(--surface);border:1px solid var(--border);border-radius:16px;padding:var(--space-xl);cursor:pointer;transition:transform .18s var(--ease-out-quint),box-shadow .18s,border-color .18s;text-align:left;width:100%;display:flex;flex-direction:column;gap:var(--space-md)}
+.fam-card:hover{transform:translateY(-3px);box-shadow:var(--shadow-md);border-color:var(--lapis-line)}
+.fc-top{display:flex;align-items:center;gap:var(--space-md)}
+.fc-crest{width:46px;height:46px;border-radius:13px;display:grid;place-items:center;font-family:var(--font-display);font-size:1.2rem;font-weight:600;color:oklch(99% 0.01 85);flex-shrink:0}
+.fc-name{font-family:var(--font-display);font-size:1.2rem;font-weight:600;color:var(--lapis-deep);line-height:1.15}
+.fc-role{font-size:0.7rem;font-weight:700;text-transform:uppercase;letter-spacing:0.05em;padding:2px 9px;border-radius:20px;margin-top:4px;display:inline-block}
+.role-admin{background:var(--terracotta-soft);color:var(--terracotta)}
+.role-member{background:var(--lapis-soft);color:var(--lapis-deep)}
+.fc-khatm{font-size:0.88rem;color:var(--ink-soft)}
+.fc-khatm b{color:var(--ink);font-weight:600}
+.fc-bar{height:8px;border-radius:5px;background:var(--parchment-2);overflow:hidden}
+.fc-fill{height:100%;border-radius:5px;background:var(--lapis);transition:width .6s var(--ease-out-expo)}
+.fc-foot{display:flex;align-items:center;justify-content:space-between;font-size:0.8rem;color:var(--ink-faint)}
+.fc-members{display:flex}
+.fc-members .avatar{width:26px;height:26px;font-size:0.62rem;border:2px solid var(--surface);margin-left:-8px}
+.fc-members .avatar:first-child{margin-left:0}
+.fc-pct{font-family:var(--font-display);font-weight:600;color:var(--lapis);font-variant-numeric:tabular-nums}
+.fam-header{display:flex;align-items:flex-start;gap:var(--space-lg);margin-bottom:var(--space-lg);flex-wrap:wrap}
+.fam-header .fc-crest{width:56px;height:56px;border-radius:15px;font-size:1.4rem}
+.fam-tabs{display:flex;gap:4px;background:var(--parchment-2);padding:4px;border-radius:12px;border:1px solid var(--border);margin-bottom:var(--space-xl);width:fit-content}
+.fam-tab{padding:8px 18px;border-radius:9px;font-size:0.87rem;font-weight:600;color:var(--ink-soft);transition:.15s}
+.fam-tab:hover{color:var(--ink)}
+.fam-tab.active{background:var(--surface);color:var(--lapis-deep);box-shadow:var(--shadow-sm)}
+.invite-box{background:var(--gold-soft);border:1px solid oklch(84% 0.06 85);border-radius:13px;padding:var(--space-md) var(--space-lg);margin-bottom:var(--space-lg);display:flex;align-items:center;gap:var(--space-md);flex-wrap:wrap}
+.invite-box svg{width:20px;height:20px;color:var(--gold-deep);flex-shrink:0}
+.invite-box .ib-txt{font-size:0.86rem;color:oklch(38% 0.05 75);flex:1;min-width:160px}
+.invite-box .ib-txt b{color:oklch(30% 0.06 60)}
+.invite-box code{background:var(--surface);padding:6px 11px;border-radius:8px;font-size:0.8rem;font-weight:600;color:var(--lapis-deep);border:1px solid oklch(84% 0.06 85);user-select:all;cursor:pointer;max-width:280px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
 .dash-top{display:grid;grid-template-columns:minmax(0,1.15fr) minmax(0,1fr);gap:var(--space-xl);margin-bottom:var(--space-xl)}
 .progress-panel{background:var(--surface);border:1px solid var(--border);border-radius:18px;padding:var(--space-2xl);display:flex;align-items:center;gap:var(--space-2xl);box-shadow:var(--shadow-sm)}
 .ring-wrap{position:relative;flex-shrink:0}
@@ -236,40 +287,7 @@ input,select{font-family:inherit;font-size:1rem}
 .stat-strip .s-lbl-ic{width:32px;height:32px;border-radius:9px;display:grid;place-items:center;flex-shrink:0}
 .stat-strip .s-lbl-ic svg{width:17px;height:17px}
 .stat-strip .s-val{font-family:var(--font-display);font-size:1.6rem;font-weight:600;font-variant-numeric:tabular-nums;color:var(--ink)}
-.dash-bottom{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,340px);gap:var(--space-xl);align-items:start}
-.reminder{display:flex;align-items:center;gap:var(--space-md);background:var(--gold-soft);border:1px solid oklch(84% 0.06 85);border-radius:13px;padding:var(--space-md) var(--space-lg);margin-bottom:var(--space-lg)}
-.reminder svg{width:22px;height:22px;color:var(--gold-deep);flex-shrink:0}
-.reminder .r-txt{font-size:0.9rem;color:oklch(38% 0.05 75);font-weight:500}
-.reminder .r-txt b{color:oklch(30% 0.06 60)}
-.reminder button{margin-left:auto;font-size:0.82rem;font-weight:600;color:var(--lapis);white-space:nowrap}
-.reminder button:hover{text-decoration:underline}
-.sec-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:var(--space-md);gap:var(--space-md)}
-.sec-head h3{font-size:1.05rem;color:var(--ink);font-weight:600}
-.sec-head .sec-link{font-size:0.82rem;color:var(--lapis);font-weight:600;cursor:pointer}
-.sec-head .sec-link:hover{text-decoration:underline}
-.panel{background:var(--surface);border:1px solid var(--border);border-radius:16px;padding:var(--space-xl);box-shadow:var(--shadow-sm)}
-.feed{display:flex;flex-direction:column}
-.feed-item{display:flex;gap:var(--space-md);padding:var(--space-md) 0;border-bottom:1px solid var(--border)}
-.feed-item:last-child{border-bottom:none;padding-bottom:0}
-.feed-item:first-child{padding-top:0}
-.feed-ic{width:30px;height:30px;border-radius:50%;display:grid;place-items:center;flex-shrink:0;margin-top:2px}
-.feed-ic svg{width:15px;height:15px}
-.feed-body .f-txt{font-size:0.88rem;color:var(--ink);line-height:1.4}
-.feed-body .f-txt b{font-weight:600}
-.feed-body .f-time{font-size:0.75rem;color:var(--ink-faint);margin-top:2px}
-.member-prog{display:flex;flex-direction:column;gap:var(--space-md)}
-.mp-row{display:flex;align-items:center;gap:var(--space-md)}
-.mp-row .avatar{width:30px;height:30px;font-size:0.72rem}
-.mp-row .mp-name{font-size:0.88rem;font-weight:500;min-width:90px;color:var(--ink)}
-.mp-bar{flex:1;height:8px;border-radius:5px;background:var(--parchment-2);overflow:hidden}
-.mp-fill{height:100%;border-radius:5px;background:var(--lapis);transition:width .6s var(--ease-out-expo)}
-.mp-count{font-size:0.82rem;color:var(--ink-soft);font-variant-numeric:tabular-nums;min-width:2.5ch;text-align:right;font-weight:600}
-
 .toolbar{display:flex;gap:var(--space-md);align-items:center;flex-wrap:wrap;margin-bottom:var(--space-lg)}
-.search-box{position:relative;flex:1;min-width:200px;max-width:320px}
-.search-box svg{position:absolute;left:12px;top:50%;transform:translateY(-50%);width:16px;height:16px;color:var(--ink-faint)}
-.search-box input{width:100%;padding:9px 12px 9px 36px;border:1.5px solid var(--border-strong);border-radius:10px;background:var(--surface);color:var(--ink)}
-.search-box input:focus{outline:none;border-color:var(--lapis);box-shadow:0 0 0 3px var(--lapis-soft)}
 .filter-tabs{display:flex;gap:4px;background:var(--parchment-2);padding:4px;border-radius:11px;border:1px solid var(--border)}
 .filter-tab{padding:7px 14px;border-radius:8px;font-size:0.83rem;font-weight:600;color:var(--ink-soft);transition:.15s;white-space:nowrap}
 .filter-tab .cnt{font-variant-numeric:tabular-nums;opacity:.7;margin-left:4px;font-weight:500}
@@ -297,7 +315,17 @@ input,select{font-family:inherit;font-size:1rem}
 .empty{text-align:center;padding:var(--space-4xl) var(--space-xl);color:var(--ink-faint)}
 .empty svg{width:44px;height:44px;color:var(--border-strong);margin-bottom:var(--space-md)}
 .empty h4{font-size:1.05rem;color:var(--ink-soft);margin-bottom:6px}
-.empty p{font-size:0.9rem;max-width:38ch;margin:0 auto}
+.empty p{font-size:0.9rem;max-width:40ch;margin:0 auto}
+.panel{background:var(--surface);border:1px solid var(--border);border-radius:16px;padding:var(--space-xl);box-shadow:var(--shadow-sm)}
+.member-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:var(--space-md)}
+.member-card{background:var(--surface);border:1px solid var(--border);border-radius:15px;padding:var(--space-xl);display:flex;flex-direction:column;gap:var(--space-md)}
+.mc-head{display:flex;align-items:center;gap:var(--space-md)}
+.mc-head .avatar{width:46px;height:46px;font-size:1rem}
+.mc-name{font-weight:600;font-size:1.02rem;color:var(--ink)}
+.mc-role{font-size:0.7rem;font-weight:700;text-transform:uppercase;letter-spacing:0.05em;padding:2px 9px;border-radius:20px;align-self:flex-start}
+.mc-stats{display:flex;gap:var(--space-lg);padding-top:var(--space-md);border-top:1px solid var(--border);font-size:0.82rem}
+.mc-stats div b{font-family:var(--font-display);font-size:1.25rem;display:block;color:var(--ink);font-weight:600}
+.mc-stats div span{color:var(--ink-faint)}
 .khatm-list{display:flex;flex-direction:column;gap:var(--space-md)}
 .khatm-row{background:var(--surface);border:1px solid var(--border);border-radius:15px;padding:var(--space-xl);display:grid;grid-template-columns:1fr auto;gap:var(--space-lg);align-items:center;transition:box-shadow .18s,transform .18s var(--ease-out-quint)}
 .khatm-row:hover{box-shadow:var(--shadow-md);transform:translateY(-2px)}
@@ -306,47 +334,31 @@ input,select{font-family:inherit;font-size:1rem}
 .badge-active{background:var(--success);color:oklch(98% 0.01 160)}
 .badge-archived{background:var(--parchment-2);color:var(--ink-soft);border:1px solid var(--border-strong)}
 .kr-niyyah{font-family:var(--font-display);font-style:italic;color:var(--ink-soft);font-size:0.95rem;margin-top:6px;max-width:56ch}
-.kr-meta{display:flex;gap:var(--space-lg);margin-top:var(--space-md);font-size:0.82rem;color:var(--ink-faint);flex-wrap:wrap;align-items:center}
+.kr-meta{display:flex;gap:var(--space-lg);margin-top:var(--space-md);font-size:0.82rem;color:var(--ink-faint);flex-wrap:wrap}
 .kr-meta b{color:var(--ink-soft)}
-.kr-right{text-align:right;display:flex;flex-direction:column;align-items:flex-end;gap:8px}
+.kr-right{text-align:right;display:flex;flex-direction:column;align-items:flex-end;gap:4px}
 .kr-pct{font-family:var(--font-display);font-size:2rem;font-weight:600;color:var(--lapis);font-variant-numeric:tabular-nums;line-height:1}
 .kr-pct-lbl{font-size:0.72rem;color:var(--ink-faint);text-transform:uppercase;letter-spacing:0.06em}
-.wa-mini{display:inline-flex;align-items:center;gap:5px;font-size:0.78rem;font-weight:600;color:var(--whatsapp-deep);cursor:pointer}
-.wa-mini svg{width:14px;height:14px}
-.wa-mini:hover{text-decoration:underline}
-.member-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:var(--space-md)}
-.member-card{background:var(--surface);border:1px solid var(--border);border-radius:15px;padding:var(--space-xl);display:flex;flex-direction:column;gap:var(--space-md)}
-.mc-head{display:flex;align-items:center;gap:var(--space-md)}
-.mc-head .avatar{width:46px;height:46px;font-size:1rem}
-.mc-name{font-weight:600;font-size:1.02rem;color:var(--ink)}
-.mc-user{font-size:0.82rem;color:var(--ink-faint)}
-.mc-role{font-size:0.7rem;font-weight:700;text-transform:uppercase;letter-spacing:0.05em;padding:2px 9px;border-radius:20px;align-self:flex-start}
-.role-admin{background:var(--terracotta-soft);color:var(--terracotta)}
-.role-member{background:var(--lapis-soft);color:var(--lapis-deep)}
-.mc-stats{display:flex;gap:var(--space-lg);padding-top:var(--space-md);border-top:1px solid var(--border);font-size:0.82rem}
-.mc-stats div b{font-family:var(--font-display);font-size:1.25rem;display:block;color:var(--ink);font-weight:600}
-.mc-stats div span{color:var(--ink-faint)}
-.mc-actions{display:flex;gap:8px;margin-top:auto;padding-top:var(--space-sm)}
-.admin-actions{display:flex;gap:var(--space-md);flex-wrap:wrap;margin-bottom:var(--space-lg)}
-.invite-box{background:var(--whatsapp-soft);border:1px solid oklch(85% 0.06 150);border-radius:13px;padding:var(--space-lg) var(--space-xl);margin-bottom:var(--space-lg);display:flex;align-items:center;gap:var(--space-md);flex-wrap:wrap}
-.invite-box .ib-txt{font-size:0.88rem;color:oklch(38% 0.08 150);flex:1;min-width:180px}
-.invite-box code{background:var(--surface);padding:4px 10px;border-radius:7px;font-size:0.85rem;font-weight:600;color:var(--ink);border:1px solid oklch(85% 0.06 150);user-select:all;cursor:pointer}
-.cred-note{background:var(--gold-soft);border:1px solid oklch(84% 0.06 85);border-radius:11px;padding:var(--space-md) var(--space-lg);font-size:0.85rem;color:oklch(38% 0.05 75);margin-bottom:var(--space-lg);line-height:1.5}
-.cred-note b{color:oklch(30% 0.06 60)}
-dialog{border:none;border-radius:18px;padding:0;max-width:440px;width:calc(100% - 32px);box-shadow:var(--shadow-lg);background:var(--surface);color:var(--ink)}
-dialog::backdrop{background:oklch(30% 0.04 260 / 0.45);backdrop-filter:blur(2px)}
-.modal-in{padding:var(--space-2xl)}
+.res-group{margin-bottom:var(--space-2xl)}
+.res-group h4{font-size:0.78rem;text-transform:uppercase;letter-spacing:0.08em;color:var(--ink-faint);font-weight:700;margin-bottom:var(--space-md)}
+.res-row{background:var(--surface);border:1px solid var(--border);border-radius:13px;padding:var(--space-md) var(--space-lg);display:flex;align-items:center;gap:var(--space-md);cursor:pointer;transition:.16s;margin-bottom:8px;width:100%;text-align:left}
+.res-row:hover{border-color:var(--lapis-line);box-shadow:var(--shadow-sm);transform:translateX(3px)}
+.res-row .res-title{font-weight:600;color:var(--ink);font-size:0.95rem}
+.res-row .res-sub{font-size:0.82rem;color:var(--ink-faint)}
+.res-row .res-pct{margin-left:auto;font-family:var(--font-display);font-weight:600;color:var(--lapis);font-variant-numeric:tabular-nums}
+dialog{border:none;border-radius:18px;padding:0;max-width:460px;width:calc(100% - 32px);box-shadow:var(--shadow-lg);background:var(--surface);color:var(--ink)}
+dialog::backdrop{background:oklch(30% 0.04 260 / 0.45)}
+.modal-in{padding:var(--space-2xl);position:relative}
 .modal-in h3{font-family:var(--font-display);font-size:1.4rem;color:var(--lapis-deep);margin-bottom:var(--space-xs);font-weight:600}
 .modal-in .m-sub{color:var(--ink-soft);font-size:0.9rem;margin-bottom:var(--space-lg)}
-.modal-in .field textarea{width:100%;padding:12px 14px;border:1.5px solid var(--border-strong);border-radius:11px;background:var(--parchment);font-family:var(--font-body);resize:vertical;min-height:70px;color:var(--ink)}
-.modal-in .field textarea:focus,.modal-in .field select:focus,.modal-in .field input:focus{outline:none;border-color:var(--lapis);box-shadow:0 0 0 3px var(--lapis-soft)}
-.modal-in .field select,.modal-in .field input{width:100%;padding:11px 14px;border:1.5px solid var(--border-strong);border-radius:11px;background:var(--parchment);color:var(--ink)}
-.modal-err{color:var(--terracotta);font-size:0.84rem;min-height:1.1em;margin-top:-4px;margin-bottom:8px}
-.share-preview{background:var(--parchment);border:1px solid var(--border);border-radius:12px;padding:var(--space-lg);font-size:0.88rem;color:var(--ink-soft);white-space:pre-wrap;line-height:1.6;max-height:220px;overflow:auto;margin-bottom:var(--space-lg)}
+.modal-err{color:var(--terracotta);font-size:0.84rem;min-height:1.1em;margin-bottom:8px}
+.link-out{background:var(--parchment);border:1.5px dashed var(--border-strong);border-radius:12px;padding:var(--space-md) var(--space-lg);font-size:0.85rem;color:var(--lapis-deep);font-weight:600;word-break:break-all;margin-bottom:var(--space-md);display:flex;align-items:center;gap:var(--space-sm)}
+.link-out svg{width:16px;height:16px;color:var(--gold-deep);flex-shrink:0}
 .modal-actions{display:flex;gap:var(--space-md);margin-top:var(--space-xl)}
 .modal-actions .btn{flex:1}
 .modal-close{position:absolute;top:16px;right:16px;width:32px;height:32px;border-radius:50%;display:grid;place-items:center;color:var(--ink-faint);transition:.15s}
 .modal-close:hover{background:var(--parchment-2);color:var(--ink)}
+.modal-close svg{width:18px;height:18px}
 #toasts{position:fixed;bottom:24px;right:24px;display:flex;flex-direction:column;gap:10px;z-index:100}
 .toast{background:var(--lapis-deep);color:oklch(96% 0.02 85);padding:12px 18px;border-radius:12px;font-size:0.9rem;font-weight:500;box-shadow:var(--shadow-lg);display:flex;align-items:center;gap:10px;animation:toastIn .4s var(--ease-out-expo);max-width:340px}
 .toast svg{width:18px;height:18px;color:var(--gold);flex-shrink:0}
@@ -358,14 +370,13 @@ dialog::backdrop{background:oklch(30% 0.04 260 / 0.45);backdrop-filter:blur(2px)
 .spin{width:38px;height:38px;border:3px solid var(--lapis-soft);border-top-color:var(--lapis);border-radius:50%;animation:spin .8s linear infinite}
 @keyframes spin{to{transform:rotate(360deg)}}
 .loader p{color:var(--ink-soft);font-size:0.9rem}
-
-@media (max-width:1000px){.dash-top,.dash-bottom{grid-template-columns:1fr}.progress-panel{flex-direction:column;text-align:center}.progress-legend{width:100%}}
+@media (max-width:1000px){.dash-top{grid-template-columns:1fr}.progress-panel{flex-direction:column;text-align:center}.progress-legend{width:100%}}
 @media (max-width:820px){
   .app-grid{grid-template-columns:1fr}
-  .sidebar{position:fixed;bottom:0;left:0;right:0;top:auto;height:auto;width:100%;flex-direction:row;padding:8px;z-index:50;gap:0;border-top:1px solid oklch(45% 0.06 260);box-shadow:0 -4px 20px oklch(30% 0.05 260 / 0.2)}
-  .brand,.nav-sep,.sidebar-foot{display:none}
+  .sidebar{position:fixed;bottom:0;left:0;right:0;top:auto;height:auto;width:100%;flex-direction:row;padding:8px;z-index:50;gap:0;border-top:1px solid oklch(45% 0.06 260);box-shadow:0 -4px 20px oklch(30% 0.05 260 / 0.2);overflow-x:auto}
+  .brand,.nav-sep,.sidebar-foot,.side-actions,.fam-nav{display:none}
   .nav{flex-direction:row;justify-content:space-around;width:100%;margin:0;gap:0}
-  .nav-item{flex-direction:column;gap:3px;padding:6px 4px;font-size:0.66rem;border-radius:9px;text-align:center;flex:1}
+  .nav-item{flex-direction:column;gap:3px;padding:6px 10px;font-size:0.66rem;border-radius:9px;text-align:center;flex:1}
   .nav-item svg{width:20px;height:20px}
   .main{padding:var(--space-lg) var(--space-lg) 88px}
   .mobile-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:var(--space-lg)}
@@ -375,37 +386,35 @@ dialog::backdrop{background:oklch(30% 0.04 260 / 0.45);backdrop-filter:blur(2px)
   .khatm-row{grid-template-columns:1fr}
   .kr-right{text-align:left;align-items:baseline;flex-direction:row;gap:var(--space-md)}
 }
-@media (max-width:480px){.main{padding:var(--space-md) var(--space-md) 88px}.niyyah{padding:var(--space-lg)}.juz-grid{grid-template-columns:repeat(auto-fill,minmax(140px,1fr));gap:10px}.toolbar .search-box{max-width:none}}
+@media (max-width:480px){.main{padding:var(--space-md) var(--space-md) 88px}.juz-grid{grid-template-columns:repeat(auto-fill,minmax(140px,1fr));gap:10px}.medallion{width:66px;height:66px}}
 </style>
 </head>
 <body>
 
 <div id="boot" class="loader"><div class="spin"></div><p>Connecting…</p></div>
 
-<!-- LOGIN -->
-<div id="login-view" style="display:none">
-  <div class="login-card">
-    <div class="login-crest"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg></div>
+<!-- AUTH -->
+<div id="auth-view" style="display:none">
+  <div class="auth-card">
+    <div class="auth-crest"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg></div>
     <h1>Family Khatm Portal</h1>
-    <p class="sub">Family Qur'an Khatm Portal</p>
-    <div class="login-bismillah">بِسْمِ ٱللَّٰهِ ٱلرَّحْمَٰنِ ٱلرَّحِيمِ</div>
+    <p class="sub">Recite together, across every family you belong to</p>
+    <div class="auth-bismillah">بِسْمِ ٱللَّٰهِ ٱلرَّحْمَٰنِ ٱلرَّحِيمِ</div>
+    <div id="join-banner" class="join-banner" style="display:none"></div>
     <div class="auth-toggle"><button id="tab-login" class="active">Log in</button><button id="tab-signup">Sign up</button></div>
-    <div class="login-err" id="auth-err"></div>
-    <div class="login-note" id="auth-note"></div>
+    <div class="auth-err" id="auth-err"></div>
+    <div class="auth-note" id="auth-note"></div>
     <div id="form-login">
       <div class="field"><label for="li-email">Email</label><input type="email" id="li-email" placeholder="you@example.com"></div>
       <div class="field"><label for="li-pass">Password</label><input type="password" id="li-pass" placeholder="••••••••"></div>
       <button type="button" id="login-btn" class="btn btn-primary btn-block">Log in securely</button>
     </div>
     <div id="form-signup" style="display:none">
-      <div class="auth-toggle" style="margin-bottom:var(--space-lg)"><button id="mode-new" class="active">Start a family</button><button id="mode-join">Join a family</button></div>
       <div class="field"><label for="su-name">Your name</label><input type="text" id="su-name" placeholder="Full name"></div>
-      <div class="field" id="wrap-famname"><label for="su-famname">Family name</label><input type="text" id="su-famname" placeholder="e.g. Rahman Family"></div>
-      <div class="field" id="wrap-famcode" style="display:none"><label for="su-famcode">Family code</label><input type="text" id="su-famcode" placeholder="Paste the code your admin shared"></div>
       <div class="field"><label for="su-email">Email</label><input type="email" id="su-email" placeholder="you@example.com"></div>
       <div class="field"><label for="su-pass">Password</label><input type="password" id="su-pass" placeholder="At least 6 characters"></div>
       <button type="button" id="signup-btn" class="btn btn-primary btn-block">Create account</button>
-      <p class="mode-hint" id="signup-hint">The first person to sign up starts the family and becomes its admin.</p>
+      <p class="auth-foot">Just an account. Once you're in, create your own family or join others with a link.</p>
     </div>
   </div>
 </div>
@@ -414,17 +423,21 @@ dialog::backdrop{background:oklch(30% 0.04 260 / 0.45);backdrop-filter:blur(2px)
 <div id="app">
   <div class="app-grid">
     <aside class="sidebar">
-      <div class="brand"><div class="brand-mark"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg></div><div class="brand-name">Khatm Portal<span id="brand-family">Family Khatm</span></div></div>
-      <nav class="nav" id="nav"></nav>
+      <div class="brand"><div class="brand-mark"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg></div><div class="brand-name">Khatm Portal<span>Family Qur'an</span></div></div>
+      <nav class="nav" id="global-nav"></nav>
+      <div class="nav-sep">My Families</div>
+      <div class="fam-nav" id="fam-nav"></div>
+      <div class="side-actions">
+        <button class="side-btn" id="side-create"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v14M5 12h14"/></svg>Create a family</button>
+        <button class="side-btn" id="side-join"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg>Join with a link</button>
+      </div>
       <div class="sidebar-foot"><div class="user-chip" id="user-chip"></div><button class="logout-btn" id="logout-btn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg>Logout</button></div>
     </aside>
     <main class="main">
       <div class="mobile-head"><div class="mh-brand"><div class="brand-mark"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg></div>Khatm</div><button class="logout-btn" id="logout-btn-m" style="color:var(--terracotta)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg></button></div>
-      <section class="view" id="view-dashboard"></section>
-      <section class="view" id="view-khatm"></section>
-      <section class="view" id="view-history"></section>
-      <section class="view" id="view-members"></section>
-      <section class="view" id="view-activity"></section>
+      <section class="view" id="view-home"></section>
+      <section class="view" id="view-search"></section>
+      <section class="view" id="view-family"></section>
     </main>
   </div>
 </div>
@@ -434,153 +447,246 @@ dialog::backdrop{background:oklch(30% 0.04 260 / 0.45);backdrop-filter:blur(2px)
 
 <script>
 /* ================= SUPABASE CONFIG ================= */
-const SUPABASE_URL = "https://venjpgagaxgukdvvkodp.supabase.co";
-const SUPABASE_KEY = "sb_publishable_U8f0Mh_-TUbkYqr1wnvRwg_OKKCP4eS";
-const sb = window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
-/* Secondary client used ONLY to create member accounts without touching the admin's session */
-const sbSignup = window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY, { auth:{ persistSession:false, autoRefreshToken:false, storageKey:"khatm-signup-tmp" } });
+const SUPABASE_URL="https://venjpgagaxgukdvvkodp.supabase.co";
+const SUPABASE_KEY="sb_publishable_U8f0Mh_-TUbkYqr1wnvRwg_OKKCP4eS";
+const sb=window.supabase.createClient(SUPABASE_URL,SUPABASE_KEY);
 
-const GREETING_AR = "السَّلامُ عَلَيْكُم";
-const JUZ_NAMES = ["الم","سيقول","تلك الرسل","لن تنالوا","والمحصنات","لا يحب الله","وإذا سمعوا","ولو أننا","قال الملأ","واعلموا","يعتذرون","وما من دابة","وما أبرئ","ربما","سبحان الذي","قال ألم","اقترب للناس","قد أفلح","وقال الذين","أمن خلق","اتل ما أوحي","ومن يقنت","وما لي","فمن أظلم","إليه يرد","حم","قال فما خطبكم","قد سمع الله","تبارك الذي","عم يتساءلون"];
-const AVATAR_HUES = [258, 35, 160, 300, 82, 210, 20, 130];
-const WA_ICON = '<svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51l-.57-.01c-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.71.306 1.263.489 1.694.625.712.227 1.36.195 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/></svg>';
+const GREETING_AR="السَّلامُ عَلَيْكُم";
+const JUZ_NAMES=["الم","سيقول","تلك الرسل","لن تنالوا","والمحصنات","لا يحب الله","وإذا سمعوا","ولو أننا","قال الملأ","واعلموا","يعتذرون","وما من دابة","وما أبرئ","ربما","سبحان الذي","قال ألم","اقترب للناس","قد أفلح","وقال الذين","أمن خلق","اتل ما أوحي","ومن يقنت","وما لي","فمن أظلم","إليه يرد","حم","قال فما خطبكم","قد سمع الله","تبارك الذي","عم يتساءلون"];
+const AVATAR_HUES=[258,35,160,300,82,210,20,130];
+const FAM_HUES=[258,35,160,300,82,20];
+const $=id=>document.getElementById(id);
 
-let profile=null, family=null;
-let state={ users:[], khatms:[], activity:[], juzFilter:"all", juzSearch:"" };
-let currentView="dashboard";
-let realtimeChan=null;
+/* ================= STATE ================= */
+let me=null;                 // profile row {id,name,email}
+let families=[];             // [{id,name,role,join_token,hue,members:[],khatms:[]}]
+let state={view:"home",familyId:null,familyTab:"khatm",juzFilter:"all",juzSearch:"",query:""};
+let realtimeChan=null,reloadTimer=null;
 
 /* ================= HELPERS ================= */
-const $=id=>document.getElementById(id);
-function isAdmin(){ return profile && profile.role==="admin"; }
-function activeKhatm(){ return state.khatms.find(k=>k.status==="active"); }
-function userById(id){ return state.users.find(u=>u.id===id); }
-function initials(name){ return (name||"?").split(/\s+/).map(w=>w[0]).slice(0,2).join("").toUpperCase(); }
-function hueFor(id){ let h=0; for(const c of (id||"")) h=(h+c.charCodeAt(0))%AVATAR_HUES.length; return AVATAR_HUES[h]; }
-function avatar(user,cls=""){ if(!user) return `<div class="avatar ${cls}" style="background:var(--border-strong)">?</div>`; return `<div class="avatar ${cls}" style="background:oklch(55% 0.11 ${hueFor(user.id)})">${initials(user.name)}</div>`; }
-function firstName(n){ return (n||"").split(" ")[0]; }
-function greeting(){ return `<span class="greet-ar">${GREETING_AR}</span>, ${firstName(profile.name)}`; }
-function timeAgo(ts){ const d=Date.now()-new Date(ts).getTime(),day=864e5,hr=36e5; if(d<hr)return Math.max(1,Math.round(d/6e4))+"m ago"; if(d<day)return Math.round(d/hr)+"h ago"; const days=Math.round(d/day); if(days===1)return"yesterday"; if(days<30)return days+"d ago"; return new Date(ts).toLocaleDateString("en-GB",{day:"numeric",month:"short"});}
-function fmtDate(ts){ return new Date(ts).toLocaleDateString("en-GB",{day:"numeric",month:"short",year:"numeric"});}
-function khatmStats(k){ const j=k.juz||[]; const completed=j.filter(x=>x.status==="completed").length,reserved=j.filter(x=>x.status==="reserved").length,available=j.filter(x=>x.status==="available").length; return {completed,reserved,available,remaining:30-completed,pct:Math.round(completed/30*100)};}
-function esc(s){ return String(s).replace(/[&<>]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;'}[c])); }
-
-function toast(msg,err){ const el=document.createElement("div"); el.className="toast"+(err?" err":""); el.innerHTML=`<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">${err?'<circle cx="12" cy="12" r="10"/><path d="M12 8v4M12 16h.01"/>':'<polyline points="20 6 9 17 4 12"/>'}</svg><span>${msg}</span>`; $("toasts").appendChild(el); setTimeout(()=>{el.style.transition="opacity .3s,transform .3s";el.style.opacity="0";el.style.transform="translateY(10px)";setTimeout(()=>el.remove(),300)},err?4200:2600);}
-
-/* ================= WHATSAPP SHARE ================= */
-function openWhatsApp(text){ window.open("https://wa.me/?text="+encodeURIComponent(text),"_blank"); }
-function progressMessage(){ const k=activeKhatm(); const url=location.href.split("#")[0]; if(!k) return `📖 ${family?family.name:"Our family"} Khatm Portal\n\nNo active khatm right now.\n${url}`; const s=khatmStats(k); const bars=Math.round(s.pct/10); const bar="🟩".repeat(bars)+"⬜".repeat(10-bars); const pending=k.juz.filter(j=>j.status!=="completed").map(j=>j.number); let msg=`📖 *${k.name}*\n${family?family.name:""}\n\n${bar} ${s.pct}%\n✅ Completed: ${s.completed}/30\n⏳ Reserved: ${s.reserved}\n⬜ Remaining: ${s.remaining}\n`; if(k.niyyah) msg+=`\n🤲 Niyyah: ${k.niyyah}\n`; if(pending.length && pending.length<=30) msg+=`\nJuz still remaining: ${pending.join(", ")}\n`; msg+=`\nPick your juz here:\n${url}`; return msg; }
-function inviteMessage(){ const url=location.href.split("#")[0]; return `📖 *${family?family.name:"Our family"} Qur'an Khatm Portal*\n\nJoin our family khatm. Open the link below, choose *Sign up → Join a family*, and paste this code:\n\n🔑 ${profile?profile.family_id:""}\n\n${url}`; }
-function shareProgress(){ const msg=progressMessage(); openModal(`${closeX()}<div class="modal-in"><h3>Share to WhatsApp</h3><p class="m-sub">This message will open in WhatsApp. Pick your family group to post it.</p><div class="share-preview">${esc(msg)}</div><div class="modal-actions"><button class="btn btn-ghost" onclick="closeModal()">Cancel</button><button class="btn btn-wa" onclick="closeModal();openWhatsApp(progressMessage())">${WA_ICON}Open WhatsApp</button></div></div>`); }
-function shareInvite(){ const msg=inviteMessage(); openModal(`${closeX()}<div class="modal-in"><h3>Invite family on WhatsApp</h3><p class="m-sub">Sends the join link + family code. They pick "Join a family" and paste the code.</p><div class="share-preview">${esc(msg)}</div><div class="modal-actions"><button class="btn btn-ghost" onclick="closeModal()">Cancel</button><button class="btn btn-wa" onclick="closeModal();openWhatsApp(inviteMessage())">${WA_ICON}Open WhatsApp</button></div></div>`); }
+function initials(n){return (n||"?").split(/\s+/).map(w=>w[0]).slice(0,2).join("").toUpperCase();}
+function firstName(n){return (n||"").split(" ")[0];}
+function hueForId(id){let h=0;for(const c of (id||""))h=(h+c.charCodeAt(0))%AVATAR_HUES.length;return AVATAR_HUES[h];}
+function famHue(id){let h=0;for(const c of (id||""))h=(h+c.charCodeAt(0))%FAM_HUES.length;return FAM_HUES[h];}
+function avatar(m,cls=""){if(!m)return `<div class="avatar ${cls}" style="background:var(--border-strong)">?</div>`;return `<div class="avatar ${cls}" style="background:oklch(55% 0.11 ${hueForId(m.id)})">${initials(m.name)}</div>`;}
+function esc(s){return String(s==null?"":s).replace(/[&<>]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;'}[c]));}
+function fmtDate(ts){return ts?new Date(ts).toLocaleDateString("en-GB",{day:"numeric",month:"short",year:"numeric"}):"";}
+function famById(id){return families.find(f=>f.id===id);}
+function memberById(fam,id){return fam.members.find(m=>m.id===id);}
+function activeKhatm(fam){return fam.khatms.find(k=>k.status==="active");}
+function khatmStats(k){const j=k.juz;const completed=j.filter(x=>x.status==="completed").length,reserved=j.filter(x=>x.status==="reserved").length,available=j.filter(x=>x.status==="available").length;return {completed,reserved,available,remaining:30-completed,pct:Math.round(completed/30*100)};}
+function greeting(){return `<span class="greet-ar">${GREETING_AR}</span>, ${firstName(me.name)}`;}
+function joinUrl(token){return location.origin+location.pathname+"?join="+token;}
+function personalStats(){
+  let completed=0,reserved=0;
+  families.forEach(f=>f.khatms.forEach(k=>k.juz.forEach(j=>{
+    if(j.member_id===me.id){if(j.status==="completed")completed++;if(j.status==="reserved")reserved++;}
+  })));
+  return {completed,reserved,khatmsDone:Math.floor(completed/30),towardNext:completed%30,famCount:families.length};
+}
+function toast(msg,err){const el=document.createElement("div");el.className="toast"+(err?" err":"");el.innerHTML=`<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">${err?'<circle cx="12" cy="12" r="10"/><path d="M12 8v4M12 16h.01"/>':'<polyline points="20 6 9 17 4 12"/>'}</svg><span>${msg}</span>`;$("toasts").appendChild(el);setTimeout(()=>{el.style.transition="opacity .3s,transform .3s";el.style.opacity="0";el.style.transform="translateY(10px)";setTimeout(()=>el.remove(),300)},err?4000:2500);}
 
 /* ================= AUTH UI ================= */
-let signupMode="new";
 $("tab-login").onclick=()=>switchAuth("login");
 $("tab-signup").onclick=()=>switchAuth("signup");
-function switchAuth(t){ $("auth-err").textContent=""; $("auth-note").textContent=""; const login=t==="login"; $("tab-login").classList.toggle("active",login); $("tab-signup").classList.toggle("active",!login); $("form-login").style.display=login?"block":"none"; $("form-signup").style.display=login?"none":"block"; }
-$("mode-new").onclick=()=>setSignupMode("new");
-$("mode-join").onclick=()=>setSignupMode("join");
-function setSignupMode(m){ signupMode=m; $("mode-new").classList.toggle("active",m==="new"); $("mode-join").classList.toggle("active",m==="join"); $("wrap-famname").style.display=m==="new"?"block":"none"; $("wrap-famcode").style.display=m==="join"?"block":"none"; $("signup-hint").textContent=m==="new"?"The first person to sign up starts the family and becomes its admin.":"Ask your family admin for the family code (shown on their Members page)."; }
-
-$("login-btn").onclick=doLogin;
+function switchAuth(t){$("auth-err").textContent="";$("auth-note").textContent="";const login=t==="login";$("tab-login").classList.toggle("active",login);$("tab-signup").classList.toggle("active",!login);$("form-login").style.display=login?"block":"none";$("form-signup").style.display=login?"none":"block";}
 ["li-email","li-pass"].forEach(id=>$(id).addEventListener("keydown",e=>{if(e.key==="Enter")doLogin();}));
-async function doLogin(){ const email=$("li-email").value.trim(),password=$("li-pass").value; const err=$("auth-err"); err.textContent=""; $("auth-note").textContent=""; if(!email||!password){err.textContent="Enter email and password.";return;} const btn=$("login-btn"); btn.disabled=true; btn.textContent="Signing in…"; const {error}=await sb.auth.signInWithPassword({email,password}); btn.disabled=false; btn.textContent="Log in securely"; if(error){err.textContent=error.message;return;} boot(); }
-
+$("login-btn").onclick=doLogin;
+async function doLogin(){
+  const email=$("li-email").value.trim(),password=$("li-pass").value,err=$("auth-err");
+  err.textContent="";$("auth-note").textContent="";
+  if(!email||!password){err.textContent="Enter email and password.";return;}
+  const btn=$("login-btn");btn.disabled=true;btn.textContent="Signing in…";
+  const {error}=await sb.auth.signInWithPassword({email,password});
+  btn.disabled=false;btn.textContent="Log in securely";
+  if(error){err.textContent=error.message;return;}
+  boot();
+}
 $("signup-btn").onclick=doSignup;
-async function doSignup(){ const err=$("auth-err"); err.textContent=""; $("auth-note").textContent=""; const name=$("su-name").value.trim(),email=$("su-email").value.trim(),password=$("su-pass").value; if(!name||!email||!password){err.textContent="Fill in name, email and password.";return;} const meta={name}; if(signupMode==="new"){const fam=$("su-famname").value.trim();if(!fam){err.textContent="Give your family a name.";return;}meta.family_name=fam;}else{const code=$("su-famcode").value.trim();if(!code){err.textContent="Paste the family code.";return;}meta.family_id=code;meta.role="member";} const btn=$("signup-btn"); btn.disabled=true; btn.textContent="Creating…"; const {data,error}=await sb.auth.signUp({email,password,options:{data:meta}}); btn.disabled=false; btn.textContent="Create account"; if(error){err.textContent=error.message;return;} if(data.session){boot();}else{switchAuth("login");$("auth-note").textContent="Account created. Check your email to confirm, then log in.";} }
+async function doSignup(){
+  const err=$("auth-err");err.textContent="";$("auth-note").textContent="";
+  const name=$("su-name").value.trim(),email=$("su-email").value.trim(),password=$("su-pass").value;
+  if(!name||!email||!password){err.textContent="Fill in name, email and password.";return;}
+  if(password.length<6){err.textContent="Password must be at least 6 characters.";return;}
+  const btn=$("signup-btn");btn.disabled=true;btn.textContent="Creating…";
+  const {data,error}=await sb.auth.signUp({email,password,options:{data:{name}}});
+  btn.disabled=false;btn.textContent="Create account";
+  if(error){err.textContent=error.message;return;}
+  if(data.session)boot();
+  else{switchAuth("login");$("auth-note").textContent="Account created. Confirm your email if asked, then log in.";}
+}
+async function doLogout(){if(realtimeChan)sb.removeChannel(realtimeChan);await sb.auth.signOut();location.reload();}
+$("logout-btn").onclick=doLogout;$("logout-btn-m").onclick=doLogout;
+$("side-create").onclick=openCreateFamily;$("side-join").onclick=()=>openJoinFamily();
 
-async function doLogout(){ if(realtimeChan) sb.removeChannel(realtimeChan); await sb.auth.signOut(); location.reload(); }
-$("logout-btn").onclick=doLogout; $("logout-btn-m").onclick=doLogout;
+/* ================= JOIN BY LINK ================= */
+async function handleJoinLink(){
+  const token=new URLSearchParams(location.search).get("join");
+  if(!token)return;
+  const {data:{user}}=await sb.auth.getUser();
+  if(!user){sessionStorage.setItem("pendingJoin",token);return;}
+  const {data:fam}=await sb.from("families").select("id,name").eq("join_token",token).maybeSingle();
+  // strip token from URL so refresh doesn't re-run
+  history.replaceState({},"",location.pathname);
+  if(!fam){toast("That invite link is invalid",true);return;}
+  const {error}=await sb.from("family_members").insert({family_id:fam.id,user_id:user.id,role:"member"});
+  if(error&&error.code==="23505"){toast(`You're already in ${fam.name}`);}
+  else if(error){toast(error.message,true);return;}
+  else toast(`Joined ${fam.name}`);
+  await loadAll();buildFamNav();openFamily(fam.id);
+}
 
 /* ================= DATA LOADING ================= */
 async function loadAll(){
   const {data:{user}}=await sb.auth.getUser();
-  if(!user) throw new Error("no-session");
-  let {data:prof,error:pe}=await sb.from("profiles").select("*").eq("id",user.id).single();
-  if(pe||!prof){ throw new Error("Profile not ready yet. If you just signed up, wait a moment and refresh."); }
-  profile=prof;
-  const {data:fam}=await sb.from("families").select("*").eq("id",profile.family_id).single();
-  family=fam;
-  const {data:members}=await sb.from("profiles").select("*").eq("family_id",profile.family_id).order("created_at");
-  state.users=members||[];
-  const {data:khatms}=await sb.from("khatms").select("*").eq("family_id",profile.family_id).order("started_at",{ascending:false});
-  const ids=(khatms||[]).map(k=>k.id);
-  let juz=[]; if(ids.length){ const {data:jz}=await sb.from("juz").select("*").in("khatm_id",ids); juz=jz||[]; }
-  state.khatms=(khatms||[]).map(k=>({ id:k.id,name:k.name,niyyah:k.niyyah,status:k.status,startedAt:k.started_at,closedAt:k.closed_at,
-    juz:juz.filter(j=>j.khatm_id===k.id).sort((a,b)=>a.number-b.number).map(j=>({number:j.number,status:j.status,memberId:j.member_id,completedAt:j.completed_at,reservedAt:j.reserved_at,_id:j.id})) }));
-  const {data:act}=await sb.from("activity").select("*").eq("family_id",profile.family_id).order("created_at",{ascending:false}).limit(40);
-  state.activity=(act||[]).map(a=>({id:a.id,ts:a.created_at,text:a.text,type:a.type}));
+  if(!user)throw new Error("no-session");
+  let {data:prof}=await sb.from("profiles").select("*").eq("id",user.id).maybeSingle();
+  if(!prof)throw new Error("Profile not ready yet. If you just signed up, wait a moment and refresh.");
+  me=prof;
+  // families I belong to, with my role, via the join table
+  const {data:mm}=await sb.from("family_members").select("role,family_id,families(id,name,join_token)").eq("user_id",user.id);
+  const famRows=(mm||[]).filter(r=>r.families).map(r=>({...r.families,role:r.role}));
+  const famIds=famRows.map(f=>f.id);
+  // all members of those families
+  let membersByFam={};
+  if(famIds.length){
+    const {data:allMembers}=await sb.from("family_members").select("family_id,role,profiles(id,name,email)").in("family_id",famIds);
+    (allMembers||[]).forEach(r=>{if(!r.profiles)return;(membersByFam[r.family_id]=membersByFam[r.family_id]||[]).push({id:r.profiles.id,name:r.profiles.name,email:r.profiles.email,role:r.role});});
+  }
+  // khatms + juz
+  let khatmsByFam={},juzByKhatm={};
+  if(famIds.length){
+    const {data:khatms}=await sb.from("khatms").select("*").in("family_id",famIds).order("started_at",{ascending:false});
+    const kIds=(khatms||[]).map(k=>k.id);
+    let juz=[];
+    if(kIds.length){const {data:jz}=await sb.from("juz").select("*").in("khatm_id",kIds);juz=jz||[];}
+    juz.forEach(j=>{(juzByKhatm[j.khatm_id]=juzByKhatm[j.khatm_id]||[]).push(j);});
+    (khatms||[]).forEach(k=>{(khatmsByFam[k.family_id]=khatmsByFam[k.family_id]||[]).push({...k,juz:(juzByKhatm[k.id]||[]).sort((a,b)=>a.number-b.number)});});
+  }
+  families=famRows.map(f=>({...f,hue:famHue(f.id),members:membersByFam[f.id]||[],khatms:khatmsByFam[f.id]||[]}));
 }
-function subscribeRealtime(){ if(realtimeChan) sb.removeChannel(realtimeChan); realtimeChan=sb.channel("family-"+profile.family_id).on("postgres_changes",{event:"*",schema:"public",table:"juz"},debouncedReload).on("postgres_changes",{event:"*",schema:"public",table:"khatms"},debouncedReload).on("postgres_changes",{event:"*",schema:"public",table:"activity"},debouncedReload).on("postgres_changes",{event:"*",schema:"public",table:"profiles"},debouncedReload).subscribe(); }
-let reloadTimer=null;
-function debouncedReload(){ clearTimeout(reloadTimer); reloadTimer=setTimeout(async()=>{ try{ await loadAll(); render(); }catch(e){} },400); }
-
-/* ================= DB ACTIONS ================= */
-async function logActivity(text,type,khatmId){ await sb.from("activity").insert({ family_id:profile.family_id, khatm_id:khatmId||null, actor_id:profile.id, text, type:type||"default" }); }
-async function reserveJuz(n){ const k=activeKhatm(); const j=k.juz.find(x=>x.number===n); const {error}=await sb.from("juz").update({status:"reserved",member_id:profile.id,reserved_at:new Date().toISOString()}).eq("id",j._id); if(error) return toast(error.message,true); await logActivity(`**${profile.name}** reserved **Juz ${n}**`,"reserve",k.id); toast(`Juz ${n} reserved for you`); await refresh(); }
-async function completeJuz(n){ const k=activeKhatm(); const j=k.juz.find(x=>x.number===n); const {error}=await sb.from("juz").update({status:"completed",completed_at:new Date().toISOString()}).eq("id",j._id); if(error){closeModal();return toast(error.message,true);} await logActivity(`**${userById(j.memberId)?.name||profile.name}** completed **Juz ${n}**`,"complete",k.id); closeModal(); toast(`MashaAllah! Juz ${n} completed`); await refresh(); }
-async function releaseJuz(n){ const k=activeKhatm(); const j=k.juz.find(x=>x.number===n); const {error}=await sb.from("juz").update({status:"available",member_id:null,reserved_at:null}).eq("id",j._id); if(error){closeModal();return toast(error.message,true);} closeModal(); toast(`Juz ${n} released`); await refresh(); }
-async function applyAllot(n){ const k=activeKhatm(); const j=k.juz.find(x=>x.number===n); const mid=$("allot-sel").value; let st=$("allot-status").value; if(!mid)st="available";else if(st==="available")st="reserved"; const patch={member_id:mid||null,status:st,reserved_at:mid?new Date().toISOString():null,completed_at:st==="completed"?new Date().toISOString():null}; const {error}=await sb.from("juz").update(patch).eq("id",j._id); if(error){closeModal();return toast(error.message,true);} if(mid)await logActivity(`**${profile.name}** allotted **Juz ${n}** to **${userById(mid)?.name}** (${st})`,"reserve",k.id); closeModal(); toast(`Juz ${n} updated`); await refresh(); }
-async function createKhatm(){ const name=$("nk-name").value.trim()||"New Family Khatm"; const niyyah=$("nk-niyyah").value.trim()||"For the barakah of our family and the good of everyone."; const cur=activeKhatm(); if(cur){await sb.from("khatms").update({status:"archived",closed_at:new Date().toISOString()}).eq("id",cur.id);} const {data,error}=await sb.from("khatms").insert({family_id:profile.family_id,name,niyyah,created_by:profile.id}).select().single(); if(error){closeModal();return toast(error.message,true);} await logActivity(`**${profile.name}** started a new khatm: **${name}**`,"start",data.id); closeModal(); toast("New khatm started, Bismillah"); await refresh(); go("khatm"); }
-async function closeKhatm(){ const k=activeKhatm(); const {error}=await sb.from("khatms").update({status:"archived",closed_at:new Date().toISOString()}).eq("id",k.id); if(error){closeModal();return toast(error.message,true);} await logActivity(`**${profile.name}** closed & archived **${k.name}**`,"start",k.id); closeModal(); toast("Khatm archived"); await refresh(); go("history"); }
-async function saveMember(id){ const name=$("m-name").value.trim(); const role=$("m-role").value; if(!name){return toast("Name is required",true);} const {error}=await sb.from("profiles").update({name,role}).eq("id",id); if(error){closeModal();return toast(error.message,true);} closeModal(); toast(`${firstName(name)} updated`); await refresh(); if(id===profile.id){renderUserChip();buildNav();} }
-async function doRemoveMember(id){ const ids=[]; state.khatms.forEach(k=>k.juz.forEach(j=>{if(j.memberId===id&&j.status==="reserved")ids.push(j._id);})); for(const jid of ids){await sb.from("juz").update({status:"available",member_id:null,reserved_at:null}).eq("id",jid);} const {error}=await sb.from("profiles").delete().eq("id",id); if(error){closeModal();return toast(error.message,true);} closeModal(); toast("Member removed from family"); await refresh(); }
-
-/* Admin creates a member account directly (email + password) using the secondary client,
-   so the admin's own session is never disturbed. The DB trigger builds the profile
-   from the metadata (family_id + role). */
-async function createMemberAccount(){
-  const name=$("am-name").value.trim(), email=$("am-email").value.trim(), password=$("am-pass").value, role=$("am-role").value;
-  const err=$("am-err"); err.textContent="";
-  if(!name||!email||!password){ err.textContent="Fill in name, email and password."; return; }
-  if(password.length<6){ err.textContent="Password must be at least 6 characters."; return; }
-  const btn=$("am-save"); btn.disabled=true; btn.textContent="Creating…";
-  const {data,error}=await sbSignup.auth.signUp({ email, password, options:{ data:{ name, family_id:profile.family_id, role } } });
-  await sbSignup.auth.signOut();
-  btn.disabled=false; btn.textContent="Create member";
-  if(error){ err.textContent=error.message; return; }
-  await logActivity(`**${profile.name}** added **${name}** to the family`,"start");
-  closeModal();
-  toast(`${firstName(name)} added. Share their email + password so they can log in.`);
-  setTimeout(refresh,900); // give the trigger a moment
+function subscribeRealtime(){
+  if(realtimeChan)sb.removeChannel(realtimeChan);
+  realtimeChan=sb.channel("khatm-realtime")
+    .on("postgres_changes",{event:"*",schema:"public",table:"juz"},debouncedReload)
+    .on("postgres_changes",{event:"*",schema:"public",table:"khatms"},debouncedReload)
+    .on("postgres_changes",{event:"*",schema:"public",table:"family_members"},debouncedReload)
+    .subscribe();
 }
-
-async function refresh(){ try{ await loadAll(); render(); }catch(e){ toast("Couldn't refresh",true); } }
+function debouncedReload(){clearTimeout(reloadTimer);reloadTimer=setTimeout(async()=>{try{await loadAll();buildFamNav();paint();}catch(e){}},400);}
+async function refresh(){try{await loadAll();buildFamNav();paint();}catch(e){toast("Couldn't refresh",true);}}
 
 /* ================= NAV / SHELL ================= */
-const NAV_ITEMS=[
-  {id:"dashboard",label:"Dashboard",icon:'<path d="M3 3h7v9H3z"/><path d="M14 3h7v5h-7z"/><path d="M14 12h7v9h-7z"/><path d="M3 16h7v5H3z"/>'},
-  {id:"khatm",label:"Current Khatm",icon:'<path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/>'},
-  {id:"history",label:"History",icon:'<path d="M3 3v5h5"/><path d="M3.05 13A9 9 0 1 0 6 5.3L3 8"/><path d="M12 7v5l4 2"/>'},
-  {id:"members",label:"Members",adminOnly:true,icon:'<path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/>'},
-  {id:"activity",label:"Activity",icon:'<path d="M22 12h-4l-3 9L9 3l-3 9H2"/>'},
+const GLOBAL_NAV=[
+  {id:"home",label:"My Dashboard",icon:'<path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/>'},
+  {id:"search",label:"Search",icon:'<circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/>'}
 ];
-function buildNav(){ let html=""; const admin=isAdmin(); NAV_ITEMS.forEach(it=>{ if(it.adminOnly&&!admin)return; if(it.id==="members")html+=`<div class="nav-sep">Admin</div>`; html+=`<button class="nav-item ${it.id===currentView?"active":""}" data-view="${it.id}"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">${it.icon}</svg><span class="nav-label">${it.label}</span></button>`; }); $("nav").innerHTML=html; $("nav").querySelectorAll(".nav-item").forEach(b=>b.onclick=()=>go(b.dataset.view)); }
-function renderUserChip(){ $("user-chip").innerHTML=`${avatar(profile)}<div><div class="u-name">${firstName(profile.name)}</div><div class="u-role">${profile.role==="admin"?"Administrator":"Family Member"}</div></div>`; if(family) $("brand-family").textContent=family.name; }
-function go(view){ currentView=view; document.querySelectorAll(".view").forEach(v=>v.classList.remove("active")); $("view-"+view).classList.add("active"); document.querySelectorAll(".nav-item").forEach(n=>n.classList.toggle("active",n.dataset.view===view)); render(); window.scrollTo({top:0,behavior:"smooth"});}
-function render(){ ({dashboard:renderDashboard,khatm:renderKhatm,history:renderHistory,members:renderMembers,activity:renderActivity}[currentView]||renderDashboard)(); }
-function topbar(title,sub,actions){ return `<div class="topbar"><div><h1 class="page-title">${title}</h1><p class="page-sub">${sub}</p></div><div class="tb-actions">${actions||""}</div></div>`; }
-function waButton(fn,label){ return `<button class="btn btn-wa btn-sm" onclick="${fn}">${WA_ICON}${label||"Share"}</button>`; }
+function buildGlobalNav(){$("global-nav").innerHTML=GLOBAL_NAV.map(it=>`<button class="nav-item ${state.view===it.id?"active":""}" data-view="${it.id}"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">${it.icon}</svg>${it.label}</button>`).join("");$("global-nav").querySelectorAll(".nav-item").forEach(b=>b.onclick=()=>go(b.dataset.view));}
+function buildFamNav(){
+  const nav=$("fam-nav");
+  if(!families.length){nav.innerHTML=`<div style="font-size:.8rem;color:oklch(75% 0.03 256);padding:6px 12px;line-height:1.4">No families yet. Create one or join with a link.</div>`;return;}
+  nav.innerHTML=families.map(f=>`<button class="fam-link ${state.view==="family"&&state.familyId===f.id?"active":""}" data-f="${f.id}"><span class="fam-dot" style="background:oklch(55% 0.11 ${f.hue})">${initials(f.name)}</span><span>${esc(f.name)}</span><span class="fam-role">${f.role}</span></button>`).join("");
+  nav.querySelectorAll(".fam-link").forEach(b=>b.onclick=()=>openFamily(b.dataset.f));
+}
+function renderUserChip(){$("user-chip").innerHTML=`${avatar(me)}<div><div class="u-name">${firstName(me.name)}</div><div class="u-mail">${esc(me.email)}</div></div>`;}
+function go(view){state.view=view;paint();window.scrollTo({top:0,behavior:"smooth"});}
+function openFamily(id){state.view="family";state.familyId=id;state.familyTab="khatm";state.juzFilter="all";state.juzSearch="";paint();window.scrollTo({top:0,behavior:"smooth"});}
+function paint(){
+  document.querySelectorAll(".view").forEach(v=>v.classList.remove("active"));
+  buildGlobalNav();buildFamNav();
+  if(state.view==="home"){$("view-home").classList.add("active");renderHome();}
+  else if(state.view==="search"){$("view-search").classList.add("active");renderSearch();}
+  else if(state.view==="family"){$("view-family").classList.add("active");renderFamily();}
+}
+function topbar(title,sub,actions){return `<div class="topbar"><div><h1 class="page-title">${title}</h1><p class="page-sub">${sub}</p></div><div class="tb-actions">${actions||""}</div></div>`;}
 
-/* ================= DASHBOARD ================= */
-function renderDashboard(){
-  const k=activeKhatm(); const el=$("view-dashboard");
-  if(!k){ el.innerHTML=`${topbar("Dashboard",greeting())}
-    <div class="panel empty"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>
-    <h4>No active khatm right now</h4><p>${isAdmin()?"Start a new khatm to let the family begin reciting.":"Waiting for the admin to start the next khatm, InshaAllah."}</p>
-    ${isAdmin()?`<div style="margin-top:16px"><button class="btn btn-primary" onclick="openNewKhatm()">Start new khatm</button></div>`:""}</div>`; return; }
-  const s=khatmStats(k); const myReserved=k.juz.filter(j=>j.status==="reserved"&&j.memberId===profile.id);
-  const R=52,C=2*Math.PI*R,off=C*(1-s.pct/100);
-  const perMember={}; state.users.forEach(m=>perMember[m.id]=0); k.juz.forEach(j=>{if(j.status==="completed"&&j.memberId)perMember[j.memberId]=(perMember[j.memberId]||0)+1;});
-  const memberRows=state.users.map(m=>({m,c:perMember[m.id]||0})).sort((a,b)=>b.c-a.c).map(({m,c})=>`<div class="mp-row">${avatar(m)}<span class="mp-name">${firstName(m.name)}</span><div class="mp-bar"><div class="mp-fill" style="width:${Math.min(100,c/30*300)}%"></div></div><span class="mp-count">${c}</span></div>`).join("");
-  const feedItems=state.activity.slice(0,6).map(feedRow).join("")||`<p style="color:var(--ink-faint);font-size:.88rem">No activity yet.</p>`;
-  el.innerHTML=`${topbar("Dashboard",greeting(),waButton("shareProgress()","Share progress"))}
-    ${myReserved.length&&!isAdmin()?`<div class="reminder"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg><span class="r-txt">You have <b>${myReserved.length} juz reserved</b> not yet completed: Juz ${myReserved.map(j=>j.number).join(", ")}.</span><button onclick="go('khatm')">Go recite →</button></div>`:""}
-    <div class="niyyah"><div class="n-ar">وَأَنْ لَيْسَ لِلْإِنْسَانِ إِلَّا مَا سَعَىٰ</div><div class="n-label">Niyyah · Intention</div><div class="n-text">${esc(k.niyyah||"")}</div><div class="n-meta"><span>📖 ${esc(k.name)}</span><span>Started ${fmtDate(k.startedAt)}</span></div></div>
+/* ================= HOME ================= */
+function renderHome(){
+  const el=$("view-home");const ps=personalStats();
+  const searchBox=`<div class="search-box"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg><input type="text" id="home-search" placeholder="Search families and khatms…"></div>`;
+  el.innerHTML=`${topbar("My Dashboard",greeting(),searchBox)}
+    ${journeyPanel(ps)}
+    <div class="sec-head"><h3>My Families</h3><span class="sec-cnt">${ps.famCount} ${ps.famCount===1?"family":"families"}</span></div>
+    ${families.length?`<div class="fam-grid">${families.map(famCard).join("")}</div>`:emptyFamilies()}`;
+  $("home-search").addEventListener("input",e=>{state.query=e.target.value;if(state.query.trim())go("search");});
+}
+function journeyPanel(ps){
+  const R=30,C=2*Math.PI*R,off=C*(1-ps.towardNext/30);
+  let meds="";const shown=Math.min(ps.khatmsDone,6);
+  for(let i=0;i<shown;i++)meds+=`<div class="medallion"><div class="med-done"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg></div><span class="med-num">${i+1}</span></div>`;
+  meds+=`<div class="medallion"><svg width="78" height="78"><circle cx="39" cy="39" r="${R}" fill="none" stroke="var(--parchment-2)" stroke-width="7"/><circle cx="39" cy="39" r="${R}" fill="none" stroke="var(--lapis)" stroke-width="7" stroke-linecap="round" stroke-dasharray="${C}" stroke-dashoffset="${off}"/></svg><div class="med-prog-txt"><b>${ps.towardNext}</b><span>/ 30 juz</span></div></div>`;
+  const doneLabel=ps.khatmsDone===0?"Your first khatm is underway":`${ps.khatmsDone} complete khatm${ps.khatmsDone>1?"s":""}, and counting`;
+  return `<div class="journey">
+    <div class="journey-head"><h3>Your Qur'an journey</h3><span class="jh-sub">${doneLabel}</span></div>
+    <div class="medallions">${meds}</div>
+    <div class="journey-caption">
+      <div class="jc-item accent"><b>${ps.khatmsDone}</b><span>Khatms completed</span></div>
+      <div class="jc-item"><b>${ps.completed}</b><span>Juz recited overall</span></div>
+      <div class="jc-item"><b>${ps.reserved}</b><span>Juz reserved now</span></div>
+      <div class="jc-item"><b>${ps.famCount}</b><span>Families joined</span></div>
+    </div></div>`;
+}
+function famCard(f){
+  const k=activeKhatm(f);const s=k?khatmStats(k):null;
+  const mine=f.khatms.reduce((a,kk)=>a+kk.juz.filter(j=>j.member_id===me.id&&j.status==="completed").length,0);
+  const avs=f.members.slice(0,4).map(m=>avatar(m)).join("")+(f.members.length>4?`<div class="avatar" style="background:var(--border-strong);color:var(--ink-soft)">+${f.members.length-4}</div>`:"");
+  return `<button class="fam-card" onclick="openFamily('${f.id}')">
+    <div class="fc-top"><span class="fc-crest" style="background:oklch(55% 0.11 ${f.hue})">${initials(f.name)}</span>
+      <div><div class="fc-name">${esc(f.name)}</div><span class="fc-role ${f.role==="admin"?"role-admin":"role-member"}">${f.role}</span></div></div>
+    <div class="fc-khatm">${k?`Current: <b>${esc(k.name)}</b>`:"No active khatm right now"}</div>
+    ${s?`<div class="fc-bar"><div class="fc-fill" style="width:${s.pct}%"></div></div>`:""}
+    <div class="fc-foot"><div class="fc-members">${avs}</div>${s?`<span class="fc-pct">${s.pct}%</span>`:`<span>You recited ${mine} juz here</span>`}</div>
+  </button>`;
+}
+function emptyFamilies(){return `<div class="panel empty"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/></svg><h4>No families yet</h4><p>Create your own family to start a khatm, or paste an invite link to join an existing one.</p><div style="margin-top:16px;display:flex;gap:12px;justify-content:center;flex-wrap:wrap"><button class="btn btn-primary btn-sm" onclick="openCreateFamily()">Create a family</button><button class="btn btn-ghost btn-sm" onclick="openJoinFamily()">Join with a link</button></div></div>`;}
+
+/* ================= SEARCH ================= */
+function renderSearch(){
+  const el=$("view-search");const q=(state.query||"").trim().toLowerCase();
+  const searchBox=`<div class="search-box"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg><input type="text" id="search-input" placeholder="Search families and khatms…" value="${esc(state.query||"")}"></div>`;
+  const famMatches=families.filter(f=>!q||f.name.toLowerCase().includes(q));
+  const khatmMatches=[];families.forEach(f=>f.khatms.forEach(k=>{if(!q||(k.name||"").toLowerCase().includes(q))khatmMatches.push({f,k});}));
+  let body="";
+  if(!q)body=`<div class="empty"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg><h4>Search your families and khatms</h4><p>Type a family or khatm name. Pick a result to jump to that family's page.</p></div>`;
+  else{
+    const fg=famMatches.length?`<div class="res-group"><h4>Families · ${famMatches.length}</h4>${famMatches.map(f=>{const k=activeKhatm(f);const s=k?khatmStats(k):null;return `<button class="res-row" onclick="openFamily('${f.id}')"><span class="fam-dot" style="background:oklch(55% 0.11 ${f.hue})">${initials(f.name)}</span><div><div class="res-title">${esc(f.name)}</div><div class="res-sub">${f.role==="admin"?"You're an admin":"Member"} · ${f.members.length} members</div></div>${s?`<span class="res-pct">${s.pct}%</span>`:""}</button>`;}).join("")}</div>`:"";
+    const kg=khatmMatches.length?`<div class="res-group"><h4>Khatms · ${khatmMatches.length}</h4>${khatmMatches.map(({f,k})=>{const s=khatmStats(k);return `<button class="res-row" onclick="openFamily('${f.id}')"><span class="fam-dot" style="background:oklch(55% 0.11 ${f.hue})">📖</span><div><div class="res-title">${esc(k.name)}</div><div class="res-sub">${esc(f.name)} · ${k.status==="active"?"Active":"Archived"} · ${s.completed}/30 juz</div></div><span class="res-pct">${s.pct}%</span></button>`;}).join("")}</div>`:"";
+    body=(fg+kg)||`<div class="empty"><h4>Nothing matches “${esc(state.query)}”</h4><p>Try another family or khatm name.</p></div>`;
+  }
+  el.innerHTML=`${topbar("Search",q?`Results for “${esc(state.query)}”`:"Find a family or a khatm",searchBox)}${body}`;
+  const si=$("search-input");si.focus();
+  si.addEventListener("input",e=>{state.query=e.target.value;renderSearch();});
+}
+
+/* ================= FAMILY PAGE ================= */
+function renderFamily(){
+  const f=famById(state.familyId);const el=$("view-family");
+  if(!f){go("home");return;}
+  const isAdmin=f.role==="admin";
+  const tabs=`<div class="fam-tabs">${[["khatm","Current Khatm"],["members","Members"],["history","History"]].map(([id,l])=>`<button class="fam-tab ${state.familyTab===id?"active":""}" data-t="${id}">${l}</button>`).join("")}</div>`;
+  const url=joinUrl(f.join_token);
+  const invite=`<div class="invite-box"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg><span class="ib-txt">Anyone with this link can join <b>${esc(f.name)}</b>. No code needed.</span><code onclick="copyLink('${f.id}')">${esc(url)}</code><button class="btn btn-gold btn-sm" onclick="copyLink('${f.id}')">Copy link</button></div>`;
+  el.innerHTML=`<button class="back-link" onclick="go('home')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5"/><path d="m12 19-7-7 7-7"/></svg>My families</button>
+    <div class="fam-header"><span class="fc-crest" style="background:oklch(55% 0.11 ${f.hue})">${initials(f.name)}</span>
+      <div><h1 class="page-title">${esc(f.name)}</h1><p class="page-sub">${f.members.length} members · you're ${f.role==="admin"?"an admin":"a member"}</p></div></div>
+    ${invite}${tabs}<div id="fam-body"></div>`;
+  el.querySelectorAll(".fam-tab").forEach(t=>t.onclick=()=>{state.familyTab=t.dataset.t;renderFamily();});
+  const body=$("fam-body");
+  if(state.familyTab==="khatm")renderKhatmTab(f,body,isAdmin);
+  else if(state.familyTab==="members")renderMembersTab(f,body,isAdmin);
+  else renderHistoryTab(f,body);
+}
+function renderKhatmTab(f,body,isAdmin){
+  const k=activeKhatm(f);
+  if(!k){body.innerHTML=`<div class="panel empty"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg><h4>No active khatm right now</h4><p>${isAdmin?"Start a new khatm to open all 30 juz for the family.":"Waiting for an admin to start the next khatm, InshaAllah."}</p>${isAdmin?`<div style="margin-top:16px"><button class="btn btn-primary btn-sm" onclick="openNewKhatm()">Start new khatm</button></div>`:""}</div>`;return;}
+  const s=khatmStats(k);const R=52,C=2*Math.PI*R,off=C*(1-s.pct/100);
+  const perMember={};f.members.forEach(m=>perMember[m.id]=0);k.juz.forEach(j=>{if(j.status==="completed"&&j.member_id)perMember[j.member_id]=(perMember[j.member_id]||0)+1;});
+  const adminBar=isAdmin?`<div class="admin-bar"><button class="btn btn-ghost btn-sm" onclick="openNewKhatm()">＋ New khatm</button><button class="btn btn-danger btn-sm" onclick="confirmClose('${f.id}','${k.id}')">Close & archive</button></div>`:"";
+  body.innerHTML=`<div class="niyyah"><div class="n-ar">وَأَنْ لَيْسَ لِلْإِنْسَانِ إِلَّا مَا سَعَىٰ</div><div class="n-label">Niyyah · Intention</div><div class="n-text">${esc(k.niyyah||"For the good of everyone in this family.")}</div><div class="n-meta"><span>📖 ${esc(k.name)}</span><span>Started ${fmtDate(k.started_at)}</span></div></div>
+    ${adminBar}
     <div class="dash-top">
       <div class="progress-panel">
-        <div class="ring-wrap"><svg width="140" height="140"><circle cx="70" cy="70" r="${R}" fill="none" stroke="var(--parchment-2)" stroke-width="13"/><circle cx="70" cy="70" r="${R}" fill="none" stroke="var(--lapis)" stroke-width="13" stroke-linecap="round" stroke-dasharray="${C}" stroke-dashoffset="${C}" style="transition:stroke-dashoffset 1s var(--ease-out-expo)" class="ring-fill"/></svg><div class="ring-center"><div class="ring-pct">${s.pct}<span style="font-size:1.1rem">%</span></div><div class="ring-label">Khatm progress</div></div></div>
+        <div class="ring-wrap"><svg width="140" height="140"><circle cx="70" cy="70" r="${R}" fill="none" stroke="var(--parchment-2)" stroke-width="13"/><circle cx="70" cy="70" r="${R}" fill="none" stroke="var(--lapis)" stroke-width="13" stroke-linecap="round" stroke-dasharray="${C}" stroke-dashoffset="${C}" class="ring-fill" style="transition:stroke-dashoffset 1s var(--ease-out-expo)"/></svg><div class="ring-center"><div class="ring-pct">${s.pct}<span style="font-size:1.1rem">%</span></div><div class="ring-label">Complete</div></div></div>
         <div class="progress-legend">
           <div class="leg-row"><span class="leg-dot" style="background:var(--lapis)"></span><span class="leg-num">${s.completed}</span><span class="leg-txt"><b>Completed</b> juz recited</span></div>
           <div class="leg-row"><span class="leg-dot" style="background:var(--gold)"></span><span class="leg-num">${s.reserved}</span><span class="leg-txt"><b>Reserved</b> in progress</span></div>
@@ -589,108 +695,168 @@ function renderDashboard(){
       </div>
       <div class="side-stats">
         ${statStrip("Remaining juz",s.remaining,"var(--terracotta)","var(--terracotta-soft)",'<path d="M12 2v20M2 12h20"/>')}
-        ${statStrip("Reserved juz",s.reserved,"var(--gold-deep)","var(--gold-soft)",'<path d="M20 6 9 17l-5-5"/>')}
-        ${statStrip("Total family khatms",state.khatms.length,"var(--lapis)","var(--lapis-soft)",'<path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/>')}
+        ${statStrip("Your juz here",perMember[me.id]||0,"var(--lapis)","var(--lapis-soft)",'<path d="M20 6 9 17l-5-5"/>')}
+        ${statStrip("Family members",f.members.length,"var(--gold-deep)","var(--gold-soft)",'<path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/>')}
       </div>
     </div>
-    <div class="dash-bottom">
-      <div class="panel"><div class="sec-head"><h3>Recent activity</h3><span class="sec-link" onclick="go('activity')">View all</span></div><div class="feed">${feedItems}</div></div>
-      <div class="panel"><div class="sec-head"><h3>Family contribution</h3></div><div class="member-prog">${memberRows}</div></div>
-    </div>`;
-  requestAnimationFrame(()=>{const rf=el.querySelector(".ring-fill"); if(rf)rf.style.strokeDashoffset=off;});
-}
-function statStrip(label,val,color,bg,icon){ return `<div class="stat-strip"><div class="s-lbl"><span class="s-lbl-ic" style="background:${bg};color:${color}"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round">${icon}</svg></span>${label}</div><div class="s-val">${val}</div></div>`; }
-function feedRow(a){ const map={complete:["var(--lapis)","var(--lapis-soft)",'<polyline points="20 6 9 17 4 12"/>'],reserve:["var(--gold-deep)","var(--gold-soft)",'<path d="M20 6 9 17l-5-5"/>'],start:["var(--terracotta)","var(--terracotta-soft)",'<circle cx="12" cy="12" r="10"/><polygon points="10 8 16 12 10 16 10 8"/>'],default:["var(--ink-soft)","var(--parchment-2)",'<circle cx="12" cy="12" r="3"/>']}; const [c,bg,ic]=map[a.type]||map.default; return `<div class="feed-item"><div class="feed-ic" style="background:${bg};color:${c}"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">${ic}</svg></div><div class="feed-body"><div class="f-txt">${a.text}</div><div class="f-time">${timeAgo(a.ts)}</div></div></div>`; }
-
-/* ================= CURRENT KHATM ================= */
-function renderKhatm(){
-  const k=activeKhatm(); const el=$("view-khatm");
-  if(!k){ el.innerHTML=`${topbar("Current Khatm","")}<div class="panel empty"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="10"/><path d="M12 8v4M12 16h.01"/></svg><h4>No active khatm</h4><p>${isAdmin()?"Start one to open the 30 juz for the family.":"Nothing to recite yet, InshaAllah soon."}</p>${isAdmin()?`<div style="margin-top:16px"><button class="btn btn-primary" onclick="openNewKhatm()">Start new khatm</button></div>`:""}</div>`; return; }
-  const s=khatmStats(k);
-  const adminBar=isAdmin()?`<div class="admin-bar"><button class="btn btn-ghost btn-sm" onclick="openNewKhatm()">＋ New khatm</button><button class="btn btn-danger btn-sm" onclick="confirmClose()">Close & archive this khatm</button></div>`:"";
-  el.innerHTML=`${topbar(esc(k.name),`${s.completed} of 30 juz complete · ${s.pct}%`,waButton("shareProgress()","Share progress"))}${adminBar}
     <div class="toolbar">
       <div class="search-box"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg><input type="text" id="juz-search" placeholder="Search juz number or member…" value="${esc(state.juzSearch||"")}"></div>
-      <div class="filter-tabs">${["all","available","reserved","completed"].map(f=>{const cnt=f==="all"?30:s[f];return `<button class="filter-tab ${state.juzFilter===f?"active":""}" data-f="${f}">${f[0].toUpperCase()+f.slice(1)}<span class="cnt">${cnt}</span></button>`;}).join("")}</div>
+      <div class="filter-tabs">${["all","available","reserved","completed"].map(fl=>{const cnt=fl==="all"?30:s[fl];return `<button class="filter-tab ${state.juzFilter===fl?"active":""}" data-f="${fl}">${fl[0].toUpperCase()+fl.slice(1)}<span class="cnt">${cnt}</span></button>`;}).join("")}</div>
     </div>
     <div class="juz-grid" id="juz-grid"></div>`;
-  $("juz-search").addEventListener("input",e=>{state.juzSearch=e.target.value;drawJuz(k);});
-  el.querySelectorAll(".filter-tab").forEach(t=>t.onclick=()=>{state.juzFilter=t.dataset.f;renderKhatm();});
-  drawJuz(k);
+  $("juz-search").addEventListener("input",e=>{state.juzSearch=e.target.value;drawJuz(f,k);});
+  body.querySelectorAll(".filter-tab").forEach(t=>t.onclick=()=>{state.juzFilter=t.dataset.f;renderKhatmTab(f,body,isAdmin);});
+  drawJuz(f,k);
+  requestAnimationFrame(()=>{const rf=body.querySelector(".ring-fill");if(rf)rf.style.strokeDashoffset=off;});
 }
-function drawJuz(k){
-  const grid=$("juz-grid"); if(!grid)return;
+function statStrip(label,val,color,bg,icon){return `<div class="stat-strip"><div class="s-lbl"><span class="s-lbl-ic" style="background:${bg};color:${color}"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round">${icon}</svg></span>${label}</div><div class="s-val">${val}</div></div>`;}
+function drawJuz(f,k){
+  const grid=$("juz-grid");if(!grid)return;
   const q=(state.juzSearch||"").trim().toLowerCase();
-  const filtered=k.juz.filter(j=>{ if(state.juzFilter!=="all"&&j.status!==state.juzFilter)return false; if(q){const mem=userById(j.memberId);const hay=(j.number+" "+(mem?mem.name.toLowerCase():"")).toLowerCase();if(!hay.includes(q))return false;} return true; });
-  if(!filtered.length){ grid.style.display="block"; grid.innerHTML=`<div class="empty"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg><h4>Nothing matches</h4><p>Try a different filter or search term.</p></div>`; return; }
+  const filtered=k.juz.filter(j=>{if(state.juzFilter!=="all"&&j.status!==state.juzFilter)return false;if(q){const m=memberById(f,j.member_id);const hay=(j.number+" "+(m?m.name.toLowerCase():"")).toLowerCase();if(!hay.includes(q))return false;}return true;});
+  if(!filtered.length){grid.style.display="block";grid.innerHTML=`<div class="empty"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg><h4>Nothing matches</h4><p>Try a different filter or search term.</p></div>`;return;}
   grid.style.display="grid";
-  grid.innerHTML=filtered.map(j=>{ const mem=userById(j.memberId); const stLbl={available:"Available",reserved:"Reserved",completed:"Completed"}[j.status];
-    const memRow=mem?`<div class="jt-member">${avatar(mem)}${firstName(mem.name)}</div>`:`<div class="jt-member" style="color:var(--ink-faint)">Open to pick</div>`;
+  grid.innerHTML=filtered.map(j=>{const m=memberById(f,j.member_id);const lbl={available:"Available",reserved:"Reserved",completed:"Completed"}[j.status];
+    const mr=m?`<div class="jt-member">${avatar(m)}${firstName(m.name)}</div>`:`<div class="jt-member" style="color:var(--ink-faint)">Open to pick</div>`;
     const check=j.status==="completed"?`<div class="jt-check"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></div>`:"";
-    return `<button class="juz-tile ${j.status}" data-n="${j.number}">${check}<div class="jt-top"><div class="juz-num">${j.number}<span>Juz</span></div><span class="juz-status st-${j.status}">${stLbl}</span></div>${memRow}<div class="juz-name">${JUZ_NAMES[j.number-1]}</div></button>`; }).join("");
-  grid.querySelectorAll(".juz-tile").forEach(t=>t.onclick=()=>onJuzClick(+t.dataset.n));
+    return `<button class="juz-tile ${j.status}" data-n="${j.number}">${check}<div class="jt-top"><div class="juz-num">${j.number}<span>Juz</span></div><span class="juz-status st-${j.status}">${lbl}</span></div>${mr}<div class="juz-name">${JUZ_NAMES[j.number-1]}</div></button>`;}).join("");
+  grid.querySelectorAll(".juz-tile").forEach(t=>t.onclick=()=>onJuzClick(f,k,+t.dataset.n));
 }
-function onJuzClick(n){ const k=activeKhatm(); const j=k.juz.find(x=>x.number===n); if(isAdmin()){openJuzAdmin(n);return;} if(j.status==="available"){reserveJuz(n);return;} if(j.status==="reserved"&&j.memberId===profile.id){openMemberJuz(n);return;} if(j.status==="reserved"){toast(`Juz ${n} is reserved by ${firstName(userById(j.memberId)?.name)||"a member"}`);return;} if(j.status==="completed"){toast(`Juz ${n} completed by ${firstName(userById(j.memberId)?.name)||"a member"}`);} }
-function openMemberJuz(n){ openModal(`${closeX()}<div class="modal-in"><h3>Juz ${n}</h3><p class="m-sub"><span class="bismillah" style="font-size:1.1rem">${JUZ_NAMES[n-1]}</span> · Reserved by you</p><p style="font-size:.92rem;color:var(--ink-soft);margin-bottom:4px">Finished reciting? Mark it completed, or release it for someone else.</p><div class="modal-actions"><button class="btn btn-ghost" onclick="releaseJuz(${n})">Release</button><button class="btn btn-primary" onclick="completeJuz(${n})">Mark completed</button></div></div>`); }
-function openJuzAdmin(n){ const k=activeKhatm(); const j=k.juz.find(x=>x.number===n); const opts=state.users.map(u=>`<option value="${u.id}" ${j.memberId===u.id?"selected":""}>${esc(u.name)}${u.role==="admin"?" (Admin)":""}</option>`).join(""); openModal(`${closeX()}<div class="modal-in"><h3>Manage Juz ${n}</h3><p class="m-sub"><span class="bismillah" style="font-size:1.1rem">${JUZ_NAMES[n-1]}</span> · Status: ${j.status}</p><div class="field"><label>Allot to member</label><select id="allot-sel"><option value="">— Leave available —</option>${opts}</select></div><div class="field"><label>Set status</label><select id="allot-status"><option value="available" ${j.status==="available"?"selected":""}>Available</option><option value="reserved" ${j.status==="reserved"?"selected":""}>Reserved</option><option value="completed" ${j.status==="completed"?"selected":""}>Completed</option></select></div><div class="modal-actions"><button class="btn btn-ghost" onclick="closeModal()">Cancel</button><button class="btn btn-primary" onclick="applyAllot(${n})">Save</button></div></div>`); }
-function openNewKhatm(){ const cur=activeKhatm(); openModal(`${closeX()}<div class="modal-in"><h3>Start a new khatm</h3><p class="m-sub">All 30 juz open fresh for the family.${cur?" The current active khatm will be archived first.":""}</p><div class="field"><label>Khatm name</label><input type="text" id="nk-name" placeholder="e.g. Ramadan Khatm 1448"></div><div class="field"><label>Niyyah · Intention</label><textarea id="nk-niyyah" placeholder="For whom, and with what intention..."></textarea></div><div class="modal-actions"><button class="btn btn-ghost" onclick="closeModal()">Cancel</button><button class="btn btn-primary" onclick="createKhatm()">Begin khatm</button></div></div>`); }
-function confirmClose(){ const k=activeKhatm(); const s=khatmStats(k); openModal(`${closeX()}<div class="modal-in"><h3>Close & archive?</h3><p class="m-sub">"${esc(k.name)}" is at ${s.pct}% (${s.completed}/30 juz). Once archived it moves to History.</p><div class="modal-actions"><button class="btn btn-ghost" onclick="closeModal()">Not yet</button><button class="btn btn-danger" onclick="closeKhatm()">Archive it</button></div></div>`); }
-
-/* ================= HISTORY ================= */
-function renderHistory(){
-  const el=$("view-history");
-  const rows=state.khatms.map(k=>{ const s=khatmStats(k); const badge=k.status==="active"?`<span class="kr-badge badge-active">Active</span>`:`<span class="kr-badge badge-archived">Archived</span>`;
-    return `<div class="khatm-row"><div><div class="kr-title">${esc(k.name)} ${badge}</div><div class="kr-niyyah">${esc(k.niyyah||"")}</div><div class="kr-meta"><span>Started <b>${fmtDate(k.startedAt)}</b></span>${k.closedAt?`<span>Closed <b>${fmtDate(k.closedAt)}</b></span>`:""}<span><b>${s.completed}</b>/30 juz</span><span class="wa-mini" onclick="shareKhatm('${k.id}')">${WA_ICON}Share</span></div></div><div class="kr-right"><div class="kr-pct">${s.pct}%</div><div class="kr-pct-lbl">Complete</div></div></div>`; }).join("");
-  el.innerHTML=`${topbar("Khatm History","All your family khatms")}${state.khatms.length?`<div class="khatm-list">${rows}</div>`:`<div class="panel empty"><h4>No khatms yet</h4></div>`}`;
+function onJuzClick(f,k,n){
+  const j=k.juz.find(x=>x.number===n);const isAdmin=f.role==="admin";
+  if(isAdmin){openJuzAdmin(f,k,n);return;}
+  if(j.status==="available"){reserveJuz(f,k,j);return;}
+  if(j.status==="reserved"&&j.member_id===me.id){openMemberJuz(f,k,n);return;}
+  if(j.status==="reserved"){toast(`Juz ${n} is reserved by ${firstName(memberById(f,j.member_id)?.name)||"a member"}`);return;}
+  if(j.status==="completed"){toast(`Juz ${n} completed by ${firstName(memberById(f,j.member_id)?.name)||"a member"}`);}
 }
-function shareKhatm(id){ const k=state.khatms.find(x=>x.id===id); if(!k)return; const s=khatmStats(k); const url=location.href.split("#")[0]; const bars=Math.round(s.pct/10); const bar="🟩".repeat(bars)+"⬜".repeat(10-bars); let msg=`📖 *${k.name}*\n${family?family.name:""}\n\n${bar} ${s.pct}%\n✅ ${s.completed}/30 juz completed\n`; if(k.niyyah)msg+=`\n🤲 ${k.niyyah}\n`; msg+=`\n${url}`; openWhatsApp(msg); }
-
-/* ================= MEMBERS ================= */
-function renderMembers(){
-  const el=$("view-members");
-  if(!isAdmin()){ el.innerHTML=topbar("Members","")+`<div class="panel empty"><h4>Admins only</h4></div>`; return; }
-  const cards=state.users.map(u=>{ let completed=0,reserved=0; state.khatms.forEach(k=>k.juz.forEach(j=>{if(j.memberId===u.id){if(j.status==="completed")completed++;if(j.status==="reserved")reserved++;}}));
-    return `<div class="member-card"><div class="mc-head">${avatar(u)}<div><div class="mc-name">${esc(u.name)}</div><div class="mc-user">${u.role==="admin"?"Administrator":"Family member"}</div></div></div><span class="mc-role ${u.role==="admin"?"role-admin":"role-member"}">${u.role}</span><div class="mc-stats"><div><b>${completed}</b><span>Completed</span></div><div><b>${reserved}</b><span>Reserved</span></div></div><div class="mc-actions"><button class="btn btn-ghost btn-sm" onclick="openMember('${u.id}')">Edit</button>${u.id!==profile.id?`<button class="btn btn-danger btn-sm" onclick="removeMember('${u.id}')">Remove</button>`:""}</div></div>`; }).join("");
-  el.innerHTML=`${topbar("Family Members","Manage your family members")}
-    <div class="admin-actions"><button class="btn btn-primary btn-sm" onclick="openAddMember()">＋ Add member (email + password)</button>${waButton("shareInvite()","Invite on WhatsApp")}</div>
-    <div class="invite-box">${WA_ICON.replace('viewBox','width="20" height="20" style="color:var(--whatsapp-deep);flex-shrink:0" viewBox')}<span class="ib-txt">Family can also join themselves: send the WhatsApp invite, or share this <b>family code</b> to paste under "Join a family"</span><code onclick="copyCode()">${profile.family_id}</code><button class="btn btn-wa btn-sm" onclick="shareInvite()">${WA_ICON}Send invite</button></div>
-    <div class="member-grid">${cards}</div>`;
+/* --- race-safe reserve: only succeeds if the juz is still available --- */
+async function reserveJuz(f,k,j){
+  const {data,error}=await sb.from("juz")
+    .update({status:"reserved",member_id:me.id,reserved_at:new Date().toISOString()})
+    .eq("id",j.id).eq("status","available").select();
+  if(error){toast(error.message,true);return;}
+  if(!data||data.length===0){toast("Someone just reserved that juz, refreshing…",true);await refresh();return;}
+  toast(`Juz ${j.number} reserved for you`);await refresh();
 }
-function copyCode(){ navigator.clipboard?.writeText(profile.family_id).then(()=>toast("Family code copied")).catch(()=>toast("Select and copy the code",true)); }
-function openAddMember(){ openModal(`${closeX()}<div class="modal-in"><h3>Add family member</h3><p class="m-sub">Create their login directly. They won't need to sign up, just give them the email and password you set here.</p>
-  <div class="field"><label>Full name</label><input type="text" id="am-name" placeholder="Full name"></div>
-  <div class="field"><label>Email</label><input type="email" id="am-email" placeholder="member@example.com"></div>
-  <div class="field"><label>Password</label><input type="text" id="am-pass" placeholder="At least 6 characters"></div>
-  <div class="field"><label>Role</label><select id="am-role"><option value="member">Family Member</option><option value="admin">Admin</option></select></div>
-  <div class="modal-err" id="am-err"></div>
-  <div class="cred-note">Tip: use a password like <b>${esc(family?family.name.split(" ")[0]:"khatm")}786</b>. Share the email + password with them privately (WhatsApp DM works).</div>
-  <div class="modal-actions"><button class="btn btn-ghost" onclick="closeModal()">Cancel</button><button class="btn btn-primary" id="am-save" onclick="createMemberAccount()">Create member</button></div></div>`); }
-function openMember(id){ const u=userById(id); openModal(`${closeX()}<div class="modal-in"><h3>Edit member</h3><p class="m-sub">Update their display name or role. Login email/password stays with the member.</p><div class="field"><label>Full name</label><input type="text" id="m-name" value="${esc(u.name)}"></div><div class="field"><label>Role</label><select id="m-role"><option value="member" ${u.role==="member"?"selected":""}>Family Member</option><option value="admin" ${u.role==="admin"?"selected":""}>Admin</option></select></div><div class="modal-actions"><button class="btn btn-ghost" onclick="closeModal()">Cancel</button><button class="btn btn-primary" onclick="saveMember('${id}')">Save</button></div></div>`); }
-function removeMember(id){ const u=userById(id); openModal(`${closeX()}<div class="modal-in"><h3>Remove ${firstName(u.name)}?</h3><p class="m-sub">Their reserved juz will be released and their profile removed from this family. Completed juz stay in history.</p><div class="modal-actions"><button class="btn btn-ghost" onclick="closeModal()">Cancel</button><button class="btn btn-danger" onclick="doRemoveMember('${id}')">Remove</button></div></div>`); }
+function openMemberJuz(f,k,n){openModal(`${closeX()}<div class="modal-in"><h3>Juz ${n}</h3><p class="m-sub"><span class="greet-ar" style="font-size:1.1rem;color:var(--gold-deep)">${JUZ_NAMES[n-1]}</span> · Reserved by you</p><p style="font-size:.92rem;color:var(--ink-soft)">Finished reciting? Mark it completed, or release it for someone else.</p><div class="modal-actions"><button class="btn btn-ghost" onclick="releaseJuz('${f.id}','${k.id}',${n})">Release</button><button class="btn btn-primary" onclick="completeJuz('${f.id}','${k.id}',${n})">Mark completed</button></div></div>`);}
+async function completeJuz(fid,kid,n){
+  const f=famById(fid),k=f.khatms.find(x=>x.id===kid),j=k.juz.find(x=>x.number===n);
+  const {data,error}=await sb.from("juz").update({status:"completed",completed_at:new Date().toISOString()})
+    .eq("id",j.id).eq("status","reserved").eq("member_id",me.id).select();
+  closeModal();
+  if(error){toast(error.message,true);return;}
+  if(!data||data.length===0){toast("That juz changed, refreshing…",true);await refresh();return;}
+  toast(`MashaAllah! Juz ${n} completed`);await refresh();
+}
+async function releaseJuz(fid,kid,n){
+  const f=famById(fid),k=f.khatms.find(x=>x.id===kid),j=k.juz.find(x=>x.number===n);
+  const {error}=await sb.from("juz").update({status:"available",member_id:null,reserved_at:null})
+    .eq("id",j.id).eq("member_id",me.id);
+  closeModal();
+  if(error){toast(error.message,true);return;}
+  toast(`Juz ${n} released`);await refresh();
+}
+function openJuzAdmin(f,k,n){const j=k.juz.find(x=>x.number===n);const opts=f.members.map(u=>`<option value="${u.id}" ${j.member_id===u.id?"selected":""}>${esc(u.name)}${u.role==="admin"?" (Admin)":""}</option>`).join("");openModal(`${closeX()}<div class="modal-in"><h3>Manage Juz ${n}</h3><p class="m-sub"><span class="greet-ar" style="font-size:1.1rem;color:var(--gold-deep)">${JUZ_NAMES[n-1]}</span> · Status: ${j.status}</p><div class="field"><label>Allot to member</label><select id="allot-sel"><option value="">— Leave available —</option>${opts}</select></div><div class="field"><label>Set status</label><select id="allot-status"><option value="available" ${j.status==="available"?"selected":""}>Available</option><option value="reserved" ${j.status==="reserved"?"selected":""}>Reserved</option><option value="completed" ${j.status==="completed"?"selected":""}>Completed</option></select></div><div class="modal-actions"><button class="btn btn-ghost" onclick="closeModal()">Cancel</button><button class="btn btn-primary" onclick="applyAllot('${f.id}','${k.id}',${n})">Save</button></div></div>`);}
+async function applyAllot(fid,kid,n){
+  const f=famById(fid),k=f.khatms.find(x=>x.id===kid),j=k.juz.find(x=>x.number===n);
+  const mid=$("allot-sel").value;let st=$("allot-status").value;
+  if(!mid)st="available";else if(st==="available")st="reserved";
+  const patch={member_id:mid||null,status:st,reserved_at:mid?new Date().toISOString():null,completed_at:st==="completed"?new Date().toISOString():null};
+  const {error}=await sb.from("juz").update(patch).eq("id",j.id);
+  closeModal();
+  if(error){toast(error.message,true);return;}
+  toast(`Juz ${n} updated`);await refresh();
+}
+function openNewKhatm(){const f=famById(state.familyId);const cur=activeKhatm(f);openModal(`${closeX()}<div class="modal-in"><h3>Start a new khatm</h3><p class="m-sub">All 30 juz open fresh for ${esc(f.name)}.${cur?" The current active khatm will be archived first.":""}</p><div class="field"><label>Khatm name</label><input type="text" id="nk-name" placeholder="e.g. Ramadan Khatm 1447"></div><div class="field"><label>Niyyah · Intention</label><textarea id="nk-niyyah" placeholder="For whom, and with what intention…"></textarea></div><div class="modal-err" id="nk-err"></div><div class="modal-actions"><button class="btn btn-ghost" onclick="closeModal()">Cancel</button><button class="btn btn-primary" id="nk-save" onclick="createKhatm('${f.id}')">Begin khatm</button></div></div>`);}
+async function createKhatm(fid){
+  const f=famById(fid);const name=$("nk-name").value.trim()||"New Family Khatm";const niyyah=$("nk-niyyah").value.trim();
+  const btn=$("nk-save");btn.disabled=true;btn.textContent="Starting…";
+  const cur=activeKhatm(f);
+  if(cur)await sb.from("khatms").update({status:"archived",closed_at:new Date().toISOString()}).eq("id",cur.id);
+  const {data:k,error}=await sb.from("khatms").insert({family_id:fid,name,niyyah,created_by:me.id}).select().single();
+  if(error){closeModal();toast(error.message,true);return;}
+  // seed 30 juz
+  const rows=[];for(let n=1;n<=30;n++)rows.push({khatm_id:k.id,number:n,status:"available"});
+  const {error:je}=await sb.from("juz").insert(rows);
+  closeModal();
+  if(je){toast(je.message,true);return;}
+  toast("New khatm started, Bismillah");await refresh();
+}
+function confirmClose(fid,kid){const f=famById(fid),k=f.khatms.find(x=>x.id===kid);const s=khatmStats(k);openModal(`${closeX()}<div class="modal-in"><h3>Close & archive?</h3><p class="m-sub">“${esc(k.name)}” is at ${s.pct}% (${s.completed}/30 juz). Once archived it moves to History.</p><div class="modal-actions"><button class="btn btn-ghost" onclick="closeModal()">Not yet</button><button class="btn btn-danger" onclick="closeKhatm('${fid}','${kid}')">Archive it</button></div></div>`);}
+async function closeKhatm(fid,kid){
+  const {error}=await sb.from("khatms").update({status:"archived",closed_at:new Date().toISOString()}).eq("id",kid);
+  closeModal();
+  if(error){toast(error.message,true);return;}
+  toast("Khatm archived");state.familyTab="history";await refresh();
+}
+function renderMembersTab(f,body,isAdmin){
+  const cards=f.members.map(u=>{let completed=0,reserved=0;f.khatms.forEach(k=>k.juz.forEach(j=>{if(j.member_id===u.id){if(j.status==="completed")completed++;if(j.status==="reserved")reserved++;}}));
+    return `<div class="member-card"><div class="mc-head">${avatar(u)}<div><div class="mc-name">${esc(u.name)}${u.id===me.id?" (you)":""}</div><span class="mc-role ${u.role==="admin"?"role-admin":"role-member"}">${u.role}</span></div></div><div class="mc-stats"><div><b>${completed}</b><span>Completed</span></div><div><b>${reserved}</b><span>Reserved</span></div></div></div>`;}).join("");
+  body.innerHTML=`<div class="admin-bar"><button class="btn btn-gold btn-sm" onclick="copyLink('${f.id}')">Copy invite link</button></div><div class="member-grid">${cards}</div>`;
+}
+function renderHistoryTab(f,body){
+  const rows=f.khatms.map(k=>{const s=khatmStats(k);const badge=k.status==="active"?`<span class="kr-badge badge-active">Active</span>`:`<span class="kr-badge badge-archived">Archived</span>`;
+    return `<div class="khatm-row"><div><div class="kr-title">${esc(k.name)} ${badge}</div>${k.niyyah?`<div class="kr-niyyah">${esc(k.niyyah)}</div>`:""}<div class="kr-meta"><span>Started <b>${fmtDate(k.started_at)}</b></span>${k.closed_at?`<span>Closed <b>${fmtDate(k.closed_at)}</b></span>`:""}<span><b>${s.completed}</b>/30 juz</span></div></div><div class="kr-right"><div class="kr-pct">${s.pct}%</div><div class="kr-pct-lbl">Complete</div></div></div>`;}).join("");
+  body.innerHTML=f.khatms.length?`<div class="khatm-list">${rows}</div>`:`<div class="panel empty"><h4>No khatms yet</h4></div>`;
+}
 
-/* ================= ACTIVITY ================= */
-function renderActivity(){ const el=$("view-activity"); const items=state.activity.map(feedRow).join(""); el.innerHTML=`${topbar("Activity","Family activity")}<div class="panel"><div class="feed">${items||`<div class="empty"><h4>No activity yet</h4></div>`}</div></div>`; }
+/* ================= CREATE / JOIN FAMILY ================= */
+function openCreateFamily(){openModal(`${closeX()}<div class="modal-in"><h3>Create a family</h3><p class="m-sub">You'll become its admin. A join link is generated so anyone you share it with can join, no code required.</p><div class="field"><label>Family name</label><input type="text" id="cf-name" placeholder="e.g. Rahman Family"></div><div class="modal-err" id="cf-err"></div><div class="modal-actions"><button class="btn btn-ghost" onclick="closeModal()">Cancel</button><button class="btn btn-primary" id="cf-save" onclick="createFamily()">Create family</button></div></div>`);}
+async function createFamily(){
+  const name=$("cf-name").value.trim();
+  if(!name){$("cf-err").textContent="Give your family a name.";return;}
+  const btn=$("cf-save");btn.disabled=true;btn.textContent="Creating…";
+  // insert family; DB trigger seeds the admin family_members row
+  const {data:fam,error}=await sb.from("families").insert({name,created_by:me.id}).select().single();
+  if(error){$("cf-err").textContent=error.message;btn.disabled=false;btn.textContent="Create family";return;}
+  await loadAll();buildFamNav();
+  openCreatedFamily(fam.id);
+}
+function openCreatedFamily(fid){const f=famById(fid)||{id:fid,name:"Your family",join_token:""};const url=joinUrl(f.join_token);openModal(`${closeX()}<div class="modal-in"><h3>${esc(f.name)} is ready</h3><p class="m-sub">Share this link with anyone you want to join. They just open it and they're in.</p><div class="link-out"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg>${esc(url)}</div><div class="modal-actions"><button class="btn btn-ghost" onclick="copyLink('${f.id}')">Copy link</button><button class="btn btn-primary" onclick="closeModal();openFamily('${f.id}')">Open family</button></div></div>`);}
+function openJoinFamily(){openModal(`${closeX()}<div class="modal-in"><h3>Join a family</h3><p class="m-sub">Paste the invite link someone shared with you. No code needed.</p><div class="field"><label>Invite link</label><input type="text" id="jf-link" placeholder="https://…?join=…"></div><div class="modal-err" id="jf-err"></div><div class="modal-actions"><button class="btn btn-ghost" onclick="closeModal()">Cancel</button><button class="btn btn-primary" id="jf-save" onclick="joinFamily()">Join</button></div></div>`);}
+async function joinFamily(){
+  const raw=$("jf-link").value.trim();
+  if(!raw){$("jf-err").textContent="Paste an invite link.";return;}
+  let token=raw;
+  try{token=new URL(raw).searchParams.get("join")||raw;}catch(e){/* not a full URL, treat as token */}
+  const btn=$("jf-save");btn.disabled=true;btn.textContent="Joining…";
+  const {data:fam}=await sb.from("families").select("id,name").eq("join_token",token).maybeSingle();
+  if(!fam){$("jf-err").textContent="That link or code isn't valid.";btn.disabled=false;btn.textContent="Join";return;}
+  const {error}=await sb.from("family_members").insert({family_id:fam.id,user_id:me.id,role:"member"});
+  if(error&&error.code==="23505"){$("jf-err").textContent="You're already in that family.";btn.disabled=false;btn.textContent="Join";return;}
+  if(error){$("jf-err").textContent=error.message;btn.disabled=false;btn.textContent="Join";return;}
+  closeModal();await loadAll();buildFamNav();toast(`Joined ${fam.name}`);openFamily(fam.id);
+}
+function copyLink(fid){const f=famById(fid);const url=joinUrl(f.join_token);navigator.clipboard?.writeText(url).then(()=>toast("Invite link copied")).catch(()=>toast("Select and copy the link",true));}
 
 /* ================= MODAL ================= */
 const modal=$("modal");
-function closeX(){ return `<button class="modal-close" onclick="closeModal()"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 6 6 18M6 6l12 12"/></svg></button>`; }
-function openModal(html){ modal.innerHTML=html; if(!modal.open)modal.showModal(); }
-function closeModal(){ modal.close(); }
-modal.addEventListener("click",e=>{ if(e.target===modal)modal.close(); });
+function closeX(){return `<button class="modal-close" onclick="closeModal()"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 6 6 18M6 6l12 12"/></svg></button>`;}
+function openModal(html){modal.innerHTML=html;if(!modal.open)modal.showModal();}
+function closeModal(){modal.close();}
+modal.addEventListener("click",e=>{if(e.target===modal)modal.close();});
 
 /* ================= BOOT ================= */
+function showJoinBannerIfAny(){
+  const token=new URLSearchParams(location.search).get("join")||sessionStorage.getItem("pendingJoin");
+  if(token){$("join-banner").style.display="block";$("join-banner").innerHTML=`You've been invited to a family. <b>Log in or sign up</b> to join.`;if(new URLSearchParams(location.search).get("join"))sessionStorage.setItem("pendingJoin",token);}
+}
 async function boot(){
   try{
     const {data:{session}}=await sb.auth.getSession();
-    if(!session){ $("boot").style.display="none"; $("login-view").style.display="grid"; $("app").style.display="none"; return; }
-    $("boot").style.display="flex"; $("login-view").style.display="none";
-    await loadAll(); subscribeRealtime();
-    $("boot").style.display="none"; $("app").style.display="block";
-    buildNav(); renderUserChip(); go("dashboard");
+    if(!session){$("boot").style.display="none";$("app").style.display="none";$("auth-view").style.display="grid";showJoinBannerIfAny();return;}
+    $("boot").style.display="flex";$("auth-view").style.display="none";
+    await loadAll();subscribeRealtime();
+    // finish any pending invite (logged in via a join link)
+    if(new URLSearchParams(location.search).get("join")){await handleJoinLink();}
+    else if(sessionStorage.getItem("pendingJoin")){const t=sessionStorage.getItem("pendingJoin");sessionStorage.removeItem("pendingJoin");history.replaceState({},"",location.pathname+"?join="+t);await handleJoinLink();}
+    $("boot").style.display="none";$("app").style.display="block";
+    renderUserChip();buildGlobalNav();buildFamNav();go("home");
   }catch(e){
-    $("boot").style.display="none";
-    if(String(e.message).includes("no-session")){ $("login-view").style.display="grid"; }
-    else{ $("login-view").style.display="grid"; $("auth-err").textContent=e.message; try{await sb.auth.signOut();}catch(_){} }
+    $("boot").style.display="none";$("auth-view").style.display="grid";
+    if(!String(e.message).includes("no-session")){$("auth-err").textContent=e.message;try{await sb.auth.signOut();}catch(_){}}
+    showJoinBannerIfAny();
   }
 }
 boot();
