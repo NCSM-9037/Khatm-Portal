@@ -458,8 +458,8 @@ const FAM_HUES=[258,35,160,300,82,20];
 const $=id=>document.getElementById(id);
 
 /* ================= STATE ================= */
-let me=null;                 // profile row {id,name,email}
-let families=[];             // [{id,name,role,join_token,hue,members:[],khatms:[]}]
+let me=null;
+let families=[];
 let state={view:"home",familyId:null,familyTab:"khatm",juzFilter:"all",juzSearch:"",query:""};
 let realtimeChan=null,reloadTimer=null;
 
@@ -526,7 +526,6 @@ async function handleJoinLink(){
   const {data:{user}}=await sb.auth.getUser();
   if(!user){sessionStorage.setItem("pendingJoin",token);return;}
   const {data:fam}=await sb.from("families").select("id,name").eq("join_token",token).maybeSingle();
-  // strip token from URL so refresh doesn't re-run
   history.replaceState({},"",location.pathname);
   if(!fam){toast("That invite link is invalid",true);return;}
   const {error}=await sb.from("family_members").insert({family_id:fam.id,user_id:user.id,role:"member"});
@@ -543,17 +542,14 @@ async function loadAll(){
   let {data:prof}=await sb.from("profiles").select("*").eq("id",user.id).maybeSingle();
   if(!prof)throw new Error("Profile not ready yet. If you just signed up, wait a moment and refresh.");
   me=prof;
-  // families I belong to, with my role, via the join table
   const {data:mm}=await sb.from("family_members").select("role,family_id,families(id,name,join_token)").eq("user_id",user.id);
   const famRows=(mm||[]).filter(r=>r.families).map(r=>({...r.families,role:r.role}));
   const famIds=famRows.map(f=>f.id);
-  // all members of those families
   let membersByFam={};
   if(famIds.length){
     const {data:allMembers}=await sb.from("family_members").select("family_id,role,profiles(id,name,email)").in("family_id",famIds);
     (allMembers||[]).forEach(r=>{if(!r.profiles)return;(membersByFam[r.family_id]=membersByFam[r.family_id]||[]).push({id:r.profiles.id,name:r.profiles.name,email:r.profiles.email,role:r.role});});
   }
-  // khatms + juz
   let khatmsByFam={},juzByKhatm={};
   if(famIds.length){
     const {data:khatms}=await sb.from("khatms").select("*").in("family_id",famIds).order("started_at",{ascending:false});
@@ -730,7 +726,6 @@ function onJuzClick(f,k,n){
   if(j.status==="reserved"){toast(`Juz ${n} is reserved by ${firstName(memberById(f,j.member_id)?.name)||"a member"}`);return;}
   if(j.status==="completed"){toast(`Juz ${n} completed by ${firstName(memberById(f,j.member_id)?.name)||"a member"}`);}
 }
-/* --- race-safe reserve: only succeeds if the juz is still available --- */
 async function reserveJuz(f,k,j){
   const {data,error}=await sb.from("juz")
     .update({status:"reserved",member_id:me.id,reserved_at:new Date().toISOString()})
@@ -774,9 +769,8 @@ async function createKhatm(fid){
   const btn=$("nk-save");btn.disabled=true;btn.textContent="Starting…";
   const cur=activeKhatm(f);
   if(cur)await sb.from("khatms").update({status:"archived",closed_at:new Date().toISOString()}).eq("id",cur.id);
-  const {data:k,error}=await sb.from("khatms").insert({family_id:fid,name,niyyah,created_by:me.id}).select().single();
+  const {data:k,error}=await sb.from("khatms").insert({family_id:fid,name,niyyah}).select().single();
   if(error){closeModal();toast(error.message,true);return;}
-  // seed 30 juz
   const rows=[];for(let n=1;n<=30;n++)rows.push({khatm_id:k.id,number:n,status:"available"});
   const {error:je}=await sb.from("juz").insert(rows);
   closeModal();
@@ -807,8 +801,8 @@ async function createFamily(){
   const name=$("cf-name").value.trim();
   if(!name){$("cf-err").textContent="Give your family a name.";return;}
   const btn=$("cf-save");btn.disabled=true;btn.textContent="Creating…";
-  // insert family; DB trigger seeds the admin family_members row
-  const {data:fam,error}=await sb.from("families").insert({name,created_by:me.id}).select().single();
+  // created_by is set by the database (default auth.uid()); do NOT send it from the client
+  const {data:fam,error}=await sb.from("families").insert({name}).select().single();
   if(error){$("cf-err").textContent=error.message;btn.disabled=false;btn.textContent="Create family";return;}
   await loadAll();buildFamNav();
   openCreatedFamily(fam.id);
@@ -819,7 +813,7 @@ async function joinFamily(){
   const raw=$("jf-link").value.trim();
   if(!raw){$("jf-err").textContent="Paste an invite link.";return;}
   let token=raw;
-  try{token=new URL(raw).searchParams.get("join")||raw;}catch(e){/* not a full URL, treat as token */}
+  try{token=new URL(raw).searchParams.get("join")||raw;}catch(e){}
   const btn=$("jf-save");btn.disabled=true;btn.textContent="Joining…";
   const {data:fam}=await sb.from("families").select("id,name").eq("join_token",token).maybeSingle();
   if(!fam){$("jf-err").textContent="That link or code isn't valid.";btn.disabled=false;btn.textContent="Join";return;}
@@ -848,7 +842,6 @@ async function boot(){
     if(!session){$("boot").style.display="none";$("app").style.display="none";$("auth-view").style.display="grid";showJoinBannerIfAny();return;}
     $("boot").style.display="flex";$("auth-view").style.display="none";
     await loadAll();subscribeRealtime();
-    // finish any pending invite (logged in via a join link)
     if(new URLSearchParams(location.search).get("join")){await handleJoinLink();}
     else if(sessionStorage.getItem("pendingJoin")){const t=sessionStorage.getItem("pendingJoin");sessionStorage.removeItem("pendingJoin");history.replaceState({},"",location.pathname+"?join="+t);await handleJoinLink();}
     $("boot").style.display="none";$("app").style.display="block";
