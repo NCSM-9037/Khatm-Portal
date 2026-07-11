@@ -233,7 +233,7 @@ input,select,textarea{font-family:inherit;font-size:1rem}
 .jc-item.accent b{color:var(--gold-deep)}
 .search-box{position:relative;width:100%;max-width:340px}
 .search-box svg{position:absolute;left:13px;top:50%;transform:translateY(-50%);width:16px;height:16px;color:var(--ink-faint)}
-.search-box input{width:100%;padding:10px 13px 10px 38px;border:1.5px solid var(--border-strong);border-radius:11px;background:var(--surface);color:var(--ink);direction:ltr;text-align:left}
+.search-box input{width:100%;padding:10px 13px 10px 38px;border:1.5px solid var(--border-strong);border-radius:11px;background:var(--surface);color:var(--ink);direction:ltr;text-align:left;font-family:var(--font-sans)}
 .search-box input:focus{outline:none;border-color:var(--lapis);box-shadow:0 0 0 3px var(--lapis-soft)}
 .sec-head{display:flex;align-items:center;justify-content:space-between;margin:var(--space-2xl) 0 var(--space-md);gap:var(--space-md)}
 .sec-head h3{font-family:var(--font-display);font-size:1.3rem;color:var(--ink);font-weight:600}
@@ -599,7 +599,7 @@ function topbar(title,sub,actions){return `<div class="topbar"><div><h1 class="p
 /* ================= HOME ================= */
 function renderHome(){
   const el=$("view-home");const ps=personalStats();
-  const searchBox=`<div class="search-box"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg><input type="text" id="home-search" placeholder="Search families and khatms…"></div>`;
+  const searchBox=`<div class="search-box"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg><input type="text" id="home-search" dir="ltr" placeholder="Search families and khatms…"></div>`;
   el.innerHTML=`${topbar("My Dashboard",greeting(),searchBox)}
     ${journeyPanel(ps)}
     <div class="sec-head" style="display:flex; justify-content:space-between; align-items:flex-end;"><div><h3>My Families</h3><span class="sec-cnt">${ps.famCount} ${ps.famCount===1?"family":"families"}</span></div><div style="display:flex; gap:8px;"><button class="btn btn-primary btn-sm" onclick="openCreateFamily()" style="padding:0 10px">＋ Create</button><button class="btn btn-ghost btn-sm" onclick="openJoinFamily()" style="padding:0 10px">Join</button></div></div>
@@ -639,7 +639,7 @@ function emptyFamilies(){return `<div class="panel empty"><svg viewBox="0 0 24 2
 /* ================= SEARCH ================= */
 function renderSearch(){
   const el=$("view-search");const q=(state.query||"").trim().toLowerCase();
-  const searchBox=`<div class="search-box"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg><input type="text" id="search-input" placeholder="Search families and khatms…" value="${esc(state.query||"")}"></div>`;
+  const searchBox=`<div class="search-box"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg><input type="text" id="search-input" dir="ltr" placeholder="Search families and khatms…" value="${esc(state.query||"")}"></div>`;
   const famMatches=families.filter(f=>!q||f.name.toLowerCase().includes(q));
   const khatmMatches=[];families.forEach(f=>f.khatms.forEach(k=>{if(!q||(k.name||"").toLowerCase().includes(q))khatmMatches.push({f,k});}));
   let body="";
@@ -697,7 +697,7 @@ function renderKhatmTab(f,body,isAdmin){
       </div>
     </div>
     <div class="toolbar">
-      <div class="search-box"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg><input type="text" id="juz-search" placeholder="Search juz number or member…" value="${esc(state.juzSearch||"")}"></div>
+      <div class="search-box"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg><input type="text" id="juz-search" dir="ltr" placeholder="Search juz number or member…" value="${esc(state.juzSearch||"")}"></div>
       <div class="filter-tabs">${["all","available","reserved","completed"].map(fl=>{const cnt=fl==="all"?30:s[fl];return `<button class="filter-tab ${state.juzFilter===fl?"active":""}" data-f="${fl}">${fl[0].toUpperCase()+fl.slice(1)}<span class="cnt">${cnt}</span></button>`;}).join("")}</div>
     </div>
     <div class="juz-grid" id="juz-grid"></div>`;
