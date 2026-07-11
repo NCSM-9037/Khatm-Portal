@@ -795,8 +795,23 @@ function shareWhatsApp(fid, kid) {
 }
 function renderMembersTab(f,body,isAdmin){
   const cards=f.members.map(u=>{let completed=0,reserved=0;f.khatms.forEach(k=>k.juz.forEach(j=>{if(j.member_id===u.id){if(j.status==="completed")completed++;if(j.status==="reserved")reserved++;}}));
-    return `<div class="member-card"><div class="mc-head">${avatar(u)}<div><div class="mc-name">${esc(u.name)}${u.id===me.id?" (you)":""}</div><span class="mc-role ${u.role==="admin"?"role-admin":"role-member"}">${u.role}</span></div></div><div class="mc-stats"><div><b>${completed}</b><span>Completed</span></div><div><b>${reserved}</b><span>Reserved</span></div></div></div>`;}).join("");
+    const roleAction = (isAdmin && u.id !== me.id) ? `<button class="btn btn-ghost btn-sm" style="margin-left:auto" onclick="toggleRole('${f.id}','${u.id}','${u.role === 'admin' ? 'member' : 'admin'}')">${u.role === 'admin' ? 'Demote to Member' : 'Make Admin'}</button>` : '';
+    return `<div class="member-card"><div class="mc-head">${avatar(u)}<div style="flex:1"><div class="mc-name">${esc(u.name)}${u.id===me.id?" (you)":""}</div><span class="mc-role ${u.role==="admin"?"role-admin":"role-member"}">${u.role}</span></div>${roleAction}</div><div class="mc-stats"><div><b>${completed}</b><span>Completed</span></div><div><b>${reserved}</b><span>Reserved</span></div></div></div>`;}).join("");
   body.innerHTML=`<div class="admin-bar"><button class="btn btn-gold btn-sm" onclick="copyLink('${f.id}')">Copy invite link</button>${isAdmin?`<button class="btn btn-primary btn-sm" onclick="openAddMemberModal('${f.id}')">＋ Add Member</button>`:""}</div><div class="member-grid">${cards}</div>`;
+}
+async function toggleRole(fid, uid, newRole) {
+  if (!confirm(`Are you sure you want to change this member's role to ${newRole}?`)) return;
+  const { error } = await sb.from("family_members").update({ role: newRole }).eq("family_id", fid).eq("user_id", uid);
+  if (error) {
+    if (String(error.message).includes("row-level security")) {
+      alert("Permission denied: You must run the SQL query in Supabase to allow Admins to update roles!");
+    } else {
+      alert("Error: " + error.message);
+    }
+    return;
+  }
+  toast(`Role updated to ${newRole}!`);
+  await refresh();
 }
 function openAddMemberModal(fid) {
   openModal(`${closeX()}<div class="modal-in"><h3>Add Member manually</h3><p class="m-sub">Create an account for them if they don't have one, and add them instantly.</p>
