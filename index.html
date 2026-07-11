@@ -83,11 +83,10 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Family Qur'an Khatm Portal</title>
-<link rel="icon" href="your-logo.png">
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Amiri:ital,wght@0,400;0,700;1,400&family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700&family=Noto+Sans+Malayalam:wght@400;500;600;700&family=Noto+Serif+Malayalam:wght@500;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Amiri:ital,wght@0,400;0,700;1,400&family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700&display=swap" rel="stylesheet">
 <style>
 :root{
   --parchment: oklch(97.2% 0.012 85);
@@ -328,9 +327,12 @@ input,select{font-family:inherit;font-size:1rem}
 .mc-stats div b{font-family:var(--font-display);font-size:1.25rem;display:block;color:var(--ink);font-weight:600}
 .mc-stats div span{color:var(--ink-faint)}
 .mc-actions{display:flex;gap:8px;margin-top:auto;padding-top:var(--space-sm)}
+.admin-actions{display:flex;gap:var(--space-md);flex-wrap:wrap;margin-bottom:var(--space-lg)}
 .invite-box{background:var(--whatsapp-soft);border:1px solid oklch(85% 0.06 150);border-radius:13px;padding:var(--space-lg) var(--space-xl);margin-bottom:var(--space-lg);display:flex;align-items:center;gap:var(--space-md);flex-wrap:wrap}
 .invite-box .ib-txt{font-size:0.88rem;color:oklch(38% 0.08 150);flex:1;min-width:180px}
 .invite-box code{background:var(--surface);padding:4px 10px;border-radius:7px;font-size:0.85rem;font-weight:600;color:var(--ink);border:1px solid oklch(85% 0.06 150);user-select:all;cursor:pointer}
+.cred-note{background:var(--gold-soft);border:1px solid oklch(84% 0.06 85);border-radius:11px;padding:var(--space-md) var(--space-lg);font-size:0.85rem;color:oklch(38% 0.05 75);margin-bottom:var(--space-lg);line-height:1.5}
+.cred-note b{color:oklch(30% 0.06 60)}
 dialog{border:none;border-radius:18px;padding:0;max-width:440px;width:calc(100% - 32px);box-shadow:var(--shadow-lg);background:var(--surface);color:var(--ink)}
 dialog::backdrop{background:oklch(30% 0.04 260 / 0.45);backdrop-filter:blur(2px)}
 .modal-in{padding:var(--space-2xl)}
@@ -339,6 +341,7 @@ dialog::backdrop{background:oklch(30% 0.04 260 / 0.45);backdrop-filter:blur(2px)
 .modal-in .field textarea{width:100%;padding:12px 14px;border:1.5px solid var(--border-strong);border-radius:11px;background:var(--parchment);font-family:var(--font-body);resize:vertical;min-height:70px;color:var(--ink)}
 .modal-in .field textarea:focus,.modal-in .field select:focus,.modal-in .field input:focus{outline:none;border-color:var(--lapis);box-shadow:0 0 0 3px var(--lapis-soft)}
 .modal-in .field select,.modal-in .field input{width:100%;padding:11px 14px;border:1.5px solid var(--border-strong);border-radius:11px;background:var(--parchment);color:var(--ink)}
+.modal-err{color:var(--terracotta);font-size:0.84rem;min-height:1.1em;margin-top:-4px;margin-bottom:8px}
 .share-preview{background:var(--parchment);border:1px solid var(--border);border-radius:12px;padding:var(--space-lg);font-size:0.88rem;color:var(--ink-soft);white-space:pre-wrap;line-height:1.6;max-height:220px;overflow:auto;margin-bottom:var(--space-lg)}
 .modal-actions{display:flex;gap:var(--space-md);margin-top:var(--space-xl)}
 .modal-actions .btn{flex:1}
@@ -434,6 +437,8 @@ dialog::backdrop{background:oklch(30% 0.04 260 / 0.45);backdrop-filter:blur(2px)
 const SUPABASE_URL = "https://venjpgagaxgukdvvkodp.supabase.co";
 const SUPABASE_KEY = "sb_publishable_U8f0Mh_-TUbkYqr1wnvRwg_OKKCP4eS";
 const sb = window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
+/* Secondary client used ONLY to create member accounts without touching the admin's session */
+const sbSignup = window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY, { auth:{ persistSession:false, autoRefreshToken:false, storageKey:"khatm-signup-tmp" } });
 
 const GREETING_AR = "السَّلامُ عَلَيْكُم";
 const JUZ_NAMES = ["الم","سيقول","تلك الرسل","لن تنالوا","والمحصنات","لا يحب الله","وإذا سمعوا","ولو أننا","قال الملأ","واعلموا","يعتذرون","وما من دابة","وما أبرئ","ربما","سبحان الذي","قال ألم","اقترب للناس","قد أفلح","وقال الذين","أمن خلق","اتل ما أوحي","ومن يقنت","وما لي","فمن أظلم","إليه يرد","حم","قال فما خطبكم","قد سمع الله","تبارك الذي","عم يتساءلون"];
@@ -458,15 +463,16 @@ function greeting(){ return `<span class="greet-ar">${GREETING_AR}</span>, ${fir
 function timeAgo(ts){ const d=Date.now()-new Date(ts).getTime(),day=864e5,hr=36e5; if(d<hr)return Math.max(1,Math.round(d/6e4))+"m ago"; if(d<day)return Math.round(d/hr)+"h ago"; const days=Math.round(d/day); if(days===1)return"yesterday"; if(days<30)return days+"d ago"; return new Date(ts).toLocaleDateString("en-GB",{day:"numeric",month:"short"});}
 function fmtDate(ts){ return new Date(ts).toLocaleDateString("en-GB",{day:"numeric",month:"short",year:"numeric"});}
 function khatmStats(k){ const j=k.juz||[]; const completed=j.filter(x=>x.status==="completed").length,reserved=j.filter(x=>x.status==="reserved").length,available=j.filter(x=>x.status==="available").length; return {completed,reserved,available,remaining:30-completed,pct:Math.round(completed/30*100)};}
+function esc(s){ return String(s).replace(/[&<>]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;'}[c])); }
 
-function toast(msg,err){ const el=document.createElement("div"); el.className="toast"+(err?" err":""); el.innerHTML=`<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">${err?'<circle cx="12" cy="12" r="10"/><path d="M12 8v4M12 16h.01"/>':'<polyline points="20 6 9 17 4 12"/>'}</svg><span>${msg}</span>`; $("toasts").appendChild(el); setTimeout(()=>{el.style.transition="opacity .3s,transform .3s";el.style.opacity="0";el.style.transform="translateY(10px)";setTimeout(()=>el.remove(),300)},err?3800:2600);}
+function toast(msg,err){ const el=document.createElement("div"); el.className="toast"+(err?" err":""); el.innerHTML=`<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">${err?'<circle cx="12" cy="12" r="10"/><path d="M12 8v4M12 16h.01"/>':'<polyline points="20 6 9 17 4 12"/>'}</svg><span>${msg}</span>`; $("toasts").appendChild(el); setTimeout(()=>{el.style.transition="opacity .3s,transform .3s";el.style.opacity="0";el.style.transform="translateY(10px)";setTimeout(()=>el.remove(),300)},err?4200:2600);}
 
 /* ================= WHATSAPP SHARE ================= */
 function openWhatsApp(text){ window.open("https://wa.me/?text="+encodeURIComponent(text),"_blank"); }
 function progressMessage(){ const k=activeKhatm(); const url=location.href.split("#")[0]; if(!k) return `📖 ${family?family.name:"Our family"} Khatm Portal\n\nNo active khatm right now.\n${url}`; const s=khatmStats(k); const bars=Math.round(s.pct/10); const bar="🟩".repeat(bars)+"⬜".repeat(10-bars); const pending=k.juz.filter(j=>j.status!=="completed").map(j=>j.number); let msg=`📖 *${k.name}*\n${family?family.name:""}\n\n${bar} ${s.pct}%\n✅ Completed: ${s.completed}/30\n⏳ Reserved: ${s.reserved}\n⬜ Remaining: ${s.remaining}\n`; if(k.niyyah) msg+=`\n🤲 Niyyah: ${k.niyyah}\n`; if(pending.length && pending.length<=30) msg+=`\nJuz still remaining: ${pending.join(", ")}\n`; msg+=`\nPick your juz here:\n${url}`; return msg; }
 function inviteMessage(){ const url=location.href.split("#")[0]; return `📖 *${family?family.name:"Our family"} Qur'an Khatm Portal*\n\nJoin our family khatm. Open the link below, choose *Sign up → Join a family*, and paste this code:\n\n🔑 ${profile?profile.family_id:""}\n\n${url}`; }
-function shareProgress(){ const msg=progressMessage(); openModal(`${closeX()}<div class="modal-in"><h3>Share to WhatsApp</h3><p class="m-sub">This message will open in WhatsApp. Pick your family group to post it.</p><div class="share-preview">${msg.replace(/[&<>]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;'}[c]))}</div><div class="modal-actions"><button class="btn btn-ghost" onclick="closeModal()">Cancel</button><button class="btn btn-wa" onclick="closeModal();openWhatsApp(progressMessage())">${WA_ICON}Open WhatsApp</button></div></div>`); }
-function shareInvite(){ const msg=inviteMessage(); openModal(`${closeX()}<div class="modal-in"><h3>Invite family on WhatsApp</h3><p class="m-sub">Sends the join link + family code. They pick "Join a family" and paste the code.</p><div class="share-preview">${msg.replace(/[&<>]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;'}[c]))}</div><div class="modal-actions"><button class="btn btn-ghost" onclick="closeModal()">Cancel</button><button class="btn btn-wa" onclick="closeModal();openWhatsApp(inviteMessage())">${WA_ICON}Open WhatsApp</button></div></div>`); }
+function shareProgress(){ const msg=progressMessage(); openModal(`${closeX()}<div class="modal-in"><h3>Share to WhatsApp</h3><p class="m-sub">This message will open in WhatsApp. Pick your family group to post it.</p><div class="share-preview">${esc(msg)}</div><div class="modal-actions"><button class="btn btn-ghost" onclick="closeModal()">Cancel</button><button class="btn btn-wa" onclick="closeModal();openWhatsApp(progressMessage())">${WA_ICON}Open WhatsApp</button></div></div>`); }
+function shareInvite(){ const msg=inviteMessage(); openModal(`${closeX()}<div class="modal-in"><h3>Invite family on WhatsApp</h3><p class="m-sub">Sends the join link + family code. They pick "Join a family" and paste the code.</p><div class="share-preview">${esc(msg)}</div><div class="modal-actions"><button class="btn btn-ghost" onclick="closeModal()">Cancel</button><button class="btn btn-wa" onclick="closeModal();openWhatsApp(inviteMessage())">${WA_ICON}Open WhatsApp</button></div></div>`); }
 
 /* ================= AUTH UI ================= */
 let signupMode="new";
@@ -506,7 +512,7 @@ async function loadAll(){
   const {data:act}=await sb.from("activity").select("*").eq("family_id",profile.family_id).order("created_at",{ascending:false}).limit(40);
   state.activity=(act||[]).map(a=>({id:a.id,ts:a.created_at,text:a.text,type:a.type}));
 }
-function subscribeRealtime(){ if(realtimeChan) sb.removeChannel(realtimeChan); realtimeChan=sb.channel("family-"+profile.family_id).on("postgres_changes",{event:"*",schema:"public",table:"juz"},debouncedReload).on("postgres_changes",{event:"*",schema:"public",table:"khatms"},debouncedReload).on("postgres_changes",{event:"*",schema:"public",table:"activity"},debouncedReload).subscribe(); }
+function subscribeRealtime(){ if(realtimeChan) sb.removeChannel(realtimeChan); realtimeChan=sb.channel("family-"+profile.family_id).on("postgres_changes",{event:"*",schema:"public",table:"juz"},debouncedReload).on("postgres_changes",{event:"*",schema:"public",table:"khatms"},debouncedReload).on("postgres_changes",{event:"*",schema:"public",table:"activity"},debouncedReload).on("postgres_changes",{event:"*",schema:"public",table:"profiles"},debouncedReload).subscribe(); }
 let reloadTimer=null;
 function debouncedReload(){ clearTimeout(reloadTimer); reloadTimer=setTimeout(async()=>{ try{ await loadAll(); render(); }catch(e){} },400); }
 
@@ -520,6 +526,26 @@ async function createKhatm(){ const name=$("nk-name").value.trim()||"New Family 
 async function closeKhatm(){ const k=activeKhatm(); const {error}=await sb.from("khatms").update({status:"archived",closed_at:new Date().toISOString()}).eq("id",k.id); if(error){closeModal();return toast(error.message,true);} await logActivity(`**${profile.name}** closed & archived **${k.name}**`,"start",k.id); closeModal(); toast("Khatm archived"); await refresh(); go("history"); }
 async function saveMember(id){ const name=$("m-name").value.trim(); const role=$("m-role").value; if(!name){return toast("Name is required",true);} const {error}=await sb.from("profiles").update({name,role}).eq("id",id); if(error){closeModal();return toast(error.message,true);} closeModal(); toast(`${firstName(name)} updated`); await refresh(); if(id===profile.id){renderUserChip();buildNav();} }
 async function doRemoveMember(id){ const ids=[]; state.khatms.forEach(k=>k.juz.forEach(j=>{if(j.memberId===id&&j.status==="reserved")ids.push(j._id);})); for(const jid of ids){await sb.from("juz").update({status:"available",member_id:null,reserved_at:null}).eq("id",jid);} const {error}=await sb.from("profiles").delete().eq("id",id); if(error){closeModal();return toast(error.message,true);} closeModal(); toast("Member removed from family"); await refresh(); }
+
+/* Admin creates a member account directly (email + password) using the secondary client,
+   so the admin's own session is never disturbed. The DB trigger builds the profile
+   from the metadata (family_id + role). */
+async function createMemberAccount(){
+  const name=$("am-name").value.trim(), email=$("am-email").value.trim(), password=$("am-pass").value, role=$("am-role").value;
+  const err=$("am-err"); err.textContent="";
+  if(!name||!email||!password){ err.textContent="Fill in name, email and password."; return; }
+  if(password.length<6){ err.textContent="Password must be at least 6 characters."; return; }
+  const btn=$("am-save"); btn.disabled=true; btn.textContent="Creating…";
+  const {data,error}=await sbSignup.auth.signUp({ email, password, options:{ data:{ name, family_id:profile.family_id, role } } });
+  await sbSignup.auth.signOut();
+  btn.disabled=false; btn.textContent="Create member";
+  if(error){ err.textContent=error.message; return; }
+  await logActivity(`**${profile.name}** added **${name}** to the family`,"start");
+  closeModal();
+  toast(`${firstName(name)} added. Share their email + password so they can log in.`);
+  setTimeout(refresh,900); // give the trigger a moment
+}
+
 async function refresh(){ try{ await loadAll(); render(); }catch(e){ toast("Couldn't refresh",true); } }
 
 /* ================= NAV / SHELL ================= */
@@ -551,7 +577,7 @@ function renderDashboard(){
   const feedItems=state.activity.slice(0,6).map(feedRow).join("")||`<p style="color:var(--ink-faint);font-size:.88rem">No activity yet.</p>`;
   el.innerHTML=`${topbar("Dashboard",greeting(),waButton("shareProgress()","Share progress"))}
     ${myReserved.length&&!isAdmin()?`<div class="reminder"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg><span class="r-txt">You have <b>${myReserved.length} juz reserved</b> not yet completed: Juz ${myReserved.map(j=>j.number).join(", ")}.</span><button onclick="go('khatm')">Go recite →</button></div>`:""}
-    <div class="niyyah"><div class="n-ar">وَأَنْ لَيْسَ لِلْإِنْسَانِ إِلَّا مَا سَعَىٰ</div><div class="n-label">Niyyah · Intention</div><div class="n-text">${k.niyyah||""}</div><div class="n-meta"><span>📖 ${k.name}</span><span>Started ${fmtDate(k.startedAt)}</span></div></div>
+    <div class="niyyah"><div class="n-ar">وَأَنْ لَيْسَ لِلْإِنْسَانِ إِلَّا مَا سَعَىٰ</div><div class="n-label">Niyyah · Intention</div><div class="n-text">${esc(k.niyyah||"")}</div><div class="n-meta"><span>📖 ${esc(k.name)}</span><span>Started ${fmtDate(k.startedAt)}</span></div></div>
     <div class="dash-top">
       <div class="progress-panel">
         <div class="ring-wrap"><svg width="140" height="140"><circle cx="70" cy="70" r="${R}" fill="none" stroke="var(--parchment-2)" stroke-width="13"/><circle cx="70" cy="70" r="${R}" fill="none" stroke="var(--lapis)" stroke-width="13" stroke-linecap="round" stroke-dasharray="${C}" stroke-dashoffset="${C}" style="transition:stroke-dashoffset 1s var(--ease-out-expo)" class="ring-fill"/></svg><div class="ring-center"><div class="ring-pct">${s.pct}<span style="font-size:1.1rem">%</span></div><div class="ring-label">Khatm progress</div></div></div>
@@ -582,9 +608,9 @@ function renderKhatm(){
   if(!k){ el.innerHTML=`${topbar("Current Khatm","")}<div class="panel empty"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="10"/><path d="M12 8v4M12 16h.01"/></svg><h4>No active khatm</h4><p>${isAdmin()?"Start one to open the 30 juz for the family.":"Nothing to recite yet, InshaAllah soon."}</p>${isAdmin()?`<div style="margin-top:16px"><button class="btn btn-primary" onclick="openNewKhatm()">Start new khatm</button></div>`:""}</div>`; return; }
   const s=khatmStats(k);
   const adminBar=isAdmin()?`<div class="admin-bar"><button class="btn btn-ghost btn-sm" onclick="openNewKhatm()">＋ New khatm</button><button class="btn btn-danger btn-sm" onclick="confirmClose()">Close & archive this khatm</button></div>`:"";
-  el.innerHTML=`${topbar(k.name,`${s.completed} of 30 juz complete · ${s.pct}%`,waButton("shareProgress()","Share progress"))}${adminBar}
+  el.innerHTML=`${topbar(esc(k.name),`${s.completed} of 30 juz complete · ${s.pct}%`,waButton("shareProgress()","Share progress"))}${adminBar}
     <div class="toolbar">
-      <div class="search-box"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg><input type="text" id="juz-search" placeholder="Search juz number or member…" value="${state.juzSearch||""}"></div>
+      <div class="search-box"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg><input type="text" id="juz-search" placeholder="Search juz number or member…" value="${esc(state.juzSearch||"")}"></div>
       <div class="filter-tabs">${["all","available","reserved","completed"].map(f=>{const cnt=f==="all"?30:s[f];return `<button class="filter-tab ${state.juzFilter===f?"active":""}" data-f="${f}">${f[0].toUpperCase()+f.slice(1)}<span class="cnt">${cnt}</span></button>`;}).join("")}</div>
     </div>
     <div class="juz-grid" id="juz-grid"></div>`;
@@ -606,15 +632,15 @@ function drawJuz(k){
 }
 function onJuzClick(n){ const k=activeKhatm(); const j=k.juz.find(x=>x.number===n); if(isAdmin()){openJuzAdmin(n);return;} if(j.status==="available"){reserveJuz(n);return;} if(j.status==="reserved"&&j.memberId===profile.id){openMemberJuz(n);return;} if(j.status==="reserved"){toast(`Juz ${n} is reserved by ${firstName(userById(j.memberId)?.name)||"a member"}`);return;} if(j.status==="completed"){toast(`Juz ${n} completed by ${firstName(userById(j.memberId)?.name)||"a member"}`);} }
 function openMemberJuz(n){ openModal(`${closeX()}<div class="modal-in"><h3>Juz ${n}</h3><p class="m-sub"><span class="bismillah" style="font-size:1.1rem">${JUZ_NAMES[n-1]}</span> · Reserved by you</p><p style="font-size:.92rem;color:var(--ink-soft);margin-bottom:4px">Finished reciting? Mark it completed, or release it for someone else.</p><div class="modal-actions"><button class="btn btn-ghost" onclick="releaseJuz(${n})">Release</button><button class="btn btn-primary" onclick="completeJuz(${n})">Mark completed</button></div></div>`); }
-function openJuzAdmin(n){ const k=activeKhatm(); const j=k.juz.find(x=>x.number===n); const opts=state.users.map(u=>`<option value="${u.id}" ${j.memberId===u.id?"selected":""}>${u.name}${u.role==="admin"?" (Admin)":""}</option>`).join(""); openModal(`${closeX()}<div class="modal-in"><h3>Manage Juz ${n}</h3><p class="m-sub"><span class="bismillah" style="font-size:1.1rem">${JUZ_NAMES[n-1]}</span> · Status: ${j.status}</p><div class="field"><label>Allot to member</label><select id="allot-sel"><option value="">— Leave available —</option>${opts}</select></div><div class="field"><label>Set status</label><select id="allot-status"><option value="available" ${j.status==="available"?"selected":""}>Available</option><option value="reserved" ${j.status==="reserved"?"selected":""}>Reserved</option><option value="completed" ${j.status==="completed"?"selected":""}>Completed</option></select></div><div class="modal-actions"><button class="btn btn-ghost" onclick="closeModal()">Cancel</button><button class="btn btn-primary" onclick="applyAllot(${n})">Save</button></div></div>`); }
+function openJuzAdmin(n){ const k=activeKhatm(); const j=k.juz.find(x=>x.number===n); const opts=state.users.map(u=>`<option value="${u.id}" ${j.memberId===u.id?"selected":""}>${esc(u.name)}${u.role==="admin"?" (Admin)":""}</option>`).join(""); openModal(`${closeX()}<div class="modal-in"><h3>Manage Juz ${n}</h3><p class="m-sub"><span class="bismillah" style="font-size:1.1rem">${JUZ_NAMES[n-1]}</span> · Status: ${j.status}</p><div class="field"><label>Allot to member</label><select id="allot-sel"><option value="">— Leave available —</option>${opts}</select></div><div class="field"><label>Set status</label><select id="allot-status"><option value="available" ${j.status==="available"?"selected":""}>Available</option><option value="reserved" ${j.status==="reserved"?"selected":""}>Reserved</option><option value="completed" ${j.status==="completed"?"selected":""}>Completed</option></select></div><div class="modal-actions"><button class="btn btn-ghost" onclick="closeModal()">Cancel</button><button class="btn btn-primary" onclick="applyAllot(${n})">Save</button></div></div>`); }
 function openNewKhatm(){ const cur=activeKhatm(); openModal(`${closeX()}<div class="modal-in"><h3>Start a new khatm</h3><p class="m-sub">All 30 juz open fresh for the family.${cur?" The current active khatm will be archived first.":""}</p><div class="field"><label>Khatm name</label><input type="text" id="nk-name" placeholder="e.g. Ramadan Khatm 1448"></div><div class="field"><label>Niyyah · Intention</label><textarea id="nk-niyyah" placeholder="For whom, and with what intention..."></textarea></div><div class="modal-actions"><button class="btn btn-ghost" onclick="closeModal()">Cancel</button><button class="btn btn-primary" onclick="createKhatm()">Begin khatm</button></div></div>`); }
-function confirmClose(){ const k=activeKhatm(); const s=khatmStats(k); openModal(`${closeX()}<div class="modal-in"><h3>Close & archive?</h3><p class="m-sub">"${k.name}" is at ${s.pct}% (${s.completed}/30 juz). Once archived it moves to History.</p><div class="modal-actions"><button class="btn btn-ghost" onclick="closeModal()">Not yet</button><button class="btn btn-danger" onclick="closeKhatm()">Archive it</button></div></div>`); }
+function confirmClose(){ const k=activeKhatm(); const s=khatmStats(k); openModal(`${closeX()}<div class="modal-in"><h3>Close & archive?</h3><p class="m-sub">"${esc(k.name)}" is at ${s.pct}% (${s.completed}/30 juz). Once archived it moves to History.</p><div class="modal-actions"><button class="btn btn-ghost" onclick="closeModal()">Not yet</button><button class="btn btn-danger" onclick="closeKhatm()">Archive it</button></div></div>`); }
 
 /* ================= HISTORY ================= */
 function renderHistory(){
   const el=$("view-history");
   const rows=state.khatms.map(k=>{ const s=khatmStats(k); const badge=k.status==="active"?`<span class="kr-badge badge-active">Active</span>`:`<span class="kr-badge badge-archived">Archived</span>`;
-    return `<div class="khatm-row"><div><div class="kr-title">${k.name} ${badge}</div><div class="kr-niyyah">${k.niyyah||""}</div><div class="kr-meta"><span>Started <b>${fmtDate(k.startedAt)}</b></span>${k.closedAt?`<span>Closed <b>${fmtDate(k.closedAt)}</b></span>`:""}<span><b>${s.completed}</b>/30 juz</span><span class="wa-mini" onclick="shareKhatm('${k.id}')">${WA_ICON}Share</span></div></div><div class="kr-right"><div class="kr-pct">${s.pct}%</div><div class="kr-pct-lbl">Complete</div></div></div>`; }).join("");
+    return `<div class="khatm-row"><div><div class="kr-title">${esc(k.name)} ${badge}</div><div class="kr-niyyah">${esc(k.niyyah||"")}</div><div class="kr-meta"><span>Started <b>${fmtDate(k.startedAt)}</b></span>${k.closedAt?`<span>Closed <b>${fmtDate(k.closedAt)}</b></span>`:""}<span><b>${s.completed}</b>/30 juz</span><span class="wa-mini" onclick="shareKhatm('${k.id}')">${WA_ICON}Share</span></div></div><div class="kr-right"><div class="kr-pct">${s.pct}%</div><div class="kr-pct-lbl">Complete</div></div></div>`; }).join("");
   el.innerHTML=`${topbar("Khatm History","All your family khatms")}${state.khatms.length?`<div class="khatm-list">${rows}</div>`:`<div class="panel empty"><h4>No khatms yet</h4></div>`}`;
 }
 function shareKhatm(id){ const k=state.khatms.find(x=>x.id===id); if(!k)return; const s=khatmStats(k); const url=location.href.split("#")[0]; const bars=Math.round(s.pct/10); const bar="🟩".repeat(bars)+"⬜".repeat(10-bars); let msg=`📖 *${k.name}*\n${family?family.name:""}\n\n${bar} ${s.pct}%\n✅ ${s.completed}/30 juz completed\n`; if(k.niyyah)msg+=`\n🤲 ${k.niyyah}\n`; msg+=`\n${url}`; openWhatsApp(msg); }
@@ -624,13 +650,22 @@ function renderMembers(){
   const el=$("view-members");
   if(!isAdmin()){ el.innerHTML=topbar("Members","")+`<div class="panel empty"><h4>Admins only</h4></div>`; return; }
   const cards=state.users.map(u=>{ let completed=0,reserved=0; state.khatms.forEach(k=>k.juz.forEach(j=>{if(j.memberId===u.id){if(j.status==="completed")completed++;if(j.status==="reserved")reserved++;}}));
-    return `<div class="member-card"><div class="mc-head">${avatar(u)}<div><div class="mc-name">${u.name}</div><div class="mc-user">${u.role==="admin"?"Administrator":"Family member"}</div></div></div><span class="mc-role ${u.role==="admin"?"role-admin":"role-member"}">${u.role}</span><div class="mc-stats"><div><b>${completed}</b><span>Completed</span></div><div><b>${reserved}</b><span>Reserved</span></div></div><div class="mc-actions"><button class="btn btn-ghost btn-sm" onclick="openMember('${u.id}')">Edit</button>${u.id!==profile.id?`<button class="btn btn-danger btn-sm" onclick="removeMember('${u.id}')">Remove</button>`:""}</div></div>`; }).join("");
-  el.innerHTML=`${topbar("Family Members","Manage your family members",waButton("shareInvite()","Invite on WhatsApp"))}
-    <div class="invite-box">${WA_ICON.replace('viewBox','width="20" height="20" style="color:var(--whatsapp-deep);flex-shrink:0" viewBox')}<span class="ib-txt">Invite family: send them the WhatsApp invite, or share this <b>family code</b> to paste under "Join a family"</span><code onclick="copyCode()">${profile.family_id}</code><button class="btn btn-wa btn-sm" onclick="shareInvite()">${WA_ICON}Send invite</button></div>
+    return `<div class="member-card"><div class="mc-head">${avatar(u)}<div><div class="mc-name">${esc(u.name)}</div><div class="mc-user">${u.role==="admin"?"Administrator":"Family member"}</div></div></div><span class="mc-role ${u.role==="admin"?"role-admin":"role-member"}">${u.role}</span><div class="mc-stats"><div><b>${completed}</b><span>Completed</span></div><div><b>${reserved}</b><span>Reserved</span></div></div><div class="mc-actions"><button class="btn btn-ghost btn-sm" onclick="openMember('${u.id}')">Edit</button>${u.id!==profile.id?`<button class="btn btn-danger btn-sm" onclick="removeMember('${u.id}')">Remove</button>`:""}</div></div>`; }).join("");
+  el.innerHTML=`${topbar("Family Members","Manage your family members")}
+    <div class="admin-actions"><button class="btn btn-primary btn-sm" onclick="openAddMember()">＋ Add member (email + password)</button>${waButton("shareInvite()","Invite on WhatsApp")}</div>
+    <div class="invite-box">${WA_ICON.replace('viewBox','width="20" height="20" style="color:var(--whatsapp-deep);flex-shrink:0" viewBox')}<span class="ib-txt">Family can also join themselves: send the WhatsApp invite, or share this <b>family code</b> to paste under "Join a family"</span><code onclick="copyCode()">${profile.family_id}</code><button class="btn btn-wa btn-sm" onclick="shareInvite()">${WA_ICON}Send invite</button></div>
     <div class="member-grid">${cards}</div>`;
 }
 function copyCode(){ navigator.clipboard?.writeText(profile.family_id).then(()=>toast("Family code copied")).catch(()=>toast("Select and copy the code",true)); }
-function openMember(id){ const u=userById(id); openModal(`${closeX()}<div class="modal-in"><h3>Edit member</h3><p class="m-sub">Update their display name or role. Login email is managed by the member.</p><div class="field"><label>Full name</label><input type="text" id="m-name" value="${u.name}"></div><div class="field"><label>Role</label><select id="m-role"><option value="member" ${u.role==="member"?"selected":""}>Family Member</option><option value="admin" ${u.role==="admin"?"selected":""}>Admin</option></select></div><div class="modal-actions"><button class="btn btn-ghost" onclick="closeModal()">Cancel</button><button class="btn btn-primary" onclick="saveMember('${id}')">Save</button></div></div>`); }
+function openAddMember(){ openModal(`${closeX()}<div class="modal-in"><h3>Add family member</h3><p class="m-sub">Create their login directly. They won't need to sign up, just give them the email and password you set here.</p>
+  <div class="field"><label>Full name</label><input type="text" id="am-name" placeholder="Full name"></div>
+  <div class="field"><label>Email</label><input type="email" id="am-email" placeholder="member@example.com"></div>
+  <div class="field"><label>Password</label><input type="text" id="am-pass" placeholder="At least 6 characters"></div>
+  <div class="field"><label>Role</label><select id="am-role"><option value="member">Family Member</option><option value="admin">Admin</option></select></div>
+  <div class="modal-err" id="am-err"></div>
+  <div class="cred-note">Tip: use a password like <b>${esc(family?family.name.split(" ")[0]:"khatm")}786</b>. Share the email + password with them privately (WhatsApp DM works).</div>
+  <div class="modal-actions"><button class="btn btn-ghost" onclick="closeModal()">Cancel</button><button class="btn btn-primary" id="am-save" onclick="createMemberAccount()">Create member</button></div></div>`); }
+function openMember(id){ const u=userById(id); openModal(`${closeX()}<div class="modal-in"><h3>Edit member</h3><p class="m-sub">Update their display name or role. Login email/password stays with the member.</p><div class="field"><label>Full name</label><input type="text" id="m-name" value="${esc(u.name)}"></div><div class="field"><label>Role</label><select id="m-role"><option value="member" ${u.role==="member"?"selected":""}>Family Member</option><option value="admin" ${u.role==="admin"?"selected":""}>Admin</option></select></div><div class="modal-actions"><button class="btn btn-ghost" onclick="closeModal()">Cancel</button><button class="btn btn-primary" onclick="saveMember('${id}')">Save</button></div></div>`); }
 function removeMember(id){ const u=userById(id); openModal(`${closeX()}<div class="modal-in"><h3>Remove ${firstName(u.name)}?</h3><p class="m-sub">Their reserved juz will be released and their profile removed from this family. Completed juz stay in history.</p><div class="modal-actions"><button class="btn btn-ghost" onclick="closeModal()">Cancel</button><button class="btn btn-danger" onclick="doRemoveMember('${id}')">Remove</button></div></div>`); }
 
 /* ================= ACTIVITY ================= */
