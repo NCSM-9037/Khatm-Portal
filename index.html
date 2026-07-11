@@ -233,7 +233,7 @@ input,select,textarea{font-family:inherit;font-size:1rem}
 .jc-item.accent b{color:var(--gold-deep)}
 .search-box{position:relative;width:100%;max-width:340px}
 .search-box svg{position:absolute;left:13px;top:50%;transform:translateY(-50%);width:16px;height:16px;color:var(--ink-faint)}
-.search-box input{width:100%;padding:10px 13px 10px 38px;border:1.5px solid var(--border-strong);border-radius:11px;background:var(--surface);color:var(--ink)}
+.search-box input{width:100%;padding:10px 13px 10px 38px;border:1.5px solid var(--border-strong);border-radius:11px;background:var(--surface);color:var(--ink);direction:ltr;text-align:left}
 .search-box input:focus{outline:none;border-color:var(--lapis);box-shadow:0 0 0 3px var(--lapis-soft)}
 .sec-head{display:flex;align-items:center;justify-content:space-between;margin:var(--space-2xl) 0 var(--space-md);gap:var(--space-md)}
 .sec-head h3{font-family:var(--font-display);font-size:1.3rem;color:var(--ink);font-weight:600}
@@ -602,7 +602,7 @@ function renderHome(){
   const searchBox=`<div class="search-box"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg><input type="text" id="home-search" placeholder="Search families and khatms…"></div>`;
   el.innerHTML=`${topbar("My Dashboard",greeting(),searchBox)}
     ${journeyPanel(ps)}
-    <div class="sec-head"><h3>My Families</h3><span class="sec-cnt">${ps.famCount} ${ps.famCount===1?"family":"families"}</span></div>
+    <div class="sec-head" style="display:flex; justify-content:space-between; align-items:flex-end;"><div><h3>My Families</h3><span class="sec-cnt">${ps.famCount} ${ps.famCount===1?"family":"families"}</span></div><div style="display:flex; gap:8px;"><button class="btn btn-primary btn-sm" onclick="openCreateFamily()" style="padding:0 10px">＋ Create</button><button class="btn btn-ghost btn-sm" onclick="openJoinFamily()" style="padding:0 10px">Join</button></div></div>
     ${families.length?`<div class="fam-grid">${families.map(famCard).join("")}</div>`:emptyFamilies()}`;
   $("home-search").addEventListener("input",e=>{state.query=e.target.value;if(state.query.trim())go("search");});
 }
@@ -832,7 +832,8 @@ function renderMembersTab(f,body,isAdmin){
   const cards=f.members.map(u=>{let completed=0,reserved=0;f.khatms.forEach(k=>k.juz.forEach(j=>{if(j.member_id===u.id){if(j.status==="completed")completed++;if(j.status==="reserved")reserved++;}}));
     const roleAction = (isAdmin && u.id !== me.id) ? `<div style="margin-top:8px;display:flex;gap:8px;justify-content:stretch"><button class="btn btn-ghost btn-sm" style="flex:1" onclick="toggleRole('${f.id}','${u.id}','${u.role === 'admin' ? 'member' : 'admin'}')">${u.role === 'admin' ? 'Demote' : 'Make Admin'}</button><button class="btn btn-danger btn-sm" style="flex:1" onclick="removeMember('${f.id}','${u.id}','${esc(u.name)}')">Remove</button></div>` : '';
     return `<div class="member-card"><div class="mc-head">${avatar(u)}<div><div class="mc-name">${esc(u.name)}${u.id===me.id?" (you)":""}</div><span class="mc-role ${u.role==="admin"?"role-admin":"role-member"}">${u.role}</span></div></div><div class="mc-stats"><div><b>${completed}</b><span>Completed</span></div><div><b>${reserved}</b><span>Reserved</span></div></div>${roleAction}</div>`;}).join("");
-  body.innerHTML=`<div class="admin-bar"><button class="btn btn-gold btn-sm" onclick="copyLink('${f.id}')">Copy invite link</button>${isAdmin?`<button class="btn btn-primary btn-sm" onclick="openAddMemberModal('${f.id}')">＋ Add Member</button>`:""}</div><div class="member-grid">${cards}</div>`;
+  const dangerBar = `<div style="display:flex; justify-content:flex-end; gap:8px; margin-top:24px; padding-top:24px; border-top:1px solid var(--border)"><button class="btn btn-ghost btn-sm" style="color:var(--terracotta)" onclick="leaveFamily('${f.id}','${esc(f.name)}')">Leave Family</button>${isAdmin ? `<button class="btn btn-danger btn-sm" onclick="deleteFamily('${f.id}','${esc(f.name)}')">Delete Family</button>` : ""}</div>`;
+  body.innerHTML=`<div class="admin-bar"><button class="btn btn-gold btn-sm" onclick="copyLink('${f.id}')">Copy invite link</button>${isAdmin?`<button class="btn btn-primary btn-sm" onclick="openAddMemberModal('${f.id}')">＋ Add Member</button>`:""}</div><div class="member-grid">${cards}</div>${dangerBar}`;
 }
 async function toggleRole(fid, uid, newRole) {
   if (!confirm(`Are you sure you want to change this member's role to ${newRole}?`)) return;
@@ -861,6 +862,22 @@ async function removeMember(fid, uid, name) {
   }
   toast(`${name} removed.`);
   await refresh();
+}
+async function leaveFamily(fid, fname) {
+  if (!confirm(`Are you sure you want to leave ${fname}? You will no longer be able to access its khatms.`)) return;
+  const { error } = await sb.from("family_members").delete().eq("family_id", fid).eq("user_id", me.id);
+  if (error) { alert("Error leaving family: " + error.message); return; }
+  toast(`You left ${fname}.`); state.familyId = null; await refresh();
+}
+async function deleteFamily(fid, fname) {
+  if (!confirm(`DANGER: Are you sure you want to completely delete ${fname}? This will permanently erase the family, all members, all khatms, and all juz progress. This cannot be undone.`)) return;
+  const { error } = await sb.from("families").delete().eq("id", fid);
+  if (error) {
+    if (String(error.message).includes("row-level security")) alert("Permission denied to delete family. Check your RLS policies.");
+    else alert("Error: " + error.message);
+    return;
+  }
+  toast(`Family deleted.`); state.familyId = null; await refresh();
 }
 function openAddMemberModal(fid) {
   openModal(`${closeX()}<div class="modal-in"><h3>Add Member manually</h3><p class="m-sub">Create an account for them if they don't have one, and add them instantly.</p>
