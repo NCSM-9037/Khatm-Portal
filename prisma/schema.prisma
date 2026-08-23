@@ -1,0 +1,177 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider  = "postgresql"
+}
+
+model User {
+  id            String          @id @default(uuid()) @db.Uuid
+  name          String
+  email         String?         @unique
+  phone         String?         @unique
+  password_hash String?
+  avatar        String?
+  is_platform_admin Boolean     @default(false)
+  created_at    DateTime        @default(now())
+
+  memberships   Membership[]
+  createdFamilies Family[]      @relation("FamilyCreator")
+  createdInvites  Invite[]      @relation("InviteCreator")
+  startedKhatms   Khatm[]       @relation("KhatmStarter")
+  reservedJuz     JuzAssignment[] @relation("JuzReserver")
+  activityLogs    ActivityLog[]
+  notifications   Notification[]
+}
+
+model Family {
+  id          String       @id @default(uuid()) @db.Uuid
+  name        String
+  description String?
+  icon        String?
+  created_by  String       @db.Uuid
+  reminder_threshold_days Int @default(5)
+  created_at  DateTime     @default(now())
+  deleted_at  DateTime?
+
+  creator     User         @relation("FamilyCreator", fields: [created_by], references: [id])
+  memberships Membership[]
+  invites     Invite[]
+  khatms      Khatm[]
+  activityLogs ActivityLog[]
+}
+
+enum Role {
+  ADMIN
+  MEMBER
+}
+
+enum MembershipStatus {
+  ACTIVE
+  INVITED
+  REMOVED
+}
+
+model Membership {
+  id        String           @id @default(uuid()) @db.Uuid
+  user_id   String           @db.Uuid
+  family_id String           @db.Uuid
+  role      Role             @default(MEMBER)
+  status    MembershipStatus @default(ACTIVE)
+  joined_at DateTime         @default(now())
+
+  user   User   @relation(fields: [user_id], references: [id], onDelete: Cascade)
+  family Family @relation(fields: [family_id], references: [id], onDelete: Cascade)
+
+  @@unique([user_id, family_id])
+  @@index([user_id, family_id])
+}
+
+model Invite {
+  id         String    @id @default(uuid()) @db.Uuid
+  family_id  String    @db.Uuid
+  token      String    @unique
+  created_by String    @db.Uuid
+  created_at DateTime  @default(now())
+  expires_at DateTime?
+  revoked_at DateTime?
+
+  family  Family @relation(fields: [family_id], references: [id], onDelete: Cascade)
+  creator User   @relation("InviteCreator", fields: [created_by], references: [id])
+
+  @@index([token])
+}
+
+enum KhatmStatus {
+  ACTIVE
+  CLOSED
+}
+
+model Khatm {
+  id              String      @id @default(uuid()) @db.Uuid
+  family_id       String      @db.Uuid
+  niyyah_text     String?
+  niyyah_category String?
+  status          KhatmStatus @default(ACTIVE)
+  started_at      DateTime    @default(now())
+  closed_at       DateTime?
+  started_by      String      @db.Uuid
+
+  family        Family          @relation(fields: [family_id], references: [id], onDelete: Cascade)
+  starter       User            @relation("KhatmStarter", fields: [started_by], references: [id])
+  juzAssignments JuzAssignment[]
+  activityLogs  ActivityLog[]
+}
+
+enum JuzStatus {
+  UNCLAIMED
+  RESERVED
+  COMPLETED
+}
+
+model JuzAssignment {
+  id           String    @id @default(uuid()) @db.Uuid
+  khatm_id     String    @db.Uuid
+  juz_number   Int
+  reserved_by  String?   @db.Uuid
+  status       JuzStatus @default(UNCLAIMED)
+  reserved_at  DateTime?
+  completed_at DateTime?
+
+  khatm    Khatm      @relation(fields: [khatm_id], references: [id], onDelete: Cascade)
+  reserver User?      @relation("JuzReserver", fields: [reserved_by], references: [id])
+  reminders Reminder[]
+
+  @@unique([khatm_id, juz_number])
+  @@index([khatm_id, juz_number])
+}
+
+model ActivityLog {
+  id         String   @id @default(uuid()) @db.Uuid
+  family_id  String   @db.Uuid
+  khatm_id   String?  @db.Uuid
+  user_id    String   @db.Uuid
+  action     String
+  meta       Json?
+  created_at DateTime @default(now())
+
+  family Family @relation(fields: [family_id], references: [id], onDelete: Cascade)
+  khatm  Khatm? @relation(fields: [khatm_id], references: [id], onDelete: Cascade)
+  user   User   @relation(fields: [user_id], references: [id], onDelete: Cascade)
+}
+
+enum Channel {
+  EMAIL
+  PUSH
+  WHATSAPP
+}
+
+enum ReminderStatus {
+  PENDING
+  SENT
+  FAILED
+}
+
+model Reminder {
+  id                String         @id @default(uuid()) @db.Uuid
+  juz_assignment_id String         @db.Uuid
+  status            ReminderStatus @default(PENDING)
+  scheduled_for     DateTime
+  sent_at           DateTime?
+  channel           Channel
+
+  juzAssignment JuzAssignment @relation(fields: [juz_assignment_id], references: [id], onDelete: Cascade)
+}
+
+model Notification {
+  id        String   @id @default(uuid()) @db.Uuid
+  user_id   String   @db.Uuid
+  title     String
+  message   String
+  is_read   Boolean  @default(false)
+  link      String?
+  created_at DateTime @default(now())
+
+  user      User     @relation(fields: [user_id], references: [id], onDelete: Cascade)
+}
