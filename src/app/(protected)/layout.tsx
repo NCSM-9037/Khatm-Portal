@@ -5,6 +5,7 @@ import { getUserFamilies } from '@/lib/family'
 import { FamilySwitcher } from '@/components/ui/FamilySwitcher'
 import { LiveDashboardUpdater } from '@/components/dashboard/LiveDashboardUpdater'
 import { NotificationBell } from '@/components/ui/NotificationBell'
+import { SignOutButton } from '@/components/ui/SignOutButton'
 import { LayoutDashboard, History, Activity } from 'lucide-react'
 
 export default async function ProtectedLayout({
@@ -53,6 +54,7 @@ export default async function ProtectedLayout({
                     Admin
                   </span>
                 )}
+                <SignOutButton />
               </div>
             </div>
           </div>
