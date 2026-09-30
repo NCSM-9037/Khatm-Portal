@@ -6,7 +6,7 @@ import { FamilySwitcher } from '@/components/ui/FamilySwitcher'
 import { LiveDashboardUpdater } from '@/components/dashboard/LiveDashboardUpdater'
 import { NotificationBell } from '@/components/ui/NotificationBell'
 import { SignOutButton } from '@/components/ui/SignOutButton'
-import { LayoutDashboard, History, Activity } from 'lucide-react'
+import { LayoutDashboard, History, Activity, LogOut } from 'lucide-react'
 
 export default async function ProtectedLayout({
   children,
@@ -80,6 +80,25 @@ export default async function ProtectedLayout({
             <Activity className="w-5 h-5" />
             <span className="text-[10px] font-medium mt-1">Activity</span>
           </a>
+          <form 
+            action={async () => {
+              'use server';
+              const { createClient } = await import('@/lib/supabase/server');
+              const { redirect } = await import('next/navigation');
+              const supabase = await createClient();
+              await supabase.auth.signOut();
+              redirect('/login');
+            }}
+            className="w-full h-full border-l border-muted/10"
+          >
+            <button 
+              type="submit"
+              className="flex flex-col items-center justify-center w-full h-full text-muted hover:text-alert transition-colors"
+            >
+              <LogOut className="w-5 h-5" />
+              <span className="text-[10px] font-medium mt-1">Log Out</span>
+            </button>
+          </form>
         </div>
       </nav>
     </div>
