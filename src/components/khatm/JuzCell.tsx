@@ -103,7 +103,7 @@ export function JuzCell({ juz, currentUserId, isAdmin }: JuzCellProps) {
       </div>
 
       {/* Admin actions menu */}
-      {isAdmin && juz.status !== 'UNCLAIMED' && (
+      {(isAdmin || isYours) && juz.status !== 'UNCLAIMED' && (
         <button
           onClick={handleUnreserve}
           disabled={isPending}

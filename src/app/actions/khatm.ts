@@ -43,12 +43,7 @@ export async function startKhatm(formData: FormData) {
 
   await verifyAdmin(user.id, familyId)
 
-  // Verify there is no active khatm
-  const activeKhatm = await prisma.khatm.findFirst({
-    where: { family_id: familyId, status: 'ACTIVE' },
-  })
-
-  if (activeKhatm) throw new Error('A Khatm is already active')
+  // Allow unlimited concurrent Khatms per family
 
   const niyyah_text = formData.get('niyyah_text') as string
   const niyyah_category = formData.get('niyyah_category') as string
@@ -169,11 +164,24 @@ export async function unreserveJuz(juzId: string) {
   const familyId = await getActiveFamilyId()
   if (!familyId) throw new Error('No active family selected')
 
-  await verifyAdmin(user.id, familyId)
+  const membership = await prisma.membership.findUnique({
+    where: {
+      user_id_family_id: { user_id: user.id, family_id: familyId },
+    },
+  })
+  if (!membership || membership.status !== 'ACTIVE') {
+    throw new Error('Unauthorized: Must be family member')
+  }
+  const isAdmin = membership.role === 'ADMIN'
 
   await prisma.$transaction(async (tx) => {
     const juz = await tx.juzAssignment.findUnique({ where: { id: juzId } })
     if (!juz) throw new Error('Juz not found')
+
+    // If not admin, verify they are the ones who reserved it
+    if (!isAdmin && juz.reserved_by !== user.id) {
+      throw new Error('Unauthorized: You can only unreserve a Juz assigned to you')
+    }
 
     const updated = await tx.juzAssignment.update({
       where: { id: juzId },
