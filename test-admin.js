@@ -1,1 +1,0 @@
-const { prisma } = require('./src/lib/prisma.ts'); prisma.user.findFirst({ where: { is_platform_admin: true } }).then(u => console.log('Admin:', u)).catch(console.error).finally(() => prisma.$disconnect());
