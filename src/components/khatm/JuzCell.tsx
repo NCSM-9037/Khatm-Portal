@@ -65,12 +65,6 @@ export function JuzCell({ juz, currentUserId, isAdmin }: JuzCellProps) {
     })
   }
 
-  // Determine styles based on rules
-  // Unclaimed: border border-muted/40 bg-transparent
-  // Reserved (by someone else): border-2 border-primary text-primary bg-transparent
-  // Yours (reserved by you): bg-primary text-white
-  // Completed: bg-accent text-ink (gold fill)
-
   let cellStyles = 'border border-muted/40 bg-transparent' // default unclaimed
   
   if (juz.status === 'COMPLETED') {
@@ -93,24 +87,37 @@ export function JuzCell({ juz, currentUserId, isAdmin }: JuzCellProps) {
       <span className="text-2xl mb-1">{juz.juz_number}</span>
       
       {/* Status indicator */}
-      <div className="text-[10px] uppercase tracking-wider text-center w-full truncate px-1">
-        {juz.status === 'UNCLAIMED' && 'Unclaimed'}
-        {juz.status === 'COMPLETED' && 'Completed'}
-        {juz.status === 'RESERVED' && isYours && 'Tap to Complete'}
+      <div className="text-[10px] uppercase tracking-wider text-center w-full truncate px-1 flex flex-col gap-0.5 leading-tight mt-1">
+        {juz.status === 'UNCLAIMED' && <span>Unclaimed</span>}
+        {juz.status === 'COMPLETED' && (
+          <>
+            <span>Completed</span>
+            <span className="opacity-80 lowercase capitalize text-[9px] font-medium">By {juz.reserver?.name?.split(' ')[0] || 'User'}</span>
+          </>
+        )}
+        {juz.status === 'RESERVED' && isYours && (
+          <>
+            <span>Tap to Finish</span>
+            <span className="opacity-80 lowercase capitalize text-[9px] font-medium">By You</span>
+          </>
+        )}
         {juz.status === 'RESERVED' && isSomeoneElses && (
-          <span className="opacity-80">By {juz.reserver?.name?.split(' ')[0] || 'User'}</span>
+          <>
+            <span>Reserved</span>
+            <span className="opacity-80 lowercase capitalize text-[9px] font-medium">By {juz.reserver?.name?.split(' ')[0] || 'User'}</span>
+          </>
         )}
       </div>
 
-      {/* Admin actions menu */}
+      {/* Admin / Self actions menu */}
       {(isAdmin || isYours) && juz.status !== 'UNCLAIMED' && (
         <button
           onClick={handleUnreserve}
           disabled={isPending}
-          className="absolute -top-2 -right-2 w-6 h-6 bg-surface border border-muted rounded-full flex items-center justify-center text-alert shadow-sm hover:bg-alert hover:text-white transition-colors"
-          title="Unreserve"
+          className="absolute -top-2 -right-2 w-6 h-6 bg-surface border border-muted rounded-full flex items-center justify-center text-alert shadow-sm hover:bg-alert hover:text-white transition-colors text-xs font-bold"
+          title={isAdmin && !isYours ? "Admin Unreserve" : "Unreserve"}
         >
-          ×
+          {isAdmin && !isYours ? 'A-' : '✕'}
         </button>
       )}
     </div>
