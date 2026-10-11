@@ -1,3 +1,4 @@
+import Link from 'next/link'
 import { redirect } from 'next/navigation'
 import { cookies } from 'next/headers'
 import { getCurrentUser } from '@/lib/auth'
@@ -34,8 +35,14 @@ export default async function ProtectedLayout({
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <div className="flex h-14 sm:h-16 justify-between items-center">
             <div className="flex items-center min-w-0 flex-1 mr-2">
-              <span className="text-xl sm:text-2xl font-bold font-heading text-primary mr-2 sm:mr-8 tracking-wide truncate hidden sm:inline-block">Khatm Portal</span>
-              <span className="text-xl sm:text-2xl font-bold font-heading text-primary mr-2 tracking-wide sm:hidden">KP</span>
+              <Link href="/dashboard" className="flex flex-col justify-center mr-3 sm:mr-6 shrink-0 group py-1">
+                <span className="font-nexa text-sm sm:text-lg md:text-xl font-bold text-primary tracking-tight leading-tight group-hover:text-primary-dark transition-colors truncate max-w-[160px] sm:max-w-none">
+                  Darul Hasainariyya
+                </span>
+                <span className="text-[9px] sm:text-[11px] font-bold text-accent tracking-widest uppercase leading-none mt-0.5">
+                  Khatm Portal
+                </span>
+              </Link>
               <div className="min-w-0">
                 <FamilySwitcher activeFamily={activeFamily} families={families} isPlatformAdmin={user.is_platform_admin} />
               </div>

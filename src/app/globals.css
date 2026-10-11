@@ -14,9 +14,30 @@
   --font-heading: var(--font-reem-kufi), sans-serif;
   --font-body: var(--font-inter), sans-serif;
   --font-malayalam: var(--font-noto-malayalam), sans-serif;
+  --font-nexa: var(--font-nexa), 'Nexa', sans-serif;
 
   --radius-card: 12px;
   --radius-control: 8px;
+}
+
+@font-face {
+  font-family: 'Nexa';
+  font-style: normal;
+  font-weight: 300;
+  src: url('/fonts/Nexa-Light.woff') format('woff');
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Nexa';
+  font-style: normal;
+  font-weight: 700;
+  src: url('/fonts/Nexa-Bold.woff') format('woff');
+  font-display: swap;
+}
+
+.font-nexa {
+  font-family: var(--font-nexa), 'Nexa', sans-serif;
 }
 
 :root {
