@@ -36,7 +36,7 @@ const nexa = localFont({
 });
 
 export const metadata: Metadata = {
-  title: "Darul Hasainariyya | Khatm Portal",
+  title: "Darul Hasainariyya",
   description: "A private, multi-family Qur'an Khatm tracker by Darul Hasainariyya.",
 };
 

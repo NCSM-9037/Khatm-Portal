@@ -4,6 +4,7 @@ import { cookies } from 'next/headers'
 import { getCurrentUser } from '@/lib/auth'
 import { getUserFamilies } from '@/lib/family'
 import { FamilySwitcher } from '@/components/ui/FamilySwitcher'
+import { PortalDropdown } from '@/components/ui/PortalDropdown'
 import { LiveDashboardUpdater } from '@/components/dashboard/LiveDashboardUpdater'
 import { NotificationBell } from '@/components/ui/NotificationBell'
 import { SignOutButton } from '@/components/ui/SignOutButton'
@@ -34,15 +35,13 @@ export default async function ProtectedLayout({
       <nav className="bg-surface border-b border-muted/20">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <div className="flex h-14 sm:h-16 justify-between items-center">
-            <div className="flex items-center min-w-0 flex-1 mr-2">
-              <Link href="/dashboard" className="flex flex-col justify-center mr-3 sm:mr-6 shrink-0 group py-1">
-                <span className="font-nexa text-sm sm:text-lg md:text-xl font-bold text-primary tracking-tight leading-tight group-hover:text-primary-dark transition-colors truncate max-w-[160px] sm:max-w-none">
+            <div className="flex items-center min-w-0 flex-1 mr-2 gap-2 sm:gap-3">
+              <Link href="/dashboard" className="flex items-center shrink-0 group py-1">
+                <span className="font-nexa text-base sm:text-xl font-bold text-primary tracking-tight leading-tight group-hover:text-primary-dark transition-colors truncate max-w-[150px] sm:max-w-none">
                   Darul Hasainariyya
                 </span>
-                <span className="text-[9px] sm:text-[11px] font-bold text-accent tracking-widest uppercase leading-none mt-0.5">
-                  Khatm Portal
-                </span>
               </Link>
+              <PortalDropdown />
               <div className="min-w-0">
                 <FamilySwitcher activeFamily={activeFamily} families={families} isPlatformAdmin={user.is_platform_admin} />
               </div>
