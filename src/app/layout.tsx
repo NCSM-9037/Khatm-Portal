@@ -19,8 +19,8 @@ const notoMalayalam = Noto_Sans_Malayalam({
 });
 
 export const metadata: Metadata = {
-  title: "Darul Hasainariyya",
-  description: "A private, multi-family Qur'an Khatm tracker by Darul Hasainariyya.",
+  title: "DAR EL HASAINARIYYA",
+  description: "A private, multi-family Qur'an Khatm tracker by DAR EL HASAINARIYYA.",
 };
 
 export default function RootLayout({

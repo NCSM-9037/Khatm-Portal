@@ -3,6 +3,7 @@
 import { useState, useRef, useEffect } from 'react'
 import { ChevronDown, Check, BookOpen } from 'lucide-react'
 import Link from 'next/link'
+import { nexaFont } from '@/app/fonts'
 
 export function PortalDropdown() {
   const [isOpen, setIsOpen] = useState(false)
@@ -34,8 +35,8 @@ export function PortalDropdown() {
       {isOpen && (
         <div className="absolute left-0 sm:left-auto sm:right-0 mt-2 w-64 origin-top-left sm:origin-top-right rounded-[var(--radius-card)] bg-surface border border-muted/20 shadow-xl ring-1 ring-black/5 z-50 overflow-hidden animate-in fade-in zoom-in-95 duration-100">
           <div className="p-3 bg-primary/5 border-b border-muted/15">
-            <p className="font-nexa text-xs font-bold text-primary tracking-tight">
-              Darul Hasainariyya
+            <p className={`${nexaFont.className} text-xs font-bold text-primary tracking-wide`}>
+              DAR EL HASAINARIYYA
             </p>
             <p className="text-[10px] text-muted font-medium uppercase tracking-wider mt-0.5">
               Available Portals

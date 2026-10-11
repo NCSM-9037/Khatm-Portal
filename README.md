@@ -1,6 +1,6 @@
-# Darul Hasainariyya - Khatm Portal
+# DAR EL HASAINARIYYA - Khatm Portal
 
-A private, multi-family Qur'an Khatm tracker by Darul Hasainariyya.
+A private, multi-family Qur'an Khatm tracker by DAR EL HASAINARIYYA.
 
 ## Setup Instructions
 

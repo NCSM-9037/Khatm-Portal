@@ -39,8 +39,8 @@ export default async function ProtectedLayout({
             {/* Left: Brand + Portal Dropdown */}
             <div className="flex flex-col sm:flex-row sm:items-center gap-0.5 sm:gap-3 min-w-0">
               <Link href="/dashboard" className="shrink-0 group">
-                <span className={`${nexaFont.className} text-base sm:text-xl font-bold text-primary tracking-wide leading-tight group-hover:text-primary-dark transition-colors truncate max-w-[170px] sm:max-w-none block`}>
-                  Darul Hasainariyya
+                <span className={`${nexaFont.className} text-sm sm:text-lg md:text-xl font-bold text-primary tracking-wide leading-tight group-hover:text-primary-dark transition-colors truncate max-w-[180px] sm:max-w-none block`}>
+                  DAR EL HASAINARIYYA
                 </span>
               </Link>
               <div className="hidden sm:block h-4 w-px bg-muted/25" />
