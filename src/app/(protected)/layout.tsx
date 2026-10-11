@@ -33,30 +33,37 @@ export default async function ProtectedLayout({
   return (
     <div className="min-h-screen bg-background">
       <nav className="bg-surface border-b border-muted/20">
-        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-          <div className="flex h-14 sm:h-16 justify-between items-center">
-            <div className="flex items-center min-w-0 flex-1 mr-2 gap-2 sm:gap-3">
-              <Link href="/dashboard" className="flex items-center shrink-0 group py-1">
-                <span className="font-nexa text-base sm:text-xl font-bold text-primary tracking-tight leading-tight group-hover:text-primary-dark transition-colors truncate max-w-[150px] sm:max-w-none">
+        <div className="mx-auto max-w-7xl px-3 sm:px-6 lg:px-8">
+          <div className="flex h-16 justify-between items-center gap-2">
+            {/* Left: Brand + Portal Dropdown */}
+            <div className="flex flex-col sm:flex-row sm:items-center gap-0.5 sm:gap-3 min-w-0">
+              <Link href="/dashboard" className="shrink-0 group">
+                <span className="font-nexa text-base sm:text-xl font-bold text-primary tracking-tight leading-tight group-hover:text-primary-dark transition-colors truncate max-w-[170px] sm:max-w-none block">
                   Darul Hasainariyya
                 </span>
               </Link>
-              <PortalDropdown />
-              <div className="min-w-0">
-                <FamilySwitcher activeFamily={activeFamily} families={families} isPlatformAdmin={user.is_platform_admin} />
+              <div className="hidden sm:block h-4 w-px bg-muted/25" />
+              <div>
+                <PortalDropdown />
               </div>
             </div>
-            <div className="flex items-center space-x-2 sm:space-x-4 flex-shrink-0">
-              <div className="flex items-center gap-4 mr-2 hidden md:flex">
+
+            {/* Right: FamilySwitcher + Actions */}
+            <div className="flex items-center gap-1.5 sm:gap-3 shrink-0">
+              <FamilySwitcher activeFamily={activeFamily} families={families} isPlatformAdmin={user.is_platform_admin} />
+              
+              <div className="hidden md:flex items-center gap-4 ml-2">
                 <a href="/dashboard" className="text-sm font-medium text-ink hover:text-primary transition-colors">Dashboard</a>
                 <a href="/history" className="text-sm font-medium text-ink hover:text-primary transition-colors">History</a>
                 <a href="/my-activity" className="text-sm font-medium text-ink hover:text-primary transition-colors">My Activity</a>
               </div>
+
               <NotificationBell />
-              <div className="flex items-center gap-2">
-                <span className="text-sm font-medium text-ink hidden sm:inline-block">{user.name || 'User'}</span>
+
+              <div className="hidden sm:flex items-center gap-2">
+                <span className="text-sm font-medium text-ink">{user.name || 'User'}</span>
                 {user.is_platform_admin && (
-                  <span className="inline-flex items-center rounded-full bg-primary/10 px-2 py-0.5 text-xs font-medium text-primary ring-1 ring-inset ring-primary/20 hidden sm:inline-flex">
+                  <span className="inline-flex items-center rounded-full bg-primary/10 px-2 py-0.5 text-xs font-medium text-primary ring-1 ring-inset ring-primary/20">
                     Admin
                   </span>
                 )}

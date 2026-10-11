@@ -42,21 +42,21 @@ export function FamilySwitcher({ activeFamily, families, isPlatformAdmin }: Fami
   }
 
   return (
-    <div className="relative inline-block text-left">
+    <div className="relative inline-block text-left shrink-0">
       <div>
         <button
           type="button"
           onClick={() => setIsOpen(!isOpen)}
-          className="inline-flex w-full justify-between items-center gap-x-1.5 rounded-[var(--radius-control)] bg-card px-3 py-2 text-sm font-medium text-ink shadow-sm ring-1 ring-inset ring-muted/20 hover:bg-muted/10 disabled:opacity-50"
+          className="inline-flex w-full justify-between items-center gap-x-1 sm:gap-x-1.5 rounded-[var(--radius-control)] bg-card px-2.5 py-1 sm:px-3 sm:py-2 text-xs sm:text-sm font-medium text-ink shadow-sm ring-1 ring-inset ring-muted/20 hover:bg-muted/10 disabled:opacity-50 whitespace-nowrap"
           disabled={isPending}
         >
-          {activeFamily ? activeFamily.name : 'Select a family'}
-          <ChevronsUpDown className="-mr-1 h-5 w-5 text-muted" aria-hidden="true" />
+          <span className="truncate max-w-[85px] sm:max-w-[160px]">{activeFamily ? activeFamily.name : 'Select family'}</span>
+          <ChevronsUpDown className="h-3.5 w-3.5 sm:h-4 sm:w-4 text-muted shrink-0" aria-hidden="true" />
         </button>
       </div>
 
       {isOpen && (
-        <div className="absolute left-0 z-10 mt-2 w-56 origin-top-left rounded-[var(--radius-card)] bg-surface shadow-lg ring-1 ring-muted/20 focus:outline-none">
+        <div className="absolute right-0 sm:left-0 z-50 mt-2 w-56 origin-top-right sm:origin-top-left rounded-[var(--radius-card)] bg-surface shadow-lg ring-1 ring-muted/20 focus:outline-none">
           <div className="py-1">
             {families.map((family) => (
               <button

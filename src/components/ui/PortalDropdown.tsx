@@ -19,16 +19,16 @@ export function PortalDropdown() {
   }, [])
 
   return (
-    <div className="relative inline-block text-left" ref={dropdownRef}>
+    <div className="relative inline-block text-left shrink-0" ref={dropdownRef}>
       <button
         type="button"
         onClick={() => setIsOpen(!isOpen)}
-        className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-[var(--radius-control)] bg-accent/10 hover:bg-accent/20 text-accent font-semibold text-xs sm:text-sm tracking-wide border border-accent/20 transition-all shadow-sm focus:outline-none focus:ring-2 focus:ring-accent/40"
+        className="inline-flex items-center gap-1 sm:gap-1.5 px-2 py-0.5 sm:px-2.5 sm:py-1 rounded-[var(--radius-control)] bg-accent/10 hover:bg-accent/20 text-accent font-semibold text-[11px] sm:text-xs tracking-wide border border-accent/20 transition-all shadow-sm focus:outline-none focus:ring-2 focus:ring-accent/40 whitespace-nowrap shrink-0"
         aria-expanded={isOpen}
       >
-        <BookOpen className="h-3.5 w-3.5 sm:h-4 sm:w-4 text-accent" />
-        <span>Khatm Portal</span>
-        <ChevronDown className={`h-3 w-3 sm:h-3.5 sm:w-3.5 text-accent/80 transition-transform duration-200 ${isOpen ? 'rotate-180' : ''}`} />
+        <BookOpen className="h-3 w-3 sm:h-3.5 sm:w-3.5 text-accent shrink-0" />
+        <span className="whitespace-nowrap">Khatm Portal</span>
+        <ChevronDown className={`h-2.5 w-2.5 sm:h-3 sm:w-3 text-accent/80 transition-transform duration-200 shrink-0 ${isOpen ? 'rotate-180' : ''}`} />
       </button>
 
       {isOpen && (
