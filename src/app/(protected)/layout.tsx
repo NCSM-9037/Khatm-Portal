@@ -8,6 +8,7 @@ import { PortalDropdown } from '@/components/ui/PortalDropdown'
 import { LiveDashboardUpdater } from '@/components/dashboard/LiveDashboardUpdater'
 import { NotificationBell } from '@/components/ui/NotificationBell'
 import { SignOutButton } from '@/components/ui/SignOutButton'
+import { nexaFont } from '@/app/fonts'
 import { LayoutDashboard, History, Activity, LogOut } from 'lucide-react'
 
 export default async function ProtectedLayout({
@@ -38,7 +39,7 @@ export default async function ProtectedLayout({
             {/* Left: Brand + Portal Dropdown */}
             <div className="flex flex-col sm:flex-row sm:items-center gap-0.5 sm:gap-3 min-w-0">
               <Link href="/dashboard" className="shrink-0 group">
-                <span className="font-nexa text-base sm:text-xl font-bold text-primary tracking-tight leading-tight group-hover:text-primary-dark transition-colors truncate max-w-[170px] sm:max-w-none block">
+                <span className={`${nexaFont.className} text-base sm:text-xl font-bold text-primary tracking-wide leading-tight group-hover:text-primary-dark transition-colors truncate max-w-[170px] sm:max-w-none block`}>
                   Darul Hasainariyya
                 </span>
               </Link>

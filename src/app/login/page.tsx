@@ -3,6 +3,7 @@
 import { useState } from 'react'
 import { createClient } from '@/lib/supabase/client'
 import { useRouter } from 'next/navigation'
+import { nexaFont } from '@/app/fonts'
 
 export default function LoginPage() {
   const [mode, setMode] = useState<'password' | 'magic'>('password')
@@ -64,7 +65,7 @@ export default function LoginPage() {
   return (
     <div className="min-h-screen bg-surface flex flex-col items-center justify-center p-4">
       <div className="text-center mb-6">
-        <h1 className="font-nexa text-3xl sm:text-4xl font-bold text-primary tracking-tight">
+        <h1 className={`${nexaFont.className} text-3xl sm:text-4xl font-bold text-primary tracking-tight`}>
           Darul Hasainariyya
         </h1>
         <p className="text-xs sm:text-sm font-bold text-accent tracking-widest uppercase mt-1">

@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import { Inter, Reem_Kufi, Noto_Sans_Malayalam } from "next/font/google";
-import localFont from "next/font/local";
+import { nexaFont } from "./fonts";
 import "./globals.css";
 
 const inter = Inter({
@@ -18,23 +18,6 @@ const notoMalayalam = Noto_Sans_Malayalam({
   subsets: ["malayalam"],
 });
 
-const nexa = localFont({
-  src: [
-    {
-      path: "../../public/fonts/Nexa-Light.woff",
-      weight: "300",
-      style: "normal",
-    },
-    {
-      path: "../../public/fonts/Nexa-Bold.woff",
-      weight: "700",
-      style: "normal",
-    },
-  ],
-  variable: "--font-nexa",
-  display: "swap",
-});
-
 export const metadata: Metadata = {
   title: "Darul Hasainariyya",
   description: "A private, multi-family Qur'an Khatm tracker by Darul Hasainariyya.",
@@ -48,7 +31,7 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${inter.variable} ${reemKufi.variable} ${notoMalayalam.variable} ${nexa.variable} h-full antialiased`}
+      className={`${inter.variable} ${reemKufi.variable} ${notoMalayalam.variable} ${nexaFont.variable} h-full antialiased`}
     >
       <body className="min-h-full flex flex-col font-body">{children}</body>
     </html>
